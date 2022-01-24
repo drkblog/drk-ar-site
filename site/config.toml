@@ -1,5 +1,5 @@
 baseURL = 'http://drk.ar/'
-languageCode = 'en-us'
+languageCode = 'es-ar'
 
 theme = "terminal"
 paginate = 5
@@ -48,24 +48,24 @@ paginate = 5
   # set Twitter handles for Twitter cards
   # see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started#card-and-content-attribution
   # do not include @
-  creator = ""
-  site = ""
+  creator = "drkbugs"
+  site = "drkbugs"
 
 [languages]
   [languages.en]
-    languageName = "English"
+    languageName = "Español"
     title = "drk.ar"
-    subtitle = "A terminal site"
+    subtitle = "Desafíos"
     owner = ""
     keywords = ""
     copyright = "© 2022 Leandro Fernandez"
-    menuMore = "Show more"
-    readMore = "Read more"
-    readOtherPosts = "Read other posts"
-    newerPosts = "Newer posts"
-    olderPosts = "Older posts"
-    missingContentMessage = "Page not found..."
-    missingBackButtonLabel = "Back to home page"
+    menuMore = "Mostrar más"
+    readMore = "Leer más"
+    readOtherPosts = "Leer otros artículos"
+    newerPosts = "Artículos nuevos"
+    olderPosts = "Artículos anteriores"
+    missingContentMessage = "Página no encontrada..."
+    missingBackButtonLabel = "Volver al inicio"
 
     [languages.en.params.logo]
       logoText = "drk.ar"
