@@ -77,6 +77,6 @@ paginate = 5
         name = "Sobre drk.ar"
         url = "/page/about"
       [[languages.en.menu.main]]
-        identifier = "desafio"
-        name = "Desafío"
-        url = "/page/desafio"
+        identifier = "sidila"
+        name = "SiDiLa"
+        url = "/page/sidila"

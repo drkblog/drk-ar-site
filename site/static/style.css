@@ -1,0 +1,12 @@
+.source-code {
+  resize: none;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  line-height: 1.5em;
+}
+.output {
+  resize: none;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  line-height: 1.5em;
+}
