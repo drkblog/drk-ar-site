@@ -1,0 +1,13 @@
+{
+  "name": "sidila-lang",
+  "version": "1.0.0",
+  "description": "Simple Didactic Language",
+  "scripts": {
+    "build": "canopy sidila.peg --lang js --output build/peg && webpack --mode production"
+  },
+  "dependencies": {
+    "canopy": "^0.4.0",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2"
+  }
+}
