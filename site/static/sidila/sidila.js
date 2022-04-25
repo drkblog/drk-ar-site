@@ -26,27 +26,6 @@ function boardCreate(side) {
 
 // PEG
 
-const actions = {
-  make_map (input, start, end, [_, key, __, value]) {
-    let map = {}
-    map[key] = value
-    return map
-  },
-
-  make_string (input, start, end, [_, string]) {
-    return string.text
-  },
-
-  make_list (input, start, end, [_, first, rest]) {
-    rest = [...rest].map((el) => el.value)
-    return [first, ...rest]
-  },
-
-  make_number (input, start, end, _) {
-    return parseInt(input.substring(start, end), 10)
-  }
-};
-
-let result = sidila.maps.parse("{'ints':[1,2,3]}", { actions });
+let result = sidila.maps.parse("crear \"pepe\"\ncrear \"asdf\"");
 
 console.log(result);

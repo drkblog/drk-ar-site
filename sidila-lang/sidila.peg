@@ -1,6 +1,4 @@
-grammar Maps
-  map     <-  "{" string ":" value "}" %make_map
-  string  <-  "'" [^']* "'" %make_string
-  value   <-  list / number
-  list    <-  "[" value ("," value)* "]" %make_list
-  number  <-  [0-9]+ %make_number
+grammar SiDiLa
+  create <- (ws 'crear' ws '"' [^"]+ '"' ws)*
+  comment <- '#' .*
+  ws <- (comment / [ \t\r\n]+)*
