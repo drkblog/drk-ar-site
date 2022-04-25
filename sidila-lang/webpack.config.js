@@ -4,6 +4,8 @@ module.exports = {
   entry: './app.js',
   output: {
     path: path.resolve(__dirname),
-    filename: '../site/static/sidila/peg.js'
+    filename: '../site/static/sidila/peg.js',
+    library: 'sidila',
+    libraryTarget: 'var'
   }
 };
