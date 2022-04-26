@@ -1,4 +1,4 @@
 grammar SiDiLa
-  create <- (ws 'crear' ws '"' [^"]+ '"' ws)*
+  create <- (@ws 'crear' @ws @'"' [^"]+ @'"' @ws)*
   comment <- '#' .*
   ws <- (comment / [ \t\r\n]+)*
