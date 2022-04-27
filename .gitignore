@@ -13,9 +13,6 @@ public
 dist
 sidila-lang/build
 
-# Sidila bundle output
-site/static/sidila/peg.js
-
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
