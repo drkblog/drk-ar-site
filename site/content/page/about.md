@@ -12,3 +12,7 @@ comments: false
 - [**YouTube:** drkbugs](https://www.youtube.com/c/drkbugs)
 - [**Instagram:** drk.com.ar](https://www.instagram.com/drk.com.ar/)
 - [**LinkedIn:** drkbugs](https://www.linkedin.com/in/drkbugs/)
+
+# Media
+
+- SiDiLa - Utiliza íconos de [game-icons.net](https://game-icons.net/) bajo licencia [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
