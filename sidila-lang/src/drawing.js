@@ -34,6 +34,7 @@ export class BasicPainter {
       case '▶': return this.getBaseTag('player-e.png');
       case '▼': return this.getBaseTag('player-s.png');
       case '◀': return this.getBaseTag('player-w.png');
+      case '✟': return this.getBaseTag('skull.png');
     }
   }
 
