@@ -1,4 +1,6 @@
 grammar SiDiLa
-  create <- (@ws 'crear' @ws @'"' [^"]+ @'"' @ws)*
+  statement <- ((turn / move / comment) @ws)*
+  move <- 'avanzar'
+  turn <- 'girar' @ws @'hacia la' @ws ("izquierda" / "derecha")
   comment <- '#' .*
   ws <- (comment / [ \t\r\n]+)*

@@ -51,19 +51,18 @@ function paint(board, side, player) {
 
 // Game
 function run(code) {
-  let tree = sidila.maps.parse(code);
+  tree = sidila.maps.parse(code);
   console.log(tree);
-  gameRunning = true;
-  gameTicks = tree.elements.length;
+  gameTicks = 0;
 }
 
 function tick() {
-  if (gameRunning) {
+  if (gameTicks < tree.elements.length) {
     gamePlayer.x++;
     gamePlayer.y++;
+    //processStatement(tree, gameTicks);
     output.value = paint(boardMatrix, boardSide, gamePlayer);
-    gameTicks--;
-    gameRunning = gameTicks > 0;
+    gameTicks++;
   }
 }
 
@@ -80,8 +79,8 @@ let boardSide = 12;
 let boardMatrix = boardLoadHardcoded(boardSide);
 
 // Game status
-let gameRunning = false;
-let gameTicks;
+let tree;
+let gameTicks = 0;
 let gamePlayer = { x: 1, y: 1 };
 
 setInterval(tick, 1000);
