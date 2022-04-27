@@ -99,7 +99,7 @@ export class Board {
       this.board[0][i] = Block.Wall;
       this.board[this.side - 1][i] = Block.Wall;
     }
-    this.board[side-1][sid-2] = Block.Exit;
+    this.board[this.side - 1][this.side - 2] = Block.Exit;
   }
 
   canMoveInto(x, y) {
