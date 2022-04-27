@@ -6,20 +6,19 @@ export class Game {
 
   static tryExecuting(statement, board) {
     console.log(statement.text);
-    if (statement.text == 'avanzar') {
-      board.movePlayer();
-    } else if (statement.elements.length == 2) {
-      if (statement.elements[0].text == 'girar') {
-        if (statement.elements[1].text == 'derecha') {
+    const node = statement.elements[0];
+    const action = node.action;
+    switch(action) {
+      case 'move':
+        board.movePlayer();
+        break;
+      case 'turn':
+        if (node.direction === 'derecha') {
           board.rotatePlayerRight();
-        } else if (statement.elements[1].text == 'izquierda') {
+        } else  {
           board.rotatePlayerLeft();
         }
-      }
-    } else {
-      statement.elements.forEach(element => {
-        this.tryExecuting(element, board);
-      });
+        break;
     }
   }
 }

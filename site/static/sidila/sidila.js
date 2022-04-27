@@ -9,9 +9,9 @@ let gameTicks = 0;
 
 // Game
 function run(code) {
-  tree = sidila.maps.parse(code);
-  instructions = tree.elements.length;
+  tree = sidila.parse(code);
   console.log(tree);
+  instructions = tree.elements.length;
   gameTicks = 0;
 }
 
