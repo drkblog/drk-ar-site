@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Simple Didactic Language",
   "scripts": {
-    "build": "canopy sidila.peg --lang js --output build/peg && webpack --mode production"
+    "compile": "canopy src/grammar/sidila.peg --lang js --output build/peg",
+    "build": "npm run compile && webpack --mode development",
+    "release": "npm run compile && webpack --mode production"
   },
   "dependencies": {
     "canopy": "^0.4.0",

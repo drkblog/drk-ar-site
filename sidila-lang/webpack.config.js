@@ -1,7 +1,7 @@
 var path = require('path');
 
 module.exports = {
-  entry: './app.js',
+  entry: './src/app.js',
   output: {
     path: path.resolve(__dirname),
     filename: '../site/static/sidila/peg.js',
