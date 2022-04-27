@@ -5,8 +5,21 @@
   line-height: 1.5em;
 }
 .output {
+  display: none;
   resize: none;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: monospace;
   font-size: 1.5em;
   line-height: 1em;
+}
+.canvas img {
+  width: 2em;
+  height: 2em;
+  display: inline;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.sidila-row {
+  padding: 0 !important;
+  margin: 0 !important;
 }

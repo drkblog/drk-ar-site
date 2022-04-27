@@ -8,6 +8,7 @@ comments: false
 ## Beta
 
 {{< rawhtml >}}
+<div id="canvas" class="canvas"></div>
 <textarea id="output" class="output" cols="16" rows="13" disabled="true"></textarea>
 <textarea id="code" class="source-code" cols="80" rows="12">
 avanzar

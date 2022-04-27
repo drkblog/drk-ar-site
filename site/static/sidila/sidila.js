@@ -16,7 +16,7 @@ function run(code) {
 }
 
 function tick() {
-  output.value = sidila.AsciiPainter.paint(board);
+  canvas.innerHTML = sidila.BasicPainter.paint(board);
   if (gameTicks < instructions && !board.isCrashed()) {
     sidila.Game.processStatement(tree, gameTicks, board);
     gameTicks++;
@@ -26,6 +26,7 @@ function tick() {
 // UI Setup
 const code = document.querySelector("#code");
 const output = document.querySelector("#output");
+const canvas = document.querySelector("#canvas");
 const runButton = document.querySelector("#run");
 runButton.addEventListener("click", async (event) => {
   run(code.value.toString());
