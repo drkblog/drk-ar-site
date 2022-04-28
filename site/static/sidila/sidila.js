@@ -15,7 +15,12 @@ const runButton = document.querySelector("#run");
 const resetButton = document.querySelector("#reset");
 runButton.addEventListener("click", async (event) => {
   runButton.disabled = true;
-  run(code.value.toString());
+  try {
+    run(code.value.toString());
+  } catch (e) {
+    alert(e);
+    runButton.disabled = false;
+  }
 });
 resetButton.addEventListener("click", async (event) => {
   reset();
