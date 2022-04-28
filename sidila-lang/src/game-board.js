@@ -59,6 +59,10 @@ export class Player {
     this.y = newPosition.y;
   }
 
+  getShootTarget() {
+    return this.direction.advance(this);
+  }
+
   crash() {
     this.crashed = true;
   }
@@ -146,6 +150,12 @@ export class Board {
   }
   rotatePlayerRight() {
     this.player.rotateRight();
+  }
+  playerShoot() {
+    const shootAt = this.player.getShootTarget();
+    if (this.board[shootAt.x][shootAt.y] === Block.Zombie) {
+      this.board[shootAt.x][shootAt.y] = Block.Space;
+    }
   }
 
   getPieceSymbol(x, y) {

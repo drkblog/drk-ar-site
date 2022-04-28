@@ -9,7 +9,6 @@ let gameTicks = 0;
 
 // UI Setup
 const code = document.querySelector("#code");
-const output = document.querySelector("#output");
 const canvas = document.querySelector("#canvas");
 const message = document.querySelector("#message");
 const runButton = document.querySelector("#run");
@@ -28,7 +27,6 @@ const canvasPainter = new sidila.CanvasPainter(canvas, 24);
 // Game
 function run(code) {
   tree = sidila.parse(code);
-  console.log(tree);
   instructions = tree.elements.length;
   gameTicks = 0;
 }

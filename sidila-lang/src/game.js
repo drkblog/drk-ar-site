@@ -5,12 +5,14 @@ export class StepInterpreter {
   }
 
   static tryExecuting(statement, board) {
-    console.log(statement.text);
     const node = statement.elements[0];
     const action = node.action;
     switch(action) {
       case 'move':
         board.movePlayer();
+        break;
+      case 'shoot':
+        board.playerShoot();
         break;
       case 'turn':
         if (node.direction === 'derecha') {

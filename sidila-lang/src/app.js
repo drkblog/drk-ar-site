@@ -10,6 +10,9 @@ class Actions {
   make_move (input, start, end, elements) {
     return {action: 'move'};
   }
+  make_shoot (input, start, end, elements) {
+    return {action: 'shoot'};
+  }
   make_turn (input, start, end, elements) {
     return {action: 'turn', direction: elements[1].text};
   }

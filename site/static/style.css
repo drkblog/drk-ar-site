@@ -4,22 +4,24 @@
   font-weight: bold;
   line-height: 1.5em;
 }
-.output {
-  display: none;
-  resize: none;
-  font-family: monospace;
-  font-size: 1.5em;
-  line-height: 1em;
+.sidila-button {
+  display: inline-block;
+  font-weight: bold;
 }
-.canvas img {
-  width: 2em;
-  height: 2em;
-  display: inline;
-  padding: 0 !important;
-  margin: 0 !important;
+.message {
+  background-color: rgb(238, 238, 238);
+  color: black;
+  padding: .2em;
+  margin: .2em;
+  font-weight: bolder;
 }
-
-.sidila-row {
-  padding: 0 !important;
-  margin: 0 !important;
+.canvas {
+  display: inline-block !important;
+  width: 50% !important;
+}
+.instructions {
+  display: inline-block !important;
+  width: 50% !important;
+  font-size: .8em;
+  float: right;
 }

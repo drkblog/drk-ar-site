@@ -1,6 +1,7 @@
 grammar SiDiLa
-  statement <- ((turn / move) @nl)*
+  statement <- ((turn / move / shoot) @nl)*
   move <- 'avanzar' %make_move
+  shoot <- 'disparar' %make_shoot
   turn <- 'girar' @ws @'hacia la' @ws direction %make_turn
   direction <- ("izquierda" / "derecha")
   ws <- ([ \t]+)*
