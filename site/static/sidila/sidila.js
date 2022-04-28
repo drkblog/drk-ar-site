@@ -19,6 +19,7 @@ runButton.addEventListener("click", async (event) => {
     run(code.value.toString());
   } catch (e) {
     alert(e);
+    console.log(e);
     runButton.disabled = false;
   }
 });

@@ -26,6 +26,8 @@ Una herramienta para aprender conceptos básicos de programación.
         <li>disparar</li>
       </ul>
       <li>Sólo podés matar al Zombie.</li>
+      <li>Cada instrucción se ejecuta una vez.</li>
+      <li>Por ejemplo. Para avanzar dos espacios hay que escribir dos líneas con la palabra 'avanzar'.</li>
     </ul>
   </div>
 </div>
