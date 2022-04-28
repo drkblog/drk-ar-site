@@ -7,6 +7,17 @@ let tree;
 let instructions = 0;
 let gameTicks = 0;
 
+// UI Setup
+const code = document.querySelector("#code");
+const output = document.querySelector("#output");
+const canvas = document.querySelector("#canvas");
+const runButton = document.querySelector("#run");
+runButton.addEventListener("click", async (event) => {
+  run(code.value.toString());
+});
+
+const canvasPainter = new sidila.CanvasPainter(canvas, 24);
+
 // Game
 function run(code) {
   tree = sidila.parse(code);
@@ -16,20 +27,12 @@ function run(code) {
 }
 
 function tick() {
-  canvas.innerHTML = sidila.BasicPainter.paint(board);
+  canvas.innerHTML = canvasPainter.paint(board);
   if (gameTicks < instructions && !board.isCrashed()) {
     sidila.Game.processStatement(tree, gameTicks, board);
     gameTicks++;
   }
 }
 
-// UI Setup
-const code = document.querySelector("#code");
-const output = document.querySelector("#output");
-const canvas = document.querySelector("#canvas");
-const runButton = document.querySelector("#run");
-runButton.addEventListener("click", async (event) => {
-  run(code.value.toString());
-});
 
 setInterval(tick, 1000);

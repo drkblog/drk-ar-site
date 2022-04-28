@@ -12,6 +12,18 @@ export class AsciiPainter {
   }
 }
 
+const imageBaseUrl = '/sidila/img/';
+const imageMap = {
+  '█': 'wall.png',
+  '░': 'exit.png',
+  ' ': 'space.png',
+  '▲': 'player-n.png',
+  '▶': 'player-e.png',
+  '▼': 'player-s.png',
+  '◀': 'player-w.png',
+  '✟': 'skull.png'
+};
+
 export class BasicPainter {
   static paint(board) {
     let drawing = '<div class="sidila-row">';
@@ -26,19 +38,32 @@ export class BasicPainter {
   }
 
   static getImageTag(symbol) {
-    switch(symbol) {
-      case '█': return this.getBaseTag('wall.png');
-      case '░': return this.getBaseTag('exit.png');
-      case ' ': return this.getBaseTag('space.png');
-      case '▲': return this.getBaseTag('player-n.png');
-      case '▶': return this.getBaseTag('player-e.png');
-      case '▼': return this.getBaseTag('player-s.png');
-      case '◀': return this.getBaseTag('player-w.png');
-      case '✟': return this.getBaseTag('skull.png');
-    }
+    return this.getBaseTag(imageMap[symbol]);
   }
 
   static getBaseTag(image) {
-    return `<img src="/sidila/img/${image}">`
+    return `<img src="${imageBaseUrl}${image}">`
+  }
+}
+
+export class CanvasPainter {
+  constructor(canvas, slotSize) {
+    this.canvas = canvas;
+    this.slotSize = slotSize;
+    this.imageMap = {};
+    for (const entry in imageMap) {
+      this.imageMap[entry] = new Image();
+      this.imageMap[entry].src = `${imageBaseUrl}${imageMap[entry]}`;
+    }
+  }
+
+  paint(board) {
+    const context = this.canvas.getContext('2d');
+    for(let y=0; y < board.side; y++) {
+      for(let x=0; x < board.side; x++) {
+        let image = this.imageMap[board.getPieceSymbol(x, y)];
+        context.drawImage(image, x * this.slotSize, y * this.slotSize);
+      }
+    }
   }
 }

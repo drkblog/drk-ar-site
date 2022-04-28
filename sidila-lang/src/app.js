@@ -1,8 +1,8 @@
 import { CardinalDirection, Board, Player } from './game-board';
-import { AsciiPainter, BasicPainter } from './drawing';
+import { AsciiPainter, BasicPainter, CanvasPainter } from './drawing';
 import { Game } from './game';
 
-export { CardinalDirection, Board, Player, AsciiPainter, BasicPainter, Game, maps };
+export { CardinalDirection, Board, Player, AsciiPainter, BasicPainter, CanvasPainter, Game, maps };
 
 const maps = require('../build/peg');
 

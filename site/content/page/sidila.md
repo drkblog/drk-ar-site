@@ -5,10 +5,12 @@ slug: "sidila"
 comments: false
 ---
 
-## Beta
+# Simple Didactic Language
+
+Una herramienta para aprender conceptos básicos de programación.
 
 {{< rawhtml >}}
-<div id="canvas" class="canvas"></div>
+<canvas id="canvas" width="300" height="300"></canvas>
 <textarea id="output" class="output" cols="16" rows="13" disabled="true"></textarea>
 <textarea id="code" class="source-code" cols="80" rows="12">
 avanzar
