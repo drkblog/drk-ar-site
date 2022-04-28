@@ -1,4 +1,4 @@
-export class Game {
+export class StepInterpreter {
   static processStatement(tree, gameTicks, board) {
     const statement = tree.elements[gameTicks];
     this.tryExecuting(statement, board);

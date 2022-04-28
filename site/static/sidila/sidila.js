@@ -1,6 +1,6 @@
 // Game setup
 const boardSide = 12;
-const board = new sidila.Board(boardSide, new sidila.Player(1, 1, sidila.CardinalDirection.East));
+const board = new sidila.Board(boardSide);
 
 // Game status
 let tree;
@@ -11,6 +11,7 @@ let gameTicks = 0;
 const code = document.querySelector("#code");
 const output = document.querySelector("#output");
 const canvas = document.querySelector("#canvas");
+const message = document.querySelector("#message");
 const runButton = document.querySelector("#run");
 runButton.addEventListener("click", async (event) => {
   run(code.value.toString());
@@ -20,6 +21,7 @@ const canvasPainter = new sidila.CanvasPainter(canvas, 24);
 
 // Game
 function run(code) {
+  board.reset();
   tree = sidila.parse(code);
   console.log(tree);
   instructions = tree.elements.length;
@@ -28,11 +30,21 @@ function run(code) {
 
 function tick() {
   canvas.innerHTML = canvasPainter.paint(board);
-  if (gameTicks < instructions && !board.isCrashed()) {
-    sidila.Game.processStatement(tree, gameTicks, board);
+  const finished = board.isCrashed() || board.isDone();
+  if (gameTicks < instructions && !finished) {
+    message.innerHTML = `Ejecutando paso #${gameTicks}`;
+    sidila.StepInterpreter.processStatement(tree, gameTicks, board);
     gameTicks++;
+  } else {
+    if (board.isCrashed()) {
+      message.innerHTML = `Perdiste`;
+    } else if (board.isDone()) {
+      message.innerHTML = `Ganaste`;
+    } else {
+      message.innerHTML = `No llegaste a la salida`;
+    }
   }
 }
 
 
-setInterval(tick, 1000);
+setInterval(tick, 500);

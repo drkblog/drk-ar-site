@@ -88,6 +88,11 @@ export class Board {
         this.board[i][j] = Block.Space;
       }
     }
+    this.reset();
+  }
+
+  reset() {
+    this.player = new sidila.Player(1, 1, sidila.CardinalDirection.East);
     this.boardLoadHardcoded();
   }
 
@@ -100,14 +105,19 @@ export class Board {
       this.board[this.side - 1][i] = Block.Wall;
     }
     this.board[this.side - 1][this.side - 2] = Block.Exit;
+    this.target = (player) => (player.x == this.side - 1) && (player.y == this.side - 2);
   }
 
   canMoveInto(x, y) {
-    return this.board[x][y] === Block.Space;
+    return this.board[x][y] === Block.Space || this.board[x][y] === Block.Exit;
   }
 
   isCrashed() {
     return this.player.crashed;
+  }
+
+  isDone() {
+    return this.target(this.player);
   }
 
   movePlayer() {
