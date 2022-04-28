@@ -1,17 +1,3 @@
-// ASCII Painting
-export class AsciiPainter {
-  static paint(board) {
-    let drawing = '';
-    for(let y=0; y < board.side; y++) {
-      for(let x=0; x < board.side; x++) {
-        drawing += board.getPieceSymbol(x, y);
-      }
-      drawing += '\n';
-    }
-    return drawing;
-  }
-}
-
 const imageBaseUrl = '/sidila/img/';
 const imageMap = {
   '█': 'wall.png',
@@ -25,28 +11,6 @@ const imageMap = {
   '👾': 'zombie.png',
   '💀': 'greek-sphinx.png'
 };
-
-export class BasicPainter {
-  static paint(board) {
-    let drawing = '<div class="sidila-row">';
-    for(let y=0; y < board.side; y++) {
-      for(let x=0; x < board.side; x++) {
-        drawing += this.getImageTag(board.getPieceSymbol(x, y));
-      }
-      drawing += '</div><div class="sidila-row">';
-    }
-    drawing += '</div>';
-    return drawing;
-  }
-
-  static getImageTag(symbol) {
-    return this.getBaseTag(imageMap[symbol]);
-  }
-
-  static getBaseTag(image) {
-    return `<img src="${imageBaseUrl}${image}">`
-  }
-}
 
 export class CanvasPainter {
   constructor(canvas, slotSize) {
