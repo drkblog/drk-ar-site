@@ -3,6 +3,8 @@ class Block {
   static Wall = new Block("█");
   static Exit = new Block("░");
   static Space = new Block(" ");
+  static Zombie = new Block("👾");
+  static Sphinx = new Block("💀");
 
   constructor(symbol) {
     this.symbol = symbol;
@@ -78,16 +80,8 @@ export class Player {
 }
 
 export class Board {
-  constructor(side, player) {
-    this.player = player;
+  constructor(side) {
     this.side = side;
-    this.board = [];
-    for(let i=0; i < side; i++) {
-      this.board[i] = [];
-      for(let j=0; j < side; j++) {
-        this.board[i][j] = Block.Space;
-      }
-    }
     this.reset();
   }
 
@@ -98,6 +92,19 @@ export class Board {
 
   // TODO: Write code to load different boards
   boardLoadHardcoded() {
+    this.board = [];
+    for(let x=0; x < this.side; x++) {
+      this.board[x] = [];
+      for(let y=0; y < this.side; y++) {
+        let piece;
+        if (x == 0 || y == 0 || x == this.side - 1 || y == this.side - 1) {
+          piece = Block.Wall;
+        } else {
+          piece = Block.Space;
+        }
+        this.board[x][y] = piece;
+      }
+    }
     for(let i=0; i < this.side; i++) {
       this.board[i][0] = Block.Wall;
       this.board[i][this.side - 1] = Block.Wall;
@@ -105,7 +112,13 @@ export class Board {
       this.board[this.side - 1][i] = Block.Wall;
     }
     this.board[this.side - 1][this.side - 2] = Block.Exit;
+    this.board[this.getInnerRandomPosition()][this.getInnerRandomPosition()] = Block.Zombie;
+    this.board[this.getInnerRandomPosition()][this.getInnerRandomPosition()] = Block.Sphinx;
     this.target = (player) => (player.x == this.side - 1) && (player.y == this.side - 2);
+  }
+
+  getInnerRandomPosition() {
+    return Math.floor(Math.random() * 8) + 2;
   }
 
   canMoveInto(x, y) {

@@ -21,7 +21,9 @@ const imageMap = {
   '▶': 'player-e.png',
   '▼': 'player-s.png',
   '◀': 'player-w.png',
-  '✟': 'skull.png'
+  '✟': 'skull.png',
+  '👾': 'zombie.png',
+  '💀': 'greek-sphinx.png'
 };
 
 export class BasicPainter {

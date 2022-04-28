@@ -39,6 +39,7 @@ girar hacia la izquierda
 avanzar
 </textarea>
 <button id="run">Run</button>
+<button id="reset">Reset</button>
 <script type="text/javascript" src="/sidila/peg.js"></script>
 <script type="text/javascript" src="/sidila/sidila.js"></script>
 {{< /rawhtml >}}

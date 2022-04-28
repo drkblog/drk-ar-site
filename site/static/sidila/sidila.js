@@ -13,19 +13,30 @@ const output = document.querySelector("#output");
 const canvas = document.querySelector("#canvas");
 const message = document.querySelector("#message");
 const runButton = document.querySelector("#run");
+const resetButton = document.querySelector("#reset");
 runButton.addEventListener("click", async (event) => {
+  runButton.disabled = true;
   run(code.value.toString());
+});
+resetButton.addEventListener("click", async (event) => {
+  reset();
+  runButton.disabled = false;
 });
 
 const canvasPainter = new sidila.CanvasPainter(canvas, 24);
 
 // Game
 function run(code) {
-  board.reset();
   tree = sidila.parse(code);
   console.log(tree);
   instructions = tree.elements.length;
   gameTicks = 0;
+}
+
+function reset() {
+  tree = undefined;
+  instructions = 0;
+  board.reset();
 }
 
 function tick() {
