@@ -1,10 +1,10 @@
 // Enums
-class Block {
-  static Wall = new Block("█");
-  static Exit = new Block("░");
-  static Space = new Block(" ");
-  static Zombie = new Block("👾");
-  static Sphinx = new Block("💀");
+class LogicBlock {
+  static Wall = new LogicBlock("█");
+  static Exit = new LogicBlock("░");
+  static Space = new LogicBlock(" ");
+  static Zombie = new LogicBlock("👾");
+  static Sphinx = new LogicBlock("💀");
 
   constructor(symbol) {
     this.symbol = symbol;
@@ -12,10 +12,10 @@ class Block {
 }
 
 export class CardinalDirection {
-  static North = new CardinalDirection("▲", position => ({x: position.x, y: position.y-1}));
-  static East = new CardinalDirection("▶", position => ({x: position.x+1, y: position.y}));
-  static South = new CardinalDirection("▼", position => ({x: position.x, y: position.y+1}));
-  static West = new CardinalDirection("◀", position => ({x: position.x-1, y: position.y}));
+  static North = new CardinalDirection("▲", position => ({x: position.x, y: position.y - 1}));
+  static East = new CardinalDirection("▶", position => ({x: position.x + 1, y: position.y}));
+  static South = new CardinalDirection("▼", position => ({x: position.x, y: position.y + 1}));
+  static West = new CardinalDirection("◀", position => ({x: position.x - 1, y: position.y}));
 
   constructor(symbol, action) {
     this.symbol = symbol;
@@ -85,7 +85,8 @@ export class Player {
 
 export class Board {
   constructor(side) {
-    this.side = side;
+    this.width = side;
+    this.height = side;
     this.reset();
   }
 
@@ -97,36 +98,34 @@ export class Board {
   // TODO: Write code to load different boards
   boardLoadHardcoded() {
     this.board = [];
-    for(let x=0; x < this.side; x++) {
+    for(let x=0; x < this.width; x++) {
       this.board[x] = [];
-      for(let y=0; y < this.side; y++) {
+      for(let y=0; y < this.height; y++) {
         let piece;
-        if (x == 0 || y == 0 || x == this.side - 1 || y == this.side - 1) {
-          piece = Block.Wall;
+        if (x == 0 || y == 0 || x == this.width - 1 || y == this.height - 1) {
+          piece = LogicBlock.Wall;
         } else {
-          piece = Block.Space;
+          piece = LogicBlock.Space;
         }
         this.board[x][y] = piece;
       }
     }
-    for(let i=0; i < this.side; i++) {
-      this.board[i][0] = Block.Wall;
-      this.board[i][this.side - 1] = Block.Wall;
-      this.board[0][i] = Block.Wall;
-      this.board[this.side - 1][i] = Block.Wall;
+    for(let i=0; i < this.width; i++) {
+      this.board[i][0] = LogicBlock.Wall;
+      this.board[i][this.height - 1] = LogicBlock.Wall;
     }
-    this.board[this.side - 1][this.side - 2] = Block.Exit;
-    this.board[this.getInnerRandomPosition()][this.getInnerRandomPosition()] = Block.Zombie;
-    this.board[this.getInnerRandomPosition()][this.getInnerRandomPosition()] = Block.Sphinx;
-    this.target = (player) => (player.x == this.side - 1) && (player.y == this.side - 2);
-  }
-
-  getInnerRandomPosition() {
-    return Math.floor(Math.random() * 8) + 2;
+    for(let i=0; i < this.height; i++) {
+      this.board[0][i] = LogicBlock.Wall;
+      this.board[this.width - 1][i] = LogicBlock.Wall;
+    }
+    this.board[this.width - 1][this.height - 2] = LogicBlock.Exit;
+    this.board[4][7] = LogicBlock.Zombie;
+    this.board[6][6] = LogicBlock.Sphinx;
+    this.target = (player) => (player.x == this.width - 1) && (player.y == this.height - 2);
   }
 
   canMoveInto(x, y) {
-    return this.board[x][y] === Block.Space || this.board[x][y] === Block.Exit;
+    return this.board[x][y] === LogicBlock.Space || this.board[x][y] === LogicBlock.Exit;
   }
 
   isCrashed() {
@@ -153,8 +152,8 @@ export class Board {
   }
   playerShoot() {
     const shootAt = this.player.getShootTarget();
-    if (this.board[shootAt.x][shootAt.y] === Block.Zombie) {
-      this.board[shootAt.x][shootAt.y] = Block.Space;
+    if (this.board[shootAt.x][shootAt.y] === LogicBlock.Zombie) {
+      this.board[shootAt.x][shootAt.y] = LogicBlock.Space;
     }
   }
 

@@ -25,8 +25,8 @@ export class CanvasPainter {
 
   paint(board) {
     const context = this.canvas.getContext('2d');
-    for(let y=0; y < board.side; y++) {
-      for(let x=0; x < board.side; x++) {
+    for(let y=0; y < board.height; y++) {
+      for(let x=0; x < board.width; x++) {
         let image = this.imageMap[board.getPieceSymbol(x, y)];
         context.drawImage(image, x * this.slotSize, y * this.slotSize);
       }
