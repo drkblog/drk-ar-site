@@ -1,18 +1,21 @@
-// Game setup
-const boardSide = 12;
-const board = new sidila.Board(boardSide);
-
-// Game status
-let tree;
-let instructions = 0;
-let gameTicks = 0;
-
 // UI Setup
 const code = document.querySelector("#code");
 const canvas = document.querySelector("#canvas");
 const message = document.querySelector("#message");
 const runButton = document.querySelector("#run");
 const resetButton = document.querySelector("#reset");
+
+// Game setup
+const board = new sidila.Board();
+const canvasPainter = new sidila.CanvasPainter(canvas, board.theme);
+
+// Game status
+let tree;
+let instructions = 0;
+let gameTicks = 0;
+
+
+// UI Actions
 runButton.addEventListener("click", async (event) => {
   runButton.disabled = true;
   try {
@@ -27,8 +30,6 @@ resetButton.addEventListener("click", async (event) => {
   reset();
   runButton.disabled = false;
 });
-
-const canvasPainter = new sidila.CanvasPainter(canvas, 24);
 
 // Game
 function run(code) {

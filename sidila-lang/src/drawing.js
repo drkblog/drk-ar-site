@@ -1,35 +1,41 @@
 const imageBaseUrl = '/sidila/img/';
-const imageMap = {
-  '1': 'wall.png',
-  '2': 'exit.png',
-  '0': 'space.png',
-  '▲': 'player-n.png',
-  '▶': 'player-e.png',
-  '▼': 'player-s.png',
-  '◀': 'player-w.png',
-  '✟': 'skull.png',
-  '4': 'zombie.png',
-  '3': 'greek-sphinx.png'
-};
 
 export class CanvasPainter {
-  constructor(canvas, slotSize) {
+  constructor(canvas, theme) {
     this.canvas = canvas;
-    this.slotSize = slotSize;
+    this.theme = theme;
     this.imageMap = {};
-    for (const entry in imageMap) {
-      this.imageMap[entry] = new Image();
-      this.imageMap[entry].src = `${imageBaseUrl}${imageMap[entry]}`;
-    }
+    this.sprites = new Image();
+    this.sprites.src = `${imageBaseUrl}${this.theme.image}`;
   }
 
   paint(board) {
     const context = this.canvas.getContext('2d');
     for(let y=0; y < board.height; y++) {
       for(let x=0; x < board.width; x++) {
-        let image = this.imageMap[board.getSprite(x, y)];
-        context.drawImage(image, x * this.slotSize, y * this.slotSize);
+        const spriteNumber = board.getSprite(x, y);
+        const sourceX = this.getSourceX(spriteNumber);
+        const sourceY = this.getSourceY(spriteNumber);
+        context.drawImage(
+          this.sprites, 
+          sourceX, 
+          sourceY,
+          this.theme.spriteWidth,
+          this.theme.spriteHeight,
+          x * this.theme.spriteWidth,
+          y * this.theme.spriteHeight,
+          this.theme.spriteWidth,
+          this.theme.spriteHeight
+        );
       }
     }
+  }
+
+  getSourceX(spriteNumber) {
+    return this.theme.spriteWidth * (spriteNumber % (this.sprites.width/this.theme.spriteWidth));
+  }
+
+  getSourceY(spriteNumber) {
+    return this.theme.spriteHeight * Math.floor(spriteNumber / (this.sprites.width/this.theme.spriteWidth));
   }
 }

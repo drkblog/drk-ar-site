@@ -46,11 +46,19 @@ export class Player {
     this.crashed = false;
   }
 
+  setupSprites(theme) {
+    CardinalDirection.North.sprite = theme.sprite['north'];
+    CardinalDirection.East.sprite = theme.sprite['east'];
+    CardinalDirection.South.sprite = theme.sprite['south'];
+    CardinalDirection.West.sprite = theme.sprite['west'];
+    this.deadSprite = theme.sprite['dead'];
+  }
+
   getSprite() {
     if (this.crashed) {
-      return '✟';
+      return this.deadSprite;
     }
-    return this.direction.symbol;
+    return this.direction.sprite;
   }
 
   move() {
@@ -99,8 +107,10 @@ export class Board {
     const scene = require('./scene');
     this.width = scene.width;
     this.height = scene.height;
+    this.theme = scene.theme;
     this.board = this.createBoardFromScene(scene);
     this.player = new sidila.Player(1, 1, sidila.CardinalDirection.East);
+    this.player.setupSprites(this.theme);
   }
 
   createBoardFromScene(scene) {
