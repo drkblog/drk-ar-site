@@ -34,6 +34,30 @@ Una herramienta para aprender conceptos básicos de programación.
 <div id="message" class="message"></div>
 <h3>Tu programa:</h3>
 <textarea id="code" class="source-code" cols="80" rows="12">
+avanzar
+girar hacia la derecha
+avanzar
+avanzar
+girar hacia la izquierda
+avanzar
+avanzar
+avanzar
+avanzar
+avanzar
+girar hacia la derecha
+avanzar
+avanzar
+avanzar
+avanzar
+disparar
+avanzar
+avanzar
+avanzar
+girar hacia la izquierda
+avanzar
+avanzar
+avanzar
+avanzar
 </textarea>
 <div>
   <button id="run" class="sidila-button">Ejecutar</button>
@@ -52,18 +76,19 @@ avanzar
 avanzar
 avanzar
 avanzar
-avanzar
-avanzar
-avanzar
 girar hacia la derecha
 avanzar
 avanzar
 avanzar
 avanzar
+disparar
 avanzar
 avanzar
 avanzar
 girar hacia la izquierda
+avanzar
+avanzar
+avanzar
 avanzar
 -->
 {{< /rawhtml >}}

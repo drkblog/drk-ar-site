@@ -46,7 +46,7 @@ export class Player {
     this.crashed = false;
   }
 
-  getSymbol() {
+  getSprite() {
     if (this.crashed) {
       return '✟';
     }
@@ -83,49 +83,44 @@ export class Player {
   }
 }
 
+class Slot {
+  constructor(sprite, logic) {
+    this.sprite = sprite;
+    this.logic = logic;
+  }
+}
+
 export class Board {
-  constructor(side) {
-    this.width = side;
-    this.height = side;
+  constructor() {
     this.reset();
   }
 
   reset() {
+    const scene = require('./scene');
+    this.width = scene.width;
+    this.height = scene.height;
+    this.board = this.createBoardFromScene(scene);
     this.player = new sidila.Player(1, 1, sidila.CardinalDirection.East);
-    this.boardLoadHardcoded();
   }
 
-  // TODO: Write code to load different boards
-  boardLoadHardcoded() {
-    this.board = [];
-    for(let x=0; x < this.width; x++) {
-      this.board[x] = [];
-      for(let y=0; y < this.height; y++) {
-        let piece;
-        if (x == 0 || y == 0 || x == this.width - 1 || y == this.height - 1) {
-          piece = LogicBlock.Wall;
-        } else {
-          piece = LogicBlock.Space;
-        }
-        this.board[x][y] = piece;
+  createBoardFromScene(scene) {
+    const board = [];
+    for(let x=0; x < scene.width; x++) {
+      board[x] = [];
+      for(let y=0; y < scene.height; y++) {
+        const sprite = scene.map[y][x];
+        board[x][y] = new Slot(sprite, Board.getLogicFor(scene.logic[sprite]));
       }
     }
-    for(let i=0; i < this.width; i++) {
-      this.board[i][0] = LogicBlock.Wall;
-      this.board[i][this.height - 1] = LogicBlock.Wall;
-    }
-    for(let i=0; i < this.height; i++) {
-      this.board[0][i] = LogicBlock.Wall;
-      this.board[this.width - 1][i] = LogicBlock.Wall;
-    }
-    this.board[this.width - 1][this.height - 2] = LogicBlock.Exit;
-    this.board[4][7] = LogicBlock.Zombie;
-    this.board[6][6] = LogicBlock.Sphinx;
-    this.target = (player) => (player.x == this.width - 1) && (player.y == this.height - 2);
+    return board;
+  }
+
+  static getLogicFor(text) {
+    return LogicBlock[text];
   }
 
   canMoveInto(x, y) {
-    return this.board[x][y] === LogicBlock.Space || this.board[x][y] === LogicBlock.Exit;
+    return this.board[x][y].logic === LogicBlock.Space || this.board[x][y].logic === LogicBlock.Exit;
   }
 
   isCrashed() {
@@ -133,7 +128,7 @@ export class Board {
   }
 
   isDone() {
-    return this.target(this.player);
+    return this.board[this.player.x][this.player.y].logic === LogicBlock.Exit;
   }
 
   movePlayer() {
@@ -152,16 +147,16 @@ export class Board {
   }
   playerShoot() {
     const shootAt = this.player.getShootTarget();
-    if (this.board[shootAt.x][shootAt.y] === LogicBlock.Zombie) {
-      this.board[shootAt.x][shootAt.y] = LogicBlock.Space;
+    if (this.board[shootAt.x][shootAt.y].logic === LogicBlock.Zombie) {
+      this.board[shootAt.x][shootAt.y].logic = LogicBlock.Space;
     }
   }
 
-  getPieceSymbol(x, y) {
+  getSprite(x, y) {
     if (this.player.isAt(x, y)) {
-      return this.player.getSymbol();
+      return this.player.getSprite();
     } else {
-      return this.board[x][y].symbol;
+      return this.board[x][y].sprite;
     }
   }
 }
