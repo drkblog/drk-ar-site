@@ -104,12 +104,12 @@ export class Board {
   }
 
   reset() {
-    const scene = require('./scene');
+    const scene = require('./scene/dungeon');
     this.width = scene.width;
     this.height = scene.height;
     this.theme = scene.theme;
     this.board = this.createBoardFromScene(scene);
-    this.player = new sidila.Player(1, 1, sidila.CardinalDirection.East);
+    this.player = new sidila.Player(2, 2, sidila.CardinalDirection.East);
     this.player.setupSprites(this.theme);
   }
 

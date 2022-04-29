@@ -11,7 +11,7 @@ Una herramienta para aprender conceptos básicos de programación.
 
 {{< rawhtml >}}
 <div id="container">
-  <canvas id="canvas" class="canvas" width="300" height="300"></canvas>
+  <canvas id="canvas" class="canvas" width="256" height="256"></canvas>
   <div id="instructions" class="instructions">
     <p>
       Escribí las instrucciones para que el jugador llegue a la salida sin pasar por el Zombie o la Esfinge.
