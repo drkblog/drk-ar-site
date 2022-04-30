@@ -6,7 +6,7 @@ const runButton = document.querySelector("#run");
 const resetButton = document.querySelector("#reset");
 
 // Game setup
-const board = new sidila.Board();
+const board = new sidila.GameBoard();
 const canvasPainter = new sidila.CanvasPainter(canvas, board.theme);
 
 // Game status
@@ -45,7 +45,7 @@ function reset() {
 }
 
 function tick() {
-  canvas.innerHTML = canvasPainter.paint(board);
+  canvasPainter.paint(board);
   const finished = board.isCrashed() || board.isDone();
   if (gameTicks < instructions && !finished) {
     message.innerHTML = `Ejecutando paso #${gameTicks}`;

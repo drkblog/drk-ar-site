@@ -98,19 +98,13 @@ class Slot {
   }
 }
 
-export class Board {
-  constructor() {
-    this.reset();
-  }
+class Board {
 
-  reset() {
-    const scene = require('./scene/dungeon');
+  loadScene(scene) {
     this.width = scene.width;
     this.height = scene.height;
     this.theme = scene.theme;
     this.board = this.createBoardFromScene(scene);
-    this.player = new sidila.Player(2, 2, sidila.CardinalDirection.East);
-    this.player.setupSprites(this.theme);
   }
 
   createBoardFromScene(scene) {
@@ -119,14 +113,32 @@ export class Board {
       board[x] = [];
       for(let y=0; y < scene.height; y++) {
         const sprite = scene.map[y][x];
-        board[x][y] = new Slot(sprite, Board.getLogicFor(scene.logic[sprite]));
+        board[x][y] = new Slot(sprite, GameBoard.getLogicFor(scene.logic[sprite]));
       }
     }
     return board;
   }
 
+  getSprite(x, y) {
+    return this.board[x][y].sprite;
+  }
+
   static getLogicFor(text) {
     return LogicBlock[text];
+  }
+}
+
+export class GameBoard extends Board {
+  constructor() {
+    super();
+    this.reset();
+  }
+
+  reset() {
+    const scene = require('./scene/dungeon');
+    this.loadScene(scene);
+    this.player = new sidila.Player(2, 2, sidila.CardinalDirection.East);
+    this.player.setupSprites(this.theme);
   }
 
   canMoveInto(x, y) {
@@ -166,7 +178,20 @@ export class Board {
     if (this.player.isAt(x, y)) {
       return this.player.getSprite();
     } else {
-      return this.board[x][y].sprite;
+      return super.getSprite(x, y);
     }
   }
+}
+
+export class EditorBoard extends Board {
+  constructor() {
+    super();
+  }
+
+  load(source) {
+    const scene = JSON.parse(source);
+    this.loadScene(scene);
+  }
+
+  setSlot(x, y)
 }
