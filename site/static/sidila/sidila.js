@@ -7,7 +7,7 @@ const resetButton = document.querySelector("#reset");
 
 // Game setup
 const board = new sidila.GameBoard();
-const canvasPainter = new sidila.CanvasPainter(canvas, board.theme);
+const canvasPainter = new sidila.CanvasPainter(canvas, board.scene.theme);
 
 // Game status
 let tree;

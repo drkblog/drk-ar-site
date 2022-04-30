@@ -13,8 +13,8 @@ export class CanvasPainter {
     const context = this.canvas.getContext('2d');
     context.fillStyle = this.theme.background;
     context.fillRect(0, 0, canvas.width, canvas.height);
-    for(let y=0; y < board.height; y++) {
-      for(let x=0; x < board.width; x++) {
+    for(let y=0; y < board.scene.height; y++) {
+      for(let x=0; x < board.scene.width; x++) {
         const spriteNumber = board.getSprite(x, y);
         const sourceX = this.getSourceX(spriteNumber);
         const sourceY = this.getSourceY(spriteNumber);

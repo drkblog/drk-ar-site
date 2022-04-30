@@ -91,39 +91,19 @@ export class Player {
   }
 }
 
-class Slot {
-  constructor(sprite, logic) {
-    this.sprite = sprite;
-    this.logic = logic;
-  }
-}
-
 class Board {
 
   loadScene(scene) {
-    this.width = scene.width;
-    this.height = scene.height;
-    this.theme = scene.theme;
-    this.board = this.createBoardFromScene(scene);
-  }
-
-  createBoardFromScene(scene) {
-    const board = [];
-    for(let x=0; x < scene.width; x++) {
-      board[x] = [];
-      for(let y=0; y < scene.height; y++) {
-        const sprite = scene.map[y][x];
-        board[x][y] = new Slot(sprite, GameBoard.getLogicFor(scene.logic[sprite]));
-      }
-    }
-    return board;
+    this.scene = scene;
   }
 
   getSprite(x, y) {
-    return this.board[x][y].sprite;
+    // Invert axis to match canvas to JSON matrix
+    return this.scene.map[y][x];
   }
 
-  static getLogicFor(text) {
+  getLogic(x, y) {
+    const text = this.scene.logic[this.getSprite(x, y)];
     if (text === undefined) {
       return LogicBlock.Wall;
     }
@@ -141,11 +121,12 @@ export class GameBoard extends Board {
     const scene = require('./scene/dungeon');
     this.loadScene(scene);
     this.player = new sidila.Player(2, 2, sidila.CardinalDirection.East);
-    this.player.setupSprites(this.theme);
+    this.player.setupSprites(this.scene.theme);
   }
 
   canMoveInto(x, y) {
-    return this.board[x][y].logic === LogicBlock.Space || this.board[x][y].logic === LogicBlock.Exit;
+    const logic = this.getLogic(x, y);
+    return logic === LogicBlock.Space || logic === LogicBlock.Exit;
   }
 
   isCrashed() {
@@ -153,7 +134,7 @@ export class GameBoard extends Board {
   }
 
   isDone() {
-    return this.board[this.player.x][this.player.y].logic === LogicBlock.Exit;
+    return this.getLogic(this.player.x, this.player.y) === LogicBlock.Exit;
   }
 
   movePlayer() {
@@ -173,8 +154,8 @@ export class GameBoard extends Board {
   }
   playerShoot() {
     const shootAt = this.player.getShootTarget();
-    if (this.board[shootAt.x][shootAt.y].logic === LogicBlock.Zombie) {
-      this.board[shootAt.x][shootAt.y].logic = LogicBlock.Space;
+    if (this.getLogic(shootAt.x, shootAt.y) === LogicBlock.Zombie) {
+      this.scene.map[shootAt.x][shootAt.y] = this.scene.space;
     }
   }
 
