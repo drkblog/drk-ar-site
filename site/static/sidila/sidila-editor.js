@@ -13,7 +13,7 @@ let canvasPainter;
 // UI Actions
 loadButton.addEventListener("click", async (event) => {
   board.load(code.value.toString());
-  canvasPainter = new sidila.CanvasPainter(canvas, board.theme);
+  canvasPainter = new sidila.CanvasPainter(canvas, board.scene.theme);
   tick(); // Start animation
 });
 
