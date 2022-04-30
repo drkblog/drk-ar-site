@@ -124,6 +124,9 @@ class Board {
   }
 
   static getLogicFor(text) {
+    if (text === undefined) {
+      return LogicBlock.Wall;
+    }
     return LogicBlock[text];
   }
 }
@@ -155,6 +158,7 @@ export class GameBoard extends Board {
 
   movePlayer() {
     const newPosition = this.player.wouldMove();
+    console.log(`Will move to (${newPosition.x}, ${newPosition.y})`);
     if (this.canMoveInto(newPosition.x, newPosition.y)) {
       this.player.move();
     } else {
@@ -192,6 +196,4 @@ export class EditorBoard extends Board {
     const scene = JSON.parse(source);
     this.loadScene(scene);
   }
-
-  setSlot(x, y)
 }
