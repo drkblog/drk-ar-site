@@ -3,6 +3,8 @@ const code = document.querySelector("#code");
 const canvas = document.querySelector("#canvas");
 const palette = document.querySelector("#palette");
 const message = document.querySelector("#message");
+const hoverSprite = document.querySelector("#hoverSprite");
+const selectedSprite = document.querySelector("#selectedSprite");
 const loadButton = document.querySelector("#load");
 const resetButton = document.querySelector("#reset");
 
@@ -21,8 +23,18 @@ loadButton.addEventListener("click", async (event) => {
 });
 
 palette.addEventListener("mousemove", async (event) => {
-  palettePainter.mouseOver(event.offsetX, event.offsetY);
+  if (palettePainter != null) {
+    const hover = palettePainter.mouseOver(event.offsetX, event.offsetY);
+    hoverSprite.innerHTML = hover;
+  }
 });
+palette.addEventListener("click", async (event) => {
+  if (palettePainter != null) {
+    const hover = palettePainter.mouseOver(event.offsetX, event.offsetY);
+    palettePainter.selectSlot(hover);
+  }
+});
+
 
 // Paint
 function tick() {

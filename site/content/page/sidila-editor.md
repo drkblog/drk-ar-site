@@ -9,6 +9,7 @@ comments: false
 
 {{< rawhtml >}}
 <div id="container">
+  <div>Over sprite: <span id="hoverSprite"></span> - Selected sprite: <span id="selectedSprite"></span></div>
   <canvas id="palette" class="palette" width="384" height="160"></canvas>
   <canvas id="canvas" class="canvas" width="256" height="256"></canvas>
 </div>

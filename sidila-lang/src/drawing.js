@@ -49,25 +49,51 @@ export class PalettePainter {
     this.sprites.src = `${imageBaseUrl}${scene.theme.image}`;
     this.slotsInX = Math.floor(this.scene.theme.imageWidth / this.scene.theme.spriteWidth);
     this.slotsInY = Math.floor(this.scene.theme.imageHeight / this.scene.theme.spriteHeight);
+    this.selected = 0;
   }
 
   paint() {
     const context = this.canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     context.drawImage(this.sprites, 0, 0);
+    if (this.selected !== undefined) {
+      const origin = this.getCanvasCoordinatesForSlot(this.selected);
+      this.drawSlot(context, origin, 'white');
+    }
     if (this.hover !== undefined) {
-      const x = this.hover.x * this.scene.theme.spriteWidth;
-      const y = this.hover.y * this.scene.theme.spriteHeight;
-      context.strokeStyle = 'red';
-      context.rect(x, y, this.scene.theme.spriteWidth, this.scene.theme.spriteHeight);
-      context.stroke();
+      const origin = this.getCanvasCoordinatesForSlot(this.hover);
+      this.drawSlot(context, origin, 'red');
     }
   }
 
+  drawSlot(context, origin, color) {
+    context.beginPath();
+    context.strokeStyle = color;
+    context.rect(origin.x, origin.y, this.scene.theme.spriteWidth, this.scene.theme.spriteHeight);
+    context.stroke();
+    context.closePath();
+  }
+
+  getCanvasCoordinatesForSlot(index) {
+    return {
+      x: (index % this.slotsInX) * this.scene.theme.spriteWidth,
+      y: Math.floor(index / this.slotsInX) * this.scene.theme.spriteHeight
+    };
+  }
+
   mouseOver(x, y) {
-    this.hover = {
-      x: Math.floor(x / this.scene.theme.spriteWidth),
-      y: Math.floor(y / this.scene.theme.spriteHeight)
-    }
+    this.hover = this.getSlotIndexForDiscrete(
+      Math.floor(x / this.scene.theme.spriteWidth),
+      Math.floor(y / this.scene.theme.spriteHeight)
+    );
+    return this.hover;
+  }
+
+  getSlotIndexForDiscrete(x, y) {
+    return x + y * this.slotsInX;
+  }
+
+  selectSlot(index) {
+    this.selected = index;
   }
 }
