@@ -4,7 +4,6 @@ export class CanvasPainter {
   constructor(canvas, theme) {
     this.canvas = canvas;
     this.theme = theme;
-    this.imageMap = {};
     this.sprites = new Image();
     this.sprites.src = `${imageBaseUrl}${this.theme.image}`;
   }
@@ -39,5 +38,36 @@ export class CanvasPainter {
 
   getSourceY(spriteNumber) {
     return this.theme.spriteHeight * Math.floor(spriteNumber / (this.sprites.width/this.theme.spriteWidth));
+  }
+}
+
+export class PalettePainter {
+  constructor(canvas, scene) {
+    this.canvas = canvas;
+    this.scene = scene;
+    this.sprites = new Image();
+    this.sprites.src = `${imageBaseUrl}${scene.theme.image}`;
+    this.slotsInX = Math.floor(this.scene.theme.imageWidth / this.scene.theme.spriteWidth);
+    this.slotsInY = Math.floor(this.scene.theme.imageHeight / this.scene.theme.spriteHeight);
+  }
+
+  paint() {
+    const context = this.canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(this.sprites, 0, 0);
+    if (this.hover !== undefined) {
+      const x = this.hover.x * this.scene.theme.spriteWidth;
+      const y = this.hover.y * this.scene.theme.spriteHeight;
+      context.strokeStyle = 'red';
+      context.rect(x, y, this.scene.theme.spriteWidth, this.scene.theme.spriteHeight);
+      context.stroke();
+    }
+  }
+
+  mouseOver(x, y) {
+    this.hover = {
+      x: Math.floor(x / this.scene.theme.spriteWidth),
+      y: Math.floor(y / this.scene.theme.spriteHeight)
+    }
   }
 }

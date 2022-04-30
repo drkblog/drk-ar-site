@@ -3,6 +3,8 @@
   "height": 16,
   "theme": {
     "image": "dungeon.png",
+    "imageWidth": 384,
+    "imageHeight": 160,
     "spriteWidth": 16,
     "spriteHeight": 16,
     "background": "#91b09a",

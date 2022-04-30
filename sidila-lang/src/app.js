@@ -1,9 +1,9 @@
 import { GameBoard } from './game-board';
 import { EditorBoard } from './editor-board';
-import { CanvasPainter } from './drawing';
+import { CanvasPainter, PalettePainter } from './drawing';
 import { StepInterpreter } from './game';
 
-export { EditorBoard, GameBoard, CanvasPainter, StepInterpreter, maps };
+export { EditorBoard, GameBoard, CanvasPainter, PalettePainter, StepInterpreter, maps };
 
 const maps = require('../build/peg');
 
