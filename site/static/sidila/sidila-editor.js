@@ -1,7 +1,7 @@
 // UI Setup
 const code = document.querySelector("#code");
-const canvas = document.querySelector("#canvas");
-const palette = document.querySelector("#palette");
+const editorCanvas = document.querySelector("#editorCanvas");
+const paletteCanvas = document.querySelector("#paletteCanvas");
 const message = document.querySelector("#message");
 const hoverSprite = document.querySelector("#hoverSprite");
 const selectedSprite = document.querySelector("#selectedSprite");
@@ -17,19 +17,19 @@ let palettePainter;
 // UI Actions
 loadButton.addEventListener("click", async (event) => {
   board.load(code.value.toString());
-  canvasPainter = new sidila.CanvasPainter(canvas, board.scene);
-  palettePainter = new sidila.PalettePainter(palette, board.scene);
+  canvasPainter = new sidila.CanvasPainter(editorCanvas, board.scene);
+  palettePainter = new sidila.PalettePainter(paletteCanvas, board.scene);
   tick(); // Start animation
 });
 
 // Palette
-palette.addEventListener("mousemove", async (event) => {
+paletteCanvas.addEventListener("mousemove", async (event) => {
   if (palettePainter != null) {
     const hover = palettePainter.mouseOver(event.offsetX, event.offsetY);
     hoverSprite.innerHTML = hover;
   }
 });
-palette.addEventListener("click", async (event) => {
+paletteCanvas.addEventListener("click", async (event) => {
   if (palettePainter != null) {
     const hover = palettePainter.mouseOver(event.offsetX, event.offsetY);
     palettePainter.selectSlot(hover);
@@ -38,12 +38,12 @@ palette.addEventListener("click", async (event) => {
 });
 
 // Canvas
-canvas.addEventListener("mousemove", async (event) => {
+editorCanvas.addEventListener("mousemove", async (event) => {
   if (canvasPainter != null) {
     canvasPainter.mouseOver(event.offsetX, event.offsetY);
   }
 });
-canvas.addEventListener("click", async (event) => {
+editorCanvas.addEventListener("click", async (event) => {
   if (canvasPainter != null) {
     const hover = canvasPainter.mouseOver(event.offsetX, event.offsetY);
     canvasPainter.changeSlot(hover);

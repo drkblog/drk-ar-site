@@ -25,3 +25,12 @@
   font-size: .8em;
   float: right;
 }
+
+.paletteCanvas {
+  display: inline-block !important;
+  width: 70%;
+}
+.editorCanvas {
+  display: inline-block !important;
+  width: 70%;
+}

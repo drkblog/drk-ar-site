@@ -36,7 +36,7 @@ class GridPainter {
   drawGridSlot(context, origin, color) {
     context.beginPath();
     context.strokeStyle = color;
-    context.rect(origin.x, origin.y,this.slotWidth, this.slotHeight);
+    context.rect(origin.x, origin.y, this.slotWidth, this.slotHeight);
     context.stroke();
     context.closePath();
   }
@@ -67,7 +67,7 @@ export class CanvasPainter extends GridPainter {
   paint(board) {
     const context = this.canvas.getContext('2d');
     context.fillStyle = this.scene.theme.background;
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillRect(0, 0, this.canvas.width, this.canvas.height);
     for(let y=0; y < this.slotsInY; y++) {
       for(let x=0; x < this.slotsInX; x++) {
         const spriteNumber = board.getSprite(x, y);
