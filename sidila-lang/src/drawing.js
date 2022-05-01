@@ -1,19 +1,56 @@
 const imageBaseUrl = '/sidila/img/';
 
-export class CanvasPainter {
-  constructor(canvas, theme) {
+class GridPainter {
+  constructor(canvas, width, height, slotWidth, slotHeight) {
     this.canvas = canvas;
-    this.theme = theme;
+    this.width = width;
+    this.height = height;
+    this.slotWidth = slotWidth;
+    this.slotHeight = slotHeight;
+    this.slotsInX = Math.floor(this.width / this.slotWidth);
+    this.slotsInY = Math.floor(this.height / this.slotHeight);
+  }
+
+  mouseOver(x, y) {
+    this.hover = this.getSlotIndexForDiscrete(
+      Math.floor(x / this.slotWidth),
+      Math.floor(y / this.slotHeight)
+    );
+    return this.hover;
+  }
+
+  getSlotIndexForDiscrete(x, y) {
+    return x + y * this.slotsInX;
+  }
+
+  getCanvasCoordinatesForSlot(index) {
+    return {
+      x: (index % this.slotsInX) * this.slotWidth,
+      y: Math.floor(index / this.slotsInX) * this.slotHeight
+    };
+  }
+}
+
+export class CanvasPainter extends GridPainter {
+  constructor(canvas, scene) {
+    super(
+      canvas, 
+      scene.width * scene.theme.spriteWidth,
+      scene.height * scene.theme.spriteHeight,
+      scene.theme.spriteWidth, 
+      scene.theme.spriteHeight
+    );
+    this.scene = scene;
     this.sprites = new Image();
-    this.sprites.src = `${imageBaseUrl}${this.theme.image}`;
+    this.sprites.src = `${imageBaseUrl}${this.scene.theme.image}`;
   }
 
   paint(board) {
     const context = this.canvas.getContext('2d');
-    context.fillStyle = this.theme.background;
+    context.fillStyle = this.scene.theme.background;
     context.fillRect(0, 0, canvas.width, canvas.height);
-    for(let y=0; y < board.scene.height; y++) {
-      for(let x=0; x < board.scene.width; x++) {
+    for(let y=0; y < this.slotsInY; y++) {
+      for(let x=0; x < this.slotsInX; x++) {
         const spriteNumber = board.getSprite(x, y);
         const sourceX = this.getSourceX(spriteNumber);
         const sourceY = this.getSourceY(spriteNumber);
@@ -21,34 +58,38 @@ export class CanvasPainter {
           this.sprites, 
           sourceX, 
           sourceY,
-          this.theme.spriteWidth,
-          this.theme.spriteHeight,
-          x * this.theme.spriteWidth,
-          y * this.theme.spriteHeight,
-          this.theme.spriteWidth,
-          this.theme.spriteHeight
+          this.slotWidth,
+          this.slotHeight,
+          x * this.slotWidth,
+          y * this.slotHeight,
+          this.slotWidth,
+          this.slotHeight
         );
       }
     }
   }
 
   getSourceX(spriteNumber) {
-    return this.theme.spriteWidth * (spriteNumber % (this.sprites.width/this.theme.spriteWidth));
+    return this.slotWidth * (spriteNumber % (this.sprites.width/this.slotWidth));
   }
 
   getSourceY(spriteNumber) {
-    return this.theme.spriteHeight * Math.floor(spriteNumber / (this.sprites.width/this.theme.spriteWidth));
+    return this.slotHeight * Math.floor(spriteNumber / (this.sprites.width/this.slotWidth));
   }
 }
 
-export class PalettePainter {
+export class PalettePainter extends GridPainter {
   constructor(canvas, scene) {
-    this.canvas = canvas;
+    super(
+      canvas, 
+      scene.theme.imageWidth,
+      scene.theme.imageHeight,
+      scene.theme.spriteWidth, 
+      scene.theme.spriteHeight
+    );
     this.scene = scene;
     this.sprites = new Image();
     this.sprites.src = `${imageBaseUrl}${scene.theme.image}`;
-    this.slotsInX = Math.floor(this.scene.theme.imageWidth / this.scene.theme.spriteWidth);
-    this.slotsInY = Math.floor(this.scene.theme.imageHeight / this.scene.theme.spriteHeight);
     this.selected = 0;
   }
 
@@ -72,25 +113,6 @@ export class PalettePainter {
     context.rect(origin.x, origin.y, this.scene.theme.spriteWidth, this.scene.theme.spriteHeight);
     context.stroke();
     context.closePath();
-  }
-
-  getCanvasCoordinatesForSlot(index) {
-    return {
-      x: (index % this.slotsInX) * this.scene.theme.spriteWidth,
-      y: Math.floor(index / this.slotsInX) * this.scene.theme.spriteHeight
-    };
-  }
-
-  mouseOver(x, y) {
-    this.hover = this.getSlotIndexForDiscrete(
-      Math.floor(x / this.scene.theme.spriteWidth),
-      Math.floor(y / this.scene.theme.spriteHeight)
-    );
-    return this.hover;
-  }
-
-  getSlotIndexForDiscrete(x, y) {
-    return x + y * this.slotsInX;
   }
 
   selectSlot(index) {
