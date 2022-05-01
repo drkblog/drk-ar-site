@@ -1,5 +1,6 @@
-.source-code {
+.sourceCode {
   resize: none;
+  width: 100%;
   font-family: 'Courier New', Courier, monospace;
   font-weight: bold;
   line-height: 1.5em;
@@ -17,14 +18,14 @@
 }
 .canvas {
   display: inline-block !important;
-  width: 60%;
+  width: 70%;
 }
-.instructions {
-  display: inline-block !important;
-  width: 50% !important;
-  font-size: .8em;
+@media only screen and (max-width: 768px) {
+  .canvas {
+    display: inline-block !important;
+    width: 100%;
+  }
 }
-
 .paletteCanvas {
   display: inline-block !important;
   width: 70%;

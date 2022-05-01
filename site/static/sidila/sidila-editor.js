@@ -1,5 +1,5 @@
 // UI Setup
-const code = document.querySelector("#code");
+const sourceCode = document.querySelector("#code");
 const editorCanvas = document.querySelector("#editorCanvas");
 const paletteCanvas = document.querySelector("#paletteCanvas");
 const message = document.querySelector("#message");
@@ -17,13 +17,13 @@ let palettePainter;
 
 // UI Actions
 loadButton.addEventListener("click", async (event) => {
-  board.load(code.value.toString());
+  board.load(sourceCode.value.toString());
   canvasPainter = new sidila.CanvasPainter(editorCanvas, board.scene);
   palettePainter = new sidila.PalettePainter(paletteCanvas, board.scene);
   tick(); // Start animation
 });
 saveButton.addEventListener("click", async (event) => {
-  code.value = board.save();
+  sourceCode.value = board.save();
 });
 
 // Palette

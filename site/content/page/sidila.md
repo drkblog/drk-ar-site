@@ -5,7 +5,7 @@ slug: "sidila"
 comments: false
 ---
 
-# Simple Didactic Language v0.1.2
+# Simple Didactic Language v0.1.3
 
 Una herramienta para aprender conceptos básicos de programación.
 
@@ -21,7 +21,7 @@ Una herramienta para aprender conceptos básicos de programación.
   <button id="load" class="sidila-button">Cargar programa</button>
   <button id="save" class="sidila-button">Guardar programa</button>
 </div>
-<textarea id="code" class="source-code" cols="80" rows="12">
+<textarea id="sourceCode" class="sourceCode" cols="80" rows="12">
 </textarea>
 <script type="text/javascript" src="/sidila/peg.js"></script>
 <script type="text/javascript" src="/sidila/sidila.js"></script>

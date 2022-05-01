@@ -1,5 +1,5 @@
 // UI Setup
-const code = document.querySelector("#code");
+const sourceCode = document.querySelector("#sourceCode");
 const canvas = document.querySelector("#canvas");
 const message = document.querySelector("#message");
 const runButton = document.querySelector("#run");
@@ -21,7 +21,7 @@ let gameTicks = 0;
 runButton.addEventListener("click", async (event) => {
   runButton.disabled = true;
   try {
-    run(code.value.toString());
+    run(sourceCode.value.toString());
   } catch (e) {
     alert(e);
     console.log(e);
@@ -33,10 +33,10 @@ resetButton.addEventListener("click", async (event) => {
   runButton.disabled = false;
 });
 loadButton.addEventListener("click", async (event) => {
-  code.value = localStorage.getItem('sidila.program');
+  sourceCode.value = localStorage.getItem('sidila.program');
 });
 saveButton.addEventListener("click", async (event) => {
-  localStorage.setItem('sidila.program', code.value);
+  localStorage.setItem('sidila.program', sourceCode.value);
 });
 
 
