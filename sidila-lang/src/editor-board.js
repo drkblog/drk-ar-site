@@ -18,4 +18,8 @@ export class EditorBoard extends Board {
     const coordinates = this.getCoordinatesFor(index);
     this.scene.map[coordinates.y][coordinates.x] = sprite;
   }
+
+  getOverlaySprite(x, y) {
+    return null;
+  }
 }
