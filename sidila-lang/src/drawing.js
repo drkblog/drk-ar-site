@@ -1,7 +1,7 @@
 const imageBaseUrl = '/sidila/img/';
 
 class GridPainter {
-  constructor(canvas, width, height, slotWidth, slotHeight) {
+  constructor(canvas, width, height, slotWidth, slotHeight, hoverColor) {
     this.canvas = canvas;
     this.width = width;
     this.height = height;
@@ -9,12 +9,15 @@ class GridPainter {
     this.slotHeight = slotHeight;
     this.slotsInX = Math.floor(this.width / this.slotWidth);
     this.slotsInY = Math.floor(this.height / this.slotHeight);
+    this.hoverColor = hoverColor;
+    this.scaleX = canvas.clientWidth / this.width;
+    this.scaleY = canvas.clientHeight / this.height;
   }
 
   mouseOver(x, y) {
     this.hover = this.getSlotIndexForDiscrete(
-      Math.floor(x / this.slotWidth),
-      Math.floor(y / this.slotHeight)
+      Math.floor(x / this.scaleX / this.slotWidth),
+      Math.floor(y / this.scaleY / this.slotHeight)
     );
     return this.hover;
   }
@@ -29,6 +32,21 @@ class GridPainter {
       y: Math.floor(index / this.slotsInX) * this.slotHeight
     };
   }
+
+  drawGridSlot(context, origin, color) {
+    context.beginPath();
+    context.strokeStyle = color;
+    context.rect(origin.x, origin.y,this.slotWidth, this.slotHeight);
+    context.stroke();
+    context.closePath();
+  }
+
+  paintHover(context) {
+    if (this.hover !== undefined) {
+      const origin = this.getCanvasCoordinatesForSlot(this.hover);
+      this.drawGridSlot(context, origin, this.hoverColor);
+    }
+  }
 }
 
 export class CanvasPainter extends GridPainter {
@@ -38,7 +56,8 @@ export class CanvasPainter extends GridPainter {
       scene.width * scene.theme.spriteWidth,
       scene.height * scene.theme.spriteHeight,
       scene.theme.spriteWidth, 
-      scene.theme.spriteHeight
+      scene.theme.spriteHeight,
+      'red'
     );
     this.scene = scene;
     this.sprites = new Image();
@@ -67,6 +86,7 @@ export class CanvasPainter extends GridPainter {
         );
       }
     }
+    this.paintHover(context);
   }
 
   getSourceX(spriteNumber) {
@@ -85,7 +105,8 @@ export class PalettePainter extends GridPainter {
       scene.theme.imageWidth,
       scene.theme.imageHeight,
       scene.theme.spriteWidth, 
-      scene.theme.spriteHeight
+      scene.theme.spriteHeight,
+      'red'
     );
     this.scene = scene;
     this.sprites = new Image();
@@ -99,20 +120,9 @@ export class PalettePainter extends GridPainter {
     context.drawImage(this.sprites, 0, 0);
     if (this.selected !== undefined) {
       const origin = this.getCanvasCoordinatesForSlot(this.selected);
-      this.drawSlot(context, origin, 'white');
+      this.drawGridSlot(context, origin, 'white');
     }
-    if (this.hover !== undefined) {
-      const origin = this.getCanvasCoordinatesForSlot(this.hover);
-      this.drawSlot(context, origin, 'red');
-    }
-  }
-
-  drawSlot(context, origin, color) {
-    context.beginPath();
-    context.strokeStyle = color;
-    context.rect(origin.x, origin.y, this.scene.theme.spriteWidth, this.scene.theme.spriteHeight);
-    context.stroke();
-    context.closePath();
+    this.paintHover(context);
   }
 
   selectSlot(index) {
