@@ -34,11 +34,8 @@ class GridPainter {
   }
 
   drawGridSlot(context, origin, color) {
-    context.beginPath();
     context.strokeStyle = color;
-    context.rect(origin.x, origin.y, this.slotWidth, this.slotHeight);
-    context.stroke();
-    context.closePath();
+    context.strokeRect(origin.x + .5, origin.y + .5, this.slotWidth - 1, this.slotHeight - 1);
   }
 
   paintHover(context) {
