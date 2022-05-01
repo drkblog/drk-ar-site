@@ -6,6 +6,7 @@ const message = document.querySelector("#message");
 const hoverSprite = document.querySelector("#hoverSprite");
 const selectedSprite = document.querySelector("#selectedSprite");
 const loadButton = document.querySelector("#load");
+const saveButton = document.querySelector("#save");
 const resetButton = document.querySelector("#reset");
 
 // Editor setup
@@ -20,6 +21,9 @@ loadButton.addEventListener("click", async (event) => {
   canvasPainter = new sidila.CanvasPainter(editorCanvas, board.scene);
   palettePainter = new sidila.PalettePainter(paletteCanvas, board.scene);
   tick(); // Start animation
+});
+saveButton.addEventListener("click", async (event) => {
+  code.value = board.save();
 });
 
 // Palette
@@ -46,7 +50,7 @@ editorCanvas.addEventListener("mousemove", async (event) => {
 editorCanvas.addEventListener("click", async (event) => {
   if (canvasPainter != null) {
     const hover = canvasPainter.mouseOver(event.offsetX, event.offsetY);
-    canvasPainter.changeSlot(hover);
+    board.setSlot(hover, palettePainter.selected);
   }
 });
 

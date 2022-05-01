@@ -109,4 +109,15 @@ export class Board {
     }
     return LogicBlock[text];
   }
+
+  getSlotIndexFor(x, y) {
+    return x + y * this.scene.width;
+  }
+
+  getCoordinatesFor(index) {
+    return {
+      x: index % this.scene.width,
+      y: Math.floor(index / this.scene.width)
+    }
+  }
 }
