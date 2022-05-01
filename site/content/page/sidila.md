@@ -35,7 +35,7 @@ Escribí las instrucciones para que el jugador llegue a la salida sin pasar por 
   - girar hacia la izquierda
   - disparar
 - Sólo podés matar al Zombie.
--Cada instrucción se ejecuta una vez.
--Por ejemplo. Para avanzar dos espacios hay que escribir dos líneas con la palabra 'avanzar'.
+- Cada instrucción se ejecuta una vez.
+- Por ejemplo. Para avanzar dos espacios hay que escribir dos líneas con la palabra 'avanzar'.
 
 > Game art by [Buch](https://opengameart.org/users/buch)
