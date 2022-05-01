@@ -5,7 +5,7 @@ slug: "sidila"
 comments: false
 ---
 
-# Simple Didactic Language v0.1.0
+# Simple Didactic Language v0.1.2
 
 Una herramienta para aprender conceptos básicos de programación.
 
