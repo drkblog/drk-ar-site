@@ -24,6 +24,11 @@ comments: false
 {
   "width": 16,
   "height": 16,
+  "player": {
+    "x": 12,
+    "y": 2,
+    "direction": "South"
+  },
   "theme": {
     "image": "dungeon.png",
     "imageWidth": 384,
@@ -32,18 +37,22 @@ comments: false
     "spriteHeight": 16,
     "background": "#91b09a",
     "sprite": {
-      "north": 187,
-      "east": 187,
-      "south": 187,
-      "west": 187,
-      "dead": 163
+      "north": 189,
+      "east": 189,
+      "south": 189,
+      "west": 189,
+      "dead": 165
     }
   },
   "logic": {
     "1": "Sphinx",
     "2": "Zombie",
     "54": "Space",
-    "174": "Exit"
+    "172": "Exit",
+    "173": "Exit",
+    "174": "Exit",
+    "175": "Exit",
+    "211": "Space"
   },
   "space": 54,
   "map": [
@@ -114,7 +123,7 @@ comments: false
       210,
       54,
       54,
-      54,
+      211,
       54,
       54,
       75

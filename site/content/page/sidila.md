@@ -12,83 +12,30 @@ Una herramienta para aprender conceptos básicos de programación.
 {{< rawhtml >}}
 <div id="container">
   <canvas id="canvas" class="canvas" width="256" height="256"></canvas>
-  <div id="instructions" class="instructions">
-    <p>
-      Escribí las instrucciones para que el jugador llegue a la salida sin pasar por el Zombie o la Esfinge.
-    </p>
-    <ul>
-      <li>Tenés que hacerlo línea por línea.</li>
-      <li>Las instrucciones válidas son:</li>
-      <ul>
-        <li>avanzar</li>
-        <li>girar hacia la derecha</li>
-        <li>girar hacia la izquierda</li>
-        <li>disparar</li>
-      </ul>
-      <li>Sólo podés matar al Zombie.</li>
-      <li>Cada instrucción se ejecuta una vez.</li>
-      <li>Por ejemplo. Para avanzar dos espacios hay que escribir dos líneas con la palabra 'avanzar'.</li>
-    </ul>
-  </div>
 </div>
 <div id="message" class="message"></div>
 <h3>Tu programa:</h3>
-<textarea id="code" class="source-code" cols="80" rows="12">
-avanzar
-girar hacia la derecha
-avanzar
-avanzar
-girar hacia la izquierda
-avanzar
-avanzar
-avanzar
-avanzar
-avanzar
-girar hacia la derecha
-avanzar
-avanzar
-avanzar
-avanzar
-disparar
-avanzar
-avanzar
-avanzar
-girar hacia la izquierda
-avanzar
-avanzar
-avanzar
-avanzar
-</textarea>
 <div>
   <button id="run" class="sidila-button">Ejecutar</button>
   <button id="reset" class="sidila-button">Reiniciar</button>
+  <button id="load" class="sidila-button">Cargar programa</button>
+  <button id="save" class="sidila-button">Guardar programa</button>
 </div>
+<textarea id="code" class="source-code" cols="80" rows="12">
+</textarea>
 <script type="text/javascript" src="/sidila/peg.js"></script>
 <script type="text/javascript" src="/sidila/sidila.js"></script>
-<!--
-avanzar
-girar hacia la derecha
-avanzar
-avanzar
-girar hacia la izquierda
-avanzar
-avanzar
-avanzar
-avanzar
-avanzar
-girar hacia la derecha
-avanzar
-avanzar
-avanzar
-avanzar
-disparar
-avanzar
-avanzar
-avanzar
-girar hacia la izquierda
-avanzar
-avanzar
-avanzar
-avanzar
--->
 {{< /rawhtml >}}
+
+Escribí las instrucciones para que el jugador llegue a la salida sin pasar por el Zombie o la Esfinge.
+- Tenés que hacerlo línea por línea.
+- Las instrucciones válidas son:
+  - avanzar
+  - girar hacia la derecha
+  - girar hacia la izquierda
+  - disparar
+- Sólo podés matar al Zombie.
+-Cada instrucción se ejecuta una vez.
+-Por ejemplo. Para avanzar dos espacios hay que escribir dos líneas con la palabra 'avanzar'.
+
+> Game art by [Buch](https://opengameart.org/users/buch)

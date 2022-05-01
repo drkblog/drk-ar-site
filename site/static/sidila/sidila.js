@@ -4,6 +4,8 @@ const canvas = document.querySelector("#canvas");
 const message = document.querySelector("#message");
 const runButton = document.querySelector("#run");
 const resetButton = document.querySelector("#reset");
+const loadButton = document.querySelector("#load");
+const saveButton = document.querySelector("#save");
 
 // Game setup
 const board = new sidila.GameBoard();
@@ -30,6 +32,13 @@ resetButton.addEventListener("click", async (event) => {
   reset();
   runButton.disabled = false;
 });
+loadButton.addEventListener("click", async (event) => {
+  code.value = localStorage.getItem('sidila.program');
+});
+saveButton.addEventListener("click", async (event) => {
+  localStorage.setItem('sidila.program', code.value);
+});
+
 
 // Game
 function run(code) {

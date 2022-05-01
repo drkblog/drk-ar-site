@@ -102,8 +102,12 @@ export class Board {
     return this.scene.map[y][x];
   }
 
+  getLogicLabelForSprite(sprite) {
+    return this.scene.logic[sprite];
+  }
+
   getLogic(x, y) {
-    const text = this.scene.logic[this.getSprite(x, y)];
+    const text = this.getLogicLabelForSprite(this.getSprite(x, y));
     if (text === undefined) {
       return LogicBlock.Wall;
     }

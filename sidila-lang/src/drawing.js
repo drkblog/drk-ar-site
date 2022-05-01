@@ -71,22 +71,30 @@ export class CanvasPainter extends GridPainter {
     for(let y=0; y < this.slotsInY; y++) {
       for(let x=0; x < this.slotsInX; x++) {
         const spriteNumber = board.getSprite(x, y);
-        const sourceX = this.getSourceX(spriteNumber);
-        const sourceY = this.getSourceY(spriteNumber);
-        context.drawImage(
-          this.sprites, 
-          sourceX, 
-          sourceY,
-          this.slotWidth,
-          this.slotHeight,
-          x * this.slotWidth,
-          y * this.slotHeight,
-          this.slotWidth,
-          this.slotHeight
-        );
+        this.drawSprite(context, spriteNumber, x, y);
+        const overlaySpriteNumber = board.getOverlaySprite(x, y);
+        if (overlaySpriteNumber != null) {
+          this.drawSprite(context, overlaySpriteNumber, x, y);
+        }
       }
     }
     this.paintHover(context);
+  }
+
+  drawSprite(context, spriteNumber, x, y) {
+    const sourceX = this.getSourceX(spriteNumber);
+    const sourceY = this.getSourceY(spriteNumber);
+    context.drawImage(
+      this.sprites, 
+      sourceX, 
+      sourceY,
+      this.slotWidth,
+      this.slotHeight,
+      x * this.slotWidth,
+      y * this.slotHeight,
+      this.slotWidth,
+      this.slotHeight
+    );    
   }
 
   getSourceX(spriteNumber) {
