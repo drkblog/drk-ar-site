@@ -14,9 +14,7 @@ let interpreter;
 
 // Game status
 let tree;
-let instructions = 0;
 let gameTicks = 0;
-
 
 // UI Actions
 runButton.addEventListener("click", async (event) => {
@@ -44,9 +42,7 @@ saveButton.addEventListener("click", async (event) => {
 // Game
 function run(code) {
   tree = sidila.parse(code);
-  instructions = tree.elements.length;
-  gameTicks = 0;
-  interpreter = new sidila.StepInterpreter(board);
+  interpreter = new sidila.StepInterpreter(board, tree);
   interpreter.subscribeToStep((event) => {
     sourceCode.setSelectionRange(event.location.start, event.location.end);
   });
@@ -54,17 +50,17 @@ function run(code) {
 
 function reset() {
   tree = undefined;
-  instructions = 0;
+  gameTicks = 0;
   board.reset();
 }
 
 function tick() {
   canvasPainter.paint(board);
   const finished = board.isCrashed() || board.isDone();
-  if (gameTicks < instructions && !finished) {
-    message.innerHTML = `Ejecutando paso #${gameTicks}`;
-    interpreter.visitBody(tree, gameTicks);
+  if (interpreter != null && !interpreter.isFinished() && !finished) {
     gameTicks++;
+    message.innerHTML = `Ejecutando paso #${gameTicks}`;
+    interpreter.tick();
   } else {
     if (board.isCrashed()) {
       message.innerHTML = `Perdiste`;
@@ -75,6 +71,5 @@ function tick() {
     }
   }
 }
-
 
 setInterval(tick, 500);

@@ -1,35 +1,46 @@
 import { Publisher } from './publisher';
+import { Action, Loop } from './instruction';
 
 export class StepInterpreter {
-  constructor(board) {
+  constructor(board, tree) {
     this.publisher = new Publisher();
     this.board = board;
+    this.tree = tree;
+    this.stack = [];
+    this.stackBody(this.tree.elements);
   }
 
-  visitBody(tree, gameTicks) {
-    const statement = tree.elements[gameTicks];
-    this.visitStatement(statement);
+  stackBody(nodes) {
+    for(let i=nodes.length - 1; i >= 0; i--) {
+      this.stackNode(nodes[i]);
+    }
+  }
+  stackNode(node) {
+    this.stack.push(node);
   }
 
-  visitStatement(statement) {
-    const node = statement.elements[0];
-    const event = this.createStepEvent(node);
+  tick() {
+    const node = this.stack.pop();
+    if (node !== undefined) {
+      this.visitNode(node);
+    }
+  }
+
+  isFinished() {
+    return this.stack.length === 0;
+  }
+
+  visitNode(node) {
+    const instruction = node.elements[0];
+    const event = this.createStepEvent(instruction);
     this.publisher.publish(event);
-    const action = node.action;
-    switch(action) {
-      case 'move':
-        this.board.movePlayer();
-        break;
-      case 'shoot':
-        this.board.playerShoot();
-        break;
-      case 'turn':
-        if (node.direction === 'derecha') {
-          this.board.rotatePlayerRight();
-        } else  {
-          this.board.rotatePlayerLeft();
-        }
-        break;
+    if (instruction instanceof Action) {
+      instruction.execute(board);
+    } else if (instruction instanceof Loop) {
+      if (instruction.evaluate(board)) {
+        this.stackNode(node);
+        this.stackBody(instruction.body);
+      }
     }
   }
 
