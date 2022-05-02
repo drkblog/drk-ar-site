@@ -20,7 +20,7 @@ loadButton.addEventListener("click", async (event) => {
   board.load(sourceCode.value.toString());
   canvasPainter = new sidila.CanvasPainter(editorCanvas, board.scene);
   palettePainter = new sidila.PalettePainter(paletteCanvas, board.scene);
-  tick(); // Start animation
+  paint(); // Start animation
 });
 saveButton.addEventListener("click", async (event) => {
   sourceCode.value = board.save();
@@ -55,9 +55,9 @@ editorCanvas.addEventListener("click", async (event) => {
 });
 
 // Paint
-function tick() {
+function paint() {
   canvasPainter.paint(board);
   palettePainter.paint();
-  window.requestAnimationFrame(tick);
+  window.requestAnimationFrame(paint);
 }
 

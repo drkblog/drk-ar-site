@@ -21,9 +21,6 @@ class Actions {
   makeLoop(input, start, end, elements) {console.log(elements);
     return new Loop(start, end, elements[1].text, elements[2].elements);
   }
-  makeBody(input, start, end, elements) {
-    return elements;
-  }
 }
 
 export function parse(code) {

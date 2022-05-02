@@ -46,6 +46,7 @@ function run(code) {
   interpreter.subscribeToStep((event) => {
     sourceCode.setSelectionRange(event.location.start, event.location.end);
   });
+  sourceCode.focus();
 }
 
 function reset() {
@@ -55,7 +56,6 @@ function reset() {
 }
 
 function tick() {
-  canvasPainter.paint(board);
   const finished = board.isCrashed() || board.isDone();
   if (interpreter != null && !interpreter.isFinished() && !finished) {
     gameTicks++;
@@ -72,4 +72,10 @@ function tick() {
   }
 }
 
-setInterval(tick, 500);
+function paint() {
+  canvasPainter.paint(board);
+  window.requestAnimationFrame(paint);
+}
+
+paint(); // Start painting
+setInterval(tick, 200); // Start game heartbeat
