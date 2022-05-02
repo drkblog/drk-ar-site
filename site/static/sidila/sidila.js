@@ -10,6 +10,7 @@ const saveButton = document.querySelector("#save");
 // Game setup
 const board = new sidila.GameBoard();
 const canvasPainter = new sidila.CanvasPainter(canvas, board.scene);
+let interpreter;
 
 // Game status
 let tree;
@@ -45,6 +46,10 @@ function run(code) {
   tree = sidila.parse(code);
   instructions = tree.elements.length;
   gameTicks = 0;
+  interpreter = new sidila.StepInterpreter(board);
+  interpreter.subscribeToStep((event) => {
+    sourceCode.setSelectionRange(event.location.start, event.location.end);
+  });
 }
 
 function reset() {
@@ -58,7 +63,7 @@ function tick() {
   const finished = board.isCrashed() || board.isDone();
   if (gameTicks < instructions && !finished) {
     message.innerHTML = `Ejecutando paso #${gameTicks}`;
-    sidila.StepInterpreter.processStatement(tree, gameTicks, board);
+    interpreter.visitBody(tree, gameTicks);
     gameTicks++;
   } else {
     if (board.isCrashed()) {
