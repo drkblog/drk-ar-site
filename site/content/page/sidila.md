@@ -3,6 +3,7 @@ title: SiDiLa
 description: Simple Didactic Language
 slug: "sidila"
 comments: false
+type: page
 ---
 
 # Simple Didactic Language v0.1.3
