@@ -59,8 +59,22 @@ export class Loop extends Instruction {
     this.body = body;
   }
 
-  // TODO: remove hardcoded condition
   evaluate(board) {
-    return board.getLogicInFrontOfPlayer() !== LogicBlock.Wall;
+    return this.condition.evaluate(board);
+  }
+}
+
+export class Condition extends Instruction {
+  constructor(start, end, label) {
+    super(start, end);
+    if (label === 'pared') {
+      this.condition = (sprite) => sprite !== LogicBlock.Wall;
+    } else {
+      this.condition = (sprite) => sprite === LogicBlock.Space;
+    }
+  }
+
+  evaluate(board) {
+    return this.condition(board.getLogicInFrontOfPlayer());
   }
 }

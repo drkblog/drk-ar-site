@@ -1,7 +1,8 @@
 grammar SiDiLa
   body <- ((turn / move / shoot / loop) @nl)*
   loop <- 'mientras' @ws condition @ws @'(' @nl body @nl @')' %makeLoop
-  condition <- ("no hay pared adelante")
+  condition <- 'no hay' @ws sprite @ws 'adelante' %makeCondition
+  sprite <- ('pared' / 'algo')
   move <- 'avanzar' %makeMove
   shoot <- 'disparar' %makeShoot
   turn <- 'girar' @ws @'hacia la' @ws direction %makeTurn
