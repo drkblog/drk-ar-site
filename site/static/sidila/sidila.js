@@ -10,12 +10,11 @@ const saveButton = document.querySelector("#save");
 // Game setup
 const board = new sidila.GameBoard();
 const canvasPainter = new sidila.CanvasPainter(canvas, board.scene);
+let interpreter;
 
 // Game status
 let tree;
-let instructions = 0;
 let gameTicks = 0;
-
 
 // UI Actions
 runButton.addEventListener("click", async (event) => {
@@ -43,23 +42,25 @@ saveButton.addEventListener("click", async (event) => {
 // Game
 function run(code) {
   tree = sidila.parse(code);
-  instructions = tree.elements.length;
-  gameTicks = 0;
+  interpreter = new sidila.StepInterpreter(board, tree);
+  interpreter.subscribeToStep((event) => {
+    sourceCode.setSelectionRange(event.location.start, event.location.end);
+  });
+  sourceCode.focus();
 }
 
 function reset() {
   tree = undefined;
-  instructions = 0;
+  gameTicks = 0;
   board.reset();
 }
 
 function tick() {
-  canvasPainter.paint(board);
   const finished = board.isCrashed() || board.isDone();
-  if (gameTicks < instructions && !finished) {
-    message.innerHTML = `Ejecutando paso #${gameTicks}`;
-    sidila.StepInterpreter.processStatement(tree, gameTicks, board);
+  if (interpreter != null && !interpreter.isFinished() && !finished) {
     gameTicks++;
+    message.innerHTML = `Ejecutando paso #${gameTicks}`;
+    interpreter.tick();
   } else {
     if (board.isCrashed()) {
       message.innerHTML = `Perdiste`;
@@ -71,5 +72,10 @@ function tick() {
   }
 }
 
+function paint() {
+  canvasPainter.paint(board);
+  window.requestAnimationFrame(paint);
+}
 
-setInterval(tick, 500);
+paint(); // Start painting
+setInterval(tick, 200); // Start game heartbeat

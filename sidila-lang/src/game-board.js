@@ -50,6 +50,10 @@ export class GameBoard extends Board {
       this.scene.map[shootAt.x][shootAt.y] = this.scene.space;
     }
   }
+  getLogicInFrontOfPlayer() {
+    const inFrontPosition = this.player.wouldMove();
+    return this.getLogic(inFrontPosition.x, inFrontPosition.y);
+  }
 
   getSprite(x, y) {
     return super.getSprite(x, y);
