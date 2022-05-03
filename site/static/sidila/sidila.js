@@ -11,6 +11,8 @@ const saveButton=document.querySelector("#save");
 const loadFilename=document.querySelector("#loadFilename");
 const saveFilename=document.querySelector("#saveFilename");
 const saveOverwrite=document.querySelector("#saveOverwrite");
+const errorMessage=document.querySelector("#errorMessage");
+
 
 // Game setup
 let tickPeriod = 200;
@@ -26,10 +28,12 @@ let gameTicks = 0;
 // UI Actions
 runButton.addEventListener("click", async (event) => {
   runButton.disabled = true;
+  errorMessage.style.display = 'none';
   try {
     run(sourceCode.value.toString());
   } catch (e) {
-    alert(e);
+    errorMessage.innerHTML = e.message;
+    errorMessage.style.display = 'block';
     runButton.disabled = false;
   }
 });

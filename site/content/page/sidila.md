@@ -24,6 +24,8 @@ type: page
   </select>
   <button id="reset" class="sidila-button">Reiniciar</button> 
 </div>
+<textarea id="errorMessage" class="errorMessage" cols="80" rows="10">
+</textarea>
 <textarea id="sourceCode" class="sourceCode" cols="80" rows="12">
 </textarea>
 <div>

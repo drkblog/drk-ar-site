@@ -37,3 +37,14 @@
   display: inline-block !important;
   width: 70%;
 }
+
+.errorMessage {
+  display: none;
+  color: red;
+  resize: none;
+  width: 100%;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: .8em;
+  line-height: 1em;
+}
