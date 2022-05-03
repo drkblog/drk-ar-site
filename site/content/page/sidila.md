@@ -6,7 +6,7 @@ comments: false
 type: page
 ---
 
-# Simple Didactic Language v0.1.3
+# Simple Didactic Language v0.2.0
 
 {{< rawhtml >}}
 <div id="container">
@@ -48,8 +48,26 @@ Escribí las instrucciones para que el jugador llegue a la salida sin chocar con
   - girar hacia la derecha
   - girar hacia la izquierda
   - disparar
+- Adicionalmente se puede repetir un conjunto de instrucciones:
+  - mientras no hay pared adelante (
+  - _...instrucciones..._
+  - )
+  - mientras no hay algo adelante (
+  - _...instrucciones..._
+  - )
 - Cuando ejecutes el programa se resaltará la instrucción que está siendo procesada en cada paso.
 - La velocidad de ejecución actual es de un paso cada {{< rawhtml >}}<span id="periodText"></span>{{< /rawhtml >}}milisegundos.
+
+#### Ejemplo
+
+```
+mientras no hay pared adelante (
+  avanzar
+)
+girar hacia la derecha
+avanzar
+avanzar
+```
 
 ### Qué es SiDiLa
 
@@ -57,7 +75,27 @@ Una herramienta para aprender conceptos básicos de programación.
 A través de un lenguaje de programación en español diseñado especialmente para que el usuario pueda adquirir los conceptos fundamentales más fácilmente.
 Pensada para personas que quieren iniciarse en la programación sin tener conocimientos previos.
 
+> SiDiLa  Copyright (C) 2022  Leandro Hernan Fernandez
+
 > Game art by [Buch](https://opengameart.org/users/buch)
+
+```
+SiDiLa - Simple Didactic Language
+Copyright (C) 2022  Leandro Hernan Fernandez
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+```
 
 {{< rawhtml >}}
 <script type="text/javascript" src="/sidila/peg.js"></script>

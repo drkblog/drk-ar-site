@@ -2,6 +2,7 @@
 const sourceCode=document.querySelector("#sourceCode");
 const canvas=document.querySelector("#canvas");
 const message=document.querySelector("#message");
+const periodSelector=document.querySelector("#periodSelector");
 const periodText=document.querySelector("#periodText");
 const runButton=document.querySelector("#run");
 const resetButton=document.querySelector("#reset");
@@ -16,6 +17,7 @@ let tickPeriod = 200;
 const board = new sidila.GameBoard();
 const canvasPainter = new sidila.CanvasPainter(canvas, board.scene);
 let interpreter;
+let heartbeat;
 
 // Game status
 let tree;
@@ -47,12 +49,19 @@ saveButton.addEventListener("click", async (event) => {
     alert(e);
   }
 });
+periodSelector.addEventListener("change", async (event) => {
+  tickPeriod = periodSelector.options[periodSelector.selectedIndex].value;
+  refreshUi();
+});
+
 function reloadProgramList() {
   sidila.Storage.loadFiles(loadFilename);
 }
 function refreshUi() {
   reloadProgramList();
   periodText.innerHTML = tickPeriod;
+  clearInterval(heartbeat);
+  heartbeat = setInterval(tick, tickPeriod); // Start game heartbeat
 }
 
 // Game
@@ -67,6 +76,7 @@ function run(code) {
 
 function reset() {
   tree = undefined;
+  interpreter = null;
   gameTicks = 0;
   board.reset();
 }
@@ -95,4 +105,3 @@ function paint() {
 
 refreshUi();
 paint(); // Start painting
-setInterval(tick, tickPeriod); // Start game heartbeat
