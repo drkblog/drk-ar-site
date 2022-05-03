@@ -1,13 +1,18 @@
 // UI Setup
-const sourceCode = document.querySelector("#sourceCode");
-const canvas = document.querySelector("#canvas");
-const message = document.querySelector("#message");
-const runButton = document.querySelector("#run");
-const resetButton = document.querySelector("#reset");
-const loadButton = document.querySelector("#load");
-const saveButton = document.querySelector("#save");
+const sourceCode=document.querySelector("#sourceCode");
+const canvas=document.querySelector("#canvas");
+const message=document.querySelector("#message");
+const periodText=document.querySelector("#periodText");
+const runButton=document.querySelector("#run");
+const resetButton=document.querySelector("#reset");
+const loadButton=document.querySelector("#load");
+const saveButton=document.querySelector("#save");
+const loadFilename=document.querySelector("#loadFilename");
+const saveFilename=document.querySelector("#saveFilename");
+const saveOverwrite=document.querySelector("#saveOverwrite");
 
 // Game setup
+let tickPeriod = 200;
 const board = new sidila.GameBoard();
 const canvasPainter = new sidila.CanvasPainter(canvas, board.scene);
 let interpreter;
@@ -23,7 +28,6 @@ runButton.addEventListener("click", async (event) => {
     run(sourceCode.value.toString());
   } catch (e) {
     alert(e);
-    console.log(e);
     runButton.disabled = false;
   }
 });
@@ -32,12 +36,24 @@ resetButton.addEventListener("click", async (event) => {
   runButton.disabled = false;
 });
 loadButton.addEventListener("click", async (event) => {
-  sourceCode.value = localStorage.getItem('sidila.program');
+  sidila.Storage.loadProgram(loadFilename, sourceCode);
 });
 saveButton.addEventListener("click", async (event) => {
-  localStorage.setItem('sidila.program', sourceCode.value);
+  try {
+    sidila.Storage.saveProgram(saveFilename, sourceCode, saveOverwrite);
+    reloadProgramList();
+    saveOverwrite.checked = false;
+  } catch (e) {
+    alert(e);
+  }
 });
-
+function reloadProgramList() {
+  sidila.Storage.loadFiles(loadFilename);
+}
+function refreshUi() {
+  reloadProgramList();
+  periodText.innerHTML = tickPeriod;
+}
 
 // Game
 function run(code) {
@@ -77,5 +93,6 @@ function paint() {
   window.requestAnimationFrame(paint);
 }
 
+refreshUi();
 paint(); // Start painting
-setInterval(tick, 200); // Start game heartbeat
+setInterval(tick, tickPeriod); // Start game heartbeat
