@@ -44,6 +44,7 @@ export class Player {
     this.y = y;
     this.direction = direction;
     this.crashed = false;
+    this.done = false;
   }
 
   setupSprites(theme) {
@@ -51,6 +52,10 @@ export class Player {
     CardinalDirection.East.sprite = theme.sprite['east'];
     CardinalDirection.South.sprite = theme.sprite['south'];
     CardinalDirection.West.sprite = theme.sprite['west'];
+    CardinalDirection.North.arrowSprite = theme.sprite['nextNorth'];
+    CardinalDirection.East.arrowSprite = theme.sprite['nextEast'];
+    CardinalDirection.South.arrowSprite = theme.sprite['nextSouth'];
+    CardinalDirection.West.arrowSprite = theme.sprite['nextWest'];
     this.deadSprite = theme.sprite['dead'];
   }
 
@@ -59,6 +64,13 @@ export class Player {
       return this.deadSprite;
     }
     return this.direction.sprite;
+  }
+  
+  getNextMoveSprite() {
+    if (this.crashed || this.done) {
+      return null;
+    }
+    return this.direction.arrowSprite;
   }
 
   move() {
@@ -74,9 +86,17 @@ export class Player {
   crash() {
     this.crashed = true;
   }
+  finish() {
+    this.done = true;
+  }
 
   wouldMove() {
     return this.direction.advance(this);
+  }
+
+  wouldMoveTo(x, y) {
+    const newPosition = this.wouldMove();
+    return newPosition.x === x && newPosition.y === y;
   }
 
   isAt(x, y) {

@@ -42,7 +42,11 @@ type: page
       "east": 189,
       "south": 189,
       "west": 189,
-      "dead": 165
+      "dead": 165,
+      "nextNorth": 212,
+      "nextEast": 213,
+      "nextSouth": 237,
+      "nextWest": 236
     }
   },
   "logic": {
@@ -52,8 +56,7 @@ type: page
     "172": "Exit",
     "173": "Exit",
     "174": "Exit",
-    "175": "Exit",
-    "211": "Space"
+    "175": "Exit"
   },
   "space": 54,
   "map": [
@@ -124,7 +127,7 @@ type: page
       210,
       54,
       54,
-      211,
+      54,
       54,
       54,
       75

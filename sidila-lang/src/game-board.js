@@ -27,13 +27,16 @@ export class GameBoard extends Board {
   }
 
   isDone() {
-    return this.getLogic(this.player.x, this.player.y) === LogicBlock.Exit;
+    return this.player.done;
   }
 
   movePlayer() {
     const newPosition = this.player.wouldMove();
     if (this.canMoveInto(newPosition.x, newPosition.y)) {
       this.player.move();
+      if (this.getLogic(this.player.x, this.player.y) === LogicBlock.Exit) {
+        this.player.finish();
+      }
     } else {
       this.player.crash();
     }
@@ -62,6 +65,9 @@ export class GameBoard extends Board {
   getOverlaySprite(x, y) {
     if (this.player.isAt(x, y)) {
       return this.player.getSprite();
+    }
+    if (this.player.wouldMoveTo(x, y)) {
+      return this.player.getNextMoveSprite();
     }
     return null;
   }
