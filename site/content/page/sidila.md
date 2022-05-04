@@ -46,7 +46,7 @@ type: page
 
 ### Cómo usar SiDiLa
 
-Escribí las instrucciones para que el jugador llegue a la salida sin chocar contra las paredes ni otros obstáculos.
+Escribí las instrucciones para que el jugador llegue a la salida siguiendo [las reglas](#reglas).
 - Las instrucciones válidas son:
   - avanzar
   - girar hacia la derecha
@@ -61,6 +61,15 @@ Escribí las instrucciones para que el jugador llegue a la salida sin chocar con
   - )
 - Cuando ejecutes el programa se resaltará la instrucción que está siendo procesada en cada paso.
 - La velocidad de ejecución actual es de un paso cada {{< rawhtml >}}<span id="periodText"></span>{{< /rawhtml >}}milisegundos.
+
+#### Reglas
+
+- El jugador muere si avanza sobre un casillero que no tiene un espacio en blanco {{< rawhtml >}}<img src="/sidila/img/space.png" class="inline">{{< /rawhtml >}}
+- También muere si pasa cualquier casillero que esté al norte, este, sur u oeste de la Esfinge {{< rawhtml >}}<img src="/sidila/img/sphinx.png" class="inline">{{< /rawhtml >}}
+- La instrucción disparar permite matar al Zombie {{< rawhtml >}}<img src="/sidila/img/zombie.png" class="inline">{{< /rawhtml >}} si el jugador se encuentra justo al lado y apuntando hacia él.
+- Para terminar el jugador tiene que avanzar hacia la salida {{< rawhtml >}}<img src="/sidila/img/exit.png" class="inline">{{< /rawhtml >}}
+- Mientras menos líneas de código tenga el programa y menos movimientos haga el jugador para salir, mayor será la cantidad de puntos.
+- Matar al Zombie otorga puntos extra.
 
 #### Ejemplo
 
