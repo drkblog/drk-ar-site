@@ -1,4 +1,4 @@
-import { LogicBlock, CardinalDirection, Player, Board } from './board';
+import { LogicBlock, CardinalDirection, Player, Zombie, Board } from './board';
 
 export class GameBoard extends Board {
   constructor() {
@@ -14,7 +14,13 @@ export class GameBoard extends Board {
       this.scene.player.y,
       CardinalDirection[this.scene.player.direction]
     );
+    this.zombie = new Zombie(
+      this.scene.zombie.x,
+      this.scene.zombie.y
+    );
     this.player.setupSprites(this.scene.theme);
+    this.zombie.setupSprites(this.scene.theme);
+    this.moves = 0;
   }
 
   canMoveInto(x, y) {
@@ -34,12 +40,16 @@ export class GameBoard extends Board {
     const newPosition = this.player.wouldMove();
     if (this.canMoveInto(newPosition.x, newPosition.y)) {
       this.player.move();
+      if (this.getLogicAround(this.player.x, this.player.y).includes(LogicBlock.Sphinx)) {
+        this.player.crash();
+      }
       if (this.getLogic(this.player.x, this.player.y) === LogicBlock.Exit) {
         this.player.finish();
       }
     } else {
       this.player.crash();
     }
+    this.moves++;
   }
   rotatePlayerLeft() {
     this.player.rotateLeft();
@@ -50,8 +60,23 @@ export class GameBoard extends Board {
   playerShoot() {
     const shootAt = this.player.getShootTarget();
     if (this.getLogic(shootAt.x, shootAt.y) === LogicBlock.Zombie) {
-      this.scene.map[shootAt.x][shootAt.y] = this.scene.space;
+      this.zombie = null;
     }
+  }
+  getLogic(x, y) {
+    if (this.zombie?.isAt(x, y)) {
+      return LogicBlock.Zombie;
+    }
+    return super.getLogic(x, y);
+  }
+  getLogicAround(x, y) {
+    // TODO: handle edge cases
+    return [
+      this.getLogic(x, y-1),
+      this.getLogic(x, y+1),
+      this.getLogic(x-1, y),
+      this.getLogic(x+1, y),
+    ];
   }
   getLogicInFrontOfPlayer() {
     const inFrontPosition = this.player.wouldMove();
@@ -66,9 +91,16 @@ export class GameBoard extends Board {
     if (this.player.isAt(x, y)) {
       return this.player.getSprite();
     }
+    if (this.zombie?.isAt(x, y)) {
+      return this.zombie.getSprite();
+    }
     if (this.player.wouldMoveTo(x, y)) {
       return this.player.getNextMoveSprite();
     }
     return null;
+  }
+
+  getMoves() {
+    return this.moves;
   }
 }

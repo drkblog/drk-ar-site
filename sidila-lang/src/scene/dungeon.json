@@ -6,6 +6,10 @@
     "y": 2,
     "direction": "South"
   },
+  "zombie": {
+    "x": 6,
+    "y": 7
+  },
   "theme": {
     "image": "dungeon.png",
     "imageWidth": 384,
@@ -22,17 +26,17 @@
       "nextNorth": 212,
       "nextEast": 213,
       "nextSouth": 237,
-      "nextWest": 236
+      "nextWest": 236,
+      "zombie": 188
     }
   },
   "logic": {
-    "1": "Sphinx",
-    "2": "Zombie",
     "54": "Space",
     "172": "Exit",
     "173": "Exit",
     "174": "Exit",
-    "175": "Exit"
+    "175": "Exit",
+    "190": "Sphinx"
   },
   "space": 54,
   "map": [
@@ -275,7 +279,7 @@
       54,
       54,
       54,
-      54,
+      190,
       54,
       54,
       158,

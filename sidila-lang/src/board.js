@@ -38,6 +38,27 @@ export class CardinalDirection {
   }
 }
 
+// TODO: Maybe extract position class
+export class Zombie {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.sprite = null;
+  }
+
+  setupSprites(theme) {
+    this.sprite = theme.sprite['zombie'];
+  }
+
+  getSprite() {
+    return this.sprite;
+  }
+
+  isAt(x, y) {
+    return this.x == x && this.y == y;
+  }
+}
+
 export class Player {
   constructor(x, y, direction) {
     this.x = x;

@@ -4,8 +4,18 @@ import { CanvasPainter, PalettePainter } from './drawing';
 import { StepInterpreter } from './interpreter';
 import { Move, Shoot, Turn, Loop, Condition } from './instruction';
 import { Storage } from './storage';
+import { Score } from './score';
 
-export { EditorBoard, GameBoard, CanvasPainter, PalettePainter, StepInterpreter, Storage, maps };
+export { 
+  EditorBoard,
+  GameBoard,
+  CanvasPainter,
+  PalettePainter,
+  StepInterpreter,
+  Storage,
+  Score,
+  maps
+};
 
 const maps = require('../build/peg');
 

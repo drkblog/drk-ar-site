@@ -114,7 +114,10 @@ function tick() {
     if (board.isCrashed()) {
       message.innerHTML = `Perdiste`;
     } else if (board.isDone()) {
-      message.innerHTML = `Ganaste`;
+      const lines = sourceCode.value.toString().split(",").length;
+      const moves = board.getMoves();
+      const score = new sidila.Score().getScore(lines, moves, board.zombie === null);
+      message.innerHTML = `Ganaste con ${score} puntos`;
     } else {
       message.innerHTML = `No llegaste a la salida`;
     }
