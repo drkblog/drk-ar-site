@@ -2,7 +2,7 @@ import { GameBoard } from './game-board';
 import { EditorBoard } from './editor-board';
 import { CanvasPainter, PalettePainter } from './drawing';
 import { StepInterpreter } from './interpreter';
-import { Move, Shoot, Turn, Loop, Condition } from './instruction';
+import { Move, Back, Shoot, Turn, Loop, Condition } from './instruction';
 import { Storage } from './storage';
 import { Score } from './score';
 
@@ -22,6 +22,9 @@ const maps = require('../build/peg');
 class Actions {
   makeMove(input, start, end, elements) {
     return new Move(start, end);
+  }
+  makeBack(input, start, end, elements) {
+    return new Back(start, end);
   }
   makeShoot(input, start, end, elements) {
     return new Shoot(start, end);

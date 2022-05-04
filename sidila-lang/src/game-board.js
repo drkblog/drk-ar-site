@@ -1,4 +1,4 @@
-import { LogicBlock, CardinalDirection, Player, Zombie, Board } from './board';
+import { LogicBlock, CardinalDirection, Player, Zombie, Board, MoveDirection } from './board';
 
 export class GameBoard extends Board {
   constructor() {
@@ -36,10 +36,10 @@ export class GameBoard extends Board {
     return this.player.done;
   }
 
-  movePlayer() {
-    const newPosition = this.player.wouldMove();
+  movePlayer(moveDirection) {
+    const newPosition = this.player.wouldMove(moveDirection);
     if (this.canMoveInto(newPosition.x, newPosition.y)) {
-      this.player.move();
+      this.player.move(moveDirection);
       if (this.getLogicAround(this.player.x, this.player.y).includes(LogicBlock.Sphinx)) {
         this.player.crash();
       }
@@ -79,7 +79,7 @@ export class GameBoard extends Board {
     ];
   }
   getLogicInFrontOfPlayer() {
-    const inFrontPosition = this.player.wouldMove();
+    const inFrontPosition = this.player.wouldMove(MoveDirection.Forth);
     return this.getLogic(inFrontPosition.x, inFrontPosition.y);
   }
 
@@ -94,7 +94,7 @@ export class GameBoard extends Board {
     if (this.zombie?.isAt(x, y)) {
       return this.zombie.getSprite();
     }
-    if (this.player.wouldMoveTo(x, y)) {
+    if (this.player.wouldMoveTo(MoveDirection.Forth, x, y)) {
       return this.player.getNextMoveSprite();
     }
     return null;

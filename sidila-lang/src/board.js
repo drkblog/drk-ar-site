@@ -12,18 +12,39 @@ export class LogicBlock {
 }
 
 export class CardinalDirection {
-  static North = new CardinalDirection("▲", position => ({x: position.x, y: position.y - 1}));
-  static East = new CardinalDirection("▶", position => ({x: position.x + 1, y: position.y}));
-  static South = new CardinalDirection("▼", position => ({x: position.x, y: position.y + 1}));
-  static West = new CardinalDirection("◀", position => ({x: position.x - 1, y: position.y}));
+  static North = new CardinalDirection(
+    "▲", 
+    position => ({x: position.x, y: position.y - 1}),
+    position => ({x: position.x, y: position.y + 1})
+  );
+  static East = new CardinalDirection(
+    "▶", 
+    position => ({x: position.x + 1, y: position.y}),
+    position => ({x: position.x - 1, y: position.y})
+  );
+  static South = new CardinalDirection(
+    "▼", 
+    position => ({x: position.x, y: position.y + 1}),
+    position => ({x: position.x, y: position.y - 1})
+  );
+  static West = new CardinalDirection(
+    "◀", 
+    position => ({x: position.x - 1, y: position.y}),
+    position => ({x: position.x + 1, y: position.y})
+  );
 
-  constructor(symbol, action) {
+  constructor(symbol, advancePosition, retreatPosition) {
     this.symbol = symbol;
-    this.action = action;
+    this.advancePosition = advancePosition;
+    this.retreatPosition = retreatPosition;
   }
 
   advance(position) {
-    return this.action(position);
+    return this.advancePosition(position);
+  }
+
+  retreat(position) {
+    return this.retreatPosition(position);
   }
 
   static order = [this.North, this.East, this.South, this.West];
@@ -35,6 +56,15 @@ export class CardinalDirection {
   static toTheLeft(direction) {
     const index = this.order.indexOf(direction) - 1;
     return this.order[((index > -1) ? index : 3)];
+  }
+}
+
+export class MoveDirection {
+  static Forth = new MoveDirection((cardinalDirection, player) => cardinalDirection.advance(player));
+  static Back = new MoveDirection((cardinalDirection, player) => cardinalDirection.retreat(player));
+
+  constructor(apply) {
+    this.apply = apply;
   }
 }
 
@@ -94,8 +124,8 @@ export class Player {
     return this.direction.arrowSprite;
   }
 
-  move() {
-    const newPosition = this.direction.advance(this);
+  move(moveDirection) {
+    const newPosition = moveDirection.apply(this.direction, this);
     this.x = newPosition.x;
     this.y = newPosition.y;
   }
@@ -111,12 +141,12 @@ export class Player {
     this.done = true;
   }
 
-  wouldMove() {
-    return this.direction.advance(this);
+  wouldMove(moveDirection) {
+    return moveDirection.apply(this.direction, this);
   }
 
-  wouldMoveTo(x, y) {
-    const newPosition = this.wouldMove();
+  wouldMoveTo(moveDirection, x, y) {
+    const newPosition = this.wouldMove(moveDirection);
     return newPosition.x === x && newPosition.y === y;
   }
 

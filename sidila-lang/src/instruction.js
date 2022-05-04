@@ -1,4 +1,4 @@
-import { LogicBlock } from "./board";
+import { LogicBlock, MoveDirection } from "./board";
 
 export class Instruction {
   constructor(start, end) {
@@ -18,7 +18,17 @@ export class Move extends Action {
   }
 
   execute(board) {
-    board.movePlayer();
+    board.movePlayer(MoveDirection.Forth);
+  }
+}
+
+export class Back extends Action {
+  constructor(start, end) {
+    super(start, end);
+  }
+
+  execute(board) {
+    board.movePlayer(MoveDirection.Back);
   }
 }
 
@@ -32,9 +42,9 @@ export class Shoot extends Action {
   }
 }
 
-class Direction {
-  static Left = new Direction((board) => board.rotatePlayerLeft());
-  static Right = new Direction((board) => board.rotatePlayerRight());
+class TurnDirection {
+  static Left = new TurnDirection((board) => board.rotatePlayerLeft());
+  static Right = new TurnDirection((board) => board.rotatePlayerRight());
 
   constructor(action) {
     this.action = action;
@@ -44,7 +54,7 @@ class Direction {
 export class Turn extends Action {
   constructor(start, end, direction) {
     super(start, end);
-    this.direction = (direction === 'derecha') ? Direction.Right : Direction.Left;
+    this.direction = (direction === 'derecha') ? TurnDirection.Right : TurnDirection.Left;
   }
 
   execute(board) {

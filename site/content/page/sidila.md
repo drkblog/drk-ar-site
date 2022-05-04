@@ -49,6 +49,7 @@ type: page
 Escribí las instrucciones para que el jugador llegue a la salida siguiendo [las reglas](#reglas).
 - Las instrucciones válidas son:
   - avanzar
+  - retroceder
   - girar hacia la derecha
   - girar hacia la izquierda
   - disparar
