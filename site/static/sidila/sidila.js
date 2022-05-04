@@ -6,6 +6,7 @@ const periodSelector=document.querySelector("#periodSelector");
 const periodText=document.querySelector("#periodText");
 const runButton=document.querySelector("#run");
 const resetButton=document.querySelector("#reset");
+const stepButton=document.querySelector("#step");
 const loadButton=document.querySelector("#load");
 const saveButton=document.querySelector("#save");
 const loadFilename=document.querySelector("#loadFilename");
@@ -20,26 +21,34 @@ const board = new sidila.GameBoard();
 const canvasPainter = new sidila.CanvasPainter(canvas, board.scene);
 let interpreter;
 let heartbeat;
+let stepByStep = false;
 
 // Game status
 let tree;
 let gameTicks = 0;
+let started = false;
 
 // UI Actions
 runButton.addEventListener("click", async (event) => {
-  runButton.disabled = true;
+  started = true;
+  refreshUi();
   errorMessage.style.display = 'none';
   try {
     run(sourceCode.value.toString());
   } catch (e) {
+    started = false;
     errorMessage.innerHTML = e.message;
     errorMessage.style.display = 'block';
-    runButton.disabled = false;
+    refreshUi();
   }
+});
+stepButton.addEventListener("click", async (event) => {
+  tick();
 });
 resetButton.addEventListener("click", async (event) => {
   reset();
-  runButton.disabled = false;
+  started = false;
+  refreshUi();
 });
 loadButton.addEventListener("click", async (event) => {
   sidila.Storage.loadProgram(loadFilename, sourceCode);
@@ -55,7 +64,9 @@ saveButton.addEventListener("click", async (event) => {
 });
 periodSelector.addEventListener("change", async (event) => {
   tickPeriod = periodSelector.options[periodSelector.selectedIndex].value;
+  stepByStep = tickPeriod == 0;
   refreshUi();
+  resetHeartbeat();
 });
 
 function reloadProgramList() {
@@ -63,9 +74,17 @@ function reloadProgramList() {
 }
 function refreshUi() {
   reloadProgramList();
-  periodText.innerHTML = tickPeriod;
+  periodText.innerHTML = (stepByStep) ? '(paso a paso)' : tickPeriod;
+  stepButton.disabled = !stepByStep || !started;
+  runButton.disabled = started;
+}
+function resetHeartbeat() {
   clearInterval(heartbeat);
-  heartbeat = setInterval(tick, tickPeriod); // Start game heartbeat
+  if (!stepByStep) {
+    heartbeat = setInterval(tick, tickPeriod); // Start game heartbeat
+  } else {
+    heartbeat = null;
+  }
 }
 
 // Game

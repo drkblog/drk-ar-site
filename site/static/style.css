@@ -8,6 +8,9 @@
 .sidila-button {
   display: inline-block;
   font-weight: bold;
+  border-radius: 0;
+  height: 2em;
+  padding: 0 1.4ch;
 }
 .message {
   background-color: rgb(238, 238, 238);
