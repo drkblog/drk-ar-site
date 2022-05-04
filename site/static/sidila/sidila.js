@@ -127,4 +127,5 @@ function paint() {
 }
 
 refreshUi();
+resetHeartbeat();
 paint(); // Start painting
