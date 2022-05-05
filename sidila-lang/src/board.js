@@ -68,33 +68,44 @@ export class MoveDirection {
   }
 }
 
-// TODO: Maybe extract position class
-export class Zombie {
+class Movable {
   constructor(x, y) {
     this.x = x;
     this.y = y;
+    this.crashed = false;
+  }
+  
+  isAt(x, y) {
+    return this.x == x && this.y == y;
+  }
+  
+  crash() {
+    this.crashed = true;
+  }
+}
+
+// TODO: Maybe extract position class
+export class Zombie extends Movable {
+  constructor(x, y) {
+    super(x, y);
     this.sprite = null;
+    this.dead = null;
   }
 
   setupSprites(theme) {
     this.sprite = theme.sprite['zombie'];
+    this.dead = theme.sprite['deadZombie'];
   }
 
   getSprite() {
-    return this.sprite;
-  }
-
-  isAt(x, y) {
-    return this.x == x && this.y == y;
+    return (this.crashed) ? this.dead : this.sprite;
   }
 }
 
-export class Player {
+export class Player extends Movable {
   constructor(x, y, direction) {
-    this.x = x;
-    this.y = y;
+    super(x, y);
     this.direction = direction;
-    this.crashed = false;
     this.done = false;
   }
 
@@ -134,9 +145,6 @@ export class Player {
     return this.direction.advance(this);
   }
 
-  crash() {
-    this.crashed = true;
-  }
   finish() {
     this.done = true;
   }
@@ -148,10 +156,6 @@ export class Player {
   wouldMoveTo(moveDirection, x, y) {
     const newPosition = this.wouldMove(moveDirection);
     return newPosition.x === x && newPosition.y === y;
-  }
-
-  isAt(x, y) {
-    return this.x == x && this.y == y;
   }
 
   rotateLeft() {

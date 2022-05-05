@@ -74,7 +74,7 @@ export class GameBoard extends Board {
     this.playSound(this.sound.bang);
     const shootAt = this.player.getShootTarget();
     if (this.getLogic(shootAt.x, shootAt.y) === LogicBlock.Zombie) {
-      this.zombie = null;
+      this.zombie.crash();
     }
   }
   getLogic(x, y) {

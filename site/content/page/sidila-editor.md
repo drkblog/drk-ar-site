@@ -51,7 +51,8 @@ type: page
       "nextEast": 213,
       "nextSouth": 237,
       "nextWest": 236,
-      "zombie": 188
+      "zombie": 188,
+      "deadZombie": 164
     }
   },
   "logic": {
