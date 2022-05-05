@@ -12,6 +12,7 @@ const saveButton=document.querySelector("#save");
 const loadFilename=document.querySelector("#loadFilename");
 const saveFilename=document.querySelector("#saveFilename");
 const saveOverwrite=document.querySelector("#saveOverwrite");
+const sound=document.querySelector("#sound");
 const errorMessage=document.querySelector("#errorMessage");
 
 
@@ -67,6 +68,9 @@ periodSelector.addEventListener("change", async (event) => {
   stepByStep = tickPeriod == 0;
   refreshUi();
   resetHeartbeat();
+});
+sound.addEventListener("change", async (event) => {
+  board.setSound(sound.checked);
 });
 
 function reloadProgramList() {

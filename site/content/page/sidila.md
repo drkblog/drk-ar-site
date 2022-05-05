@@ -25,6 +25,8 @@ type: page
     <option value="50">Rápido</option>
   </select>
   <button id="step" class="sidila-button" disabled>Dar un paso</button> 
+  <input type="checkbox" id="sound" value="sound" checked>
+  <label for="sound">Sonidos</label>
 </div>
 <textarea id="errorMessage" class="errorMessage" cols="80" rows="10">
 </textarea>

@@ -1,8 +1,16 @@
 import { LogicBlock, CardinalDirection, Player, Zombie, Board, MoveDirection } from './board';
+import { Sound } from './sound';
 
 export class GameBoard extends Board {
   constructor() {
     super();
+    this.soundOn = true;
+    this.sound = {
+      step: new Sound('step.ogg'),
+      bang: new Sound('bang.ogg'),
+      win: new Sound('win.ogg'),
+      gameover: new Sound('gameover.ogg')
+    };
     this.reset();
   }
 
@@ -37,6 +45,7 @@ export class GameBoard extends Board {
   }
 
   movePlayer(moveDirection) {
+    this.playSound(this.sound.step);
     const newPosition = this.player.wouldMove(moveDirection);
     if (this.canMoveInto(newPosition.x, newPosition.y)) {
       this.player.move(moveDirection);
@@ -44,10 +53,14 @@ export class GameBoard extends Board {
         this.player.crash();
       }
       if (this.getLogic(this.player.x, this.player.y) === LogicBlock.Exit) {
+        this.playSound(this.sound.win);
         this.player.finish();
       }
     } else {
       this.player.crash();
+    }
+    if (this.player.crashed) {
+      this.playSound(this.sound.gameover);
     }
     this.moves++;
   }
@@ -58,6 +71,7 @@ export class GameBoard extends Board {
     this.player.rotateRight();
   }
   playerShoot() {
+    this.playSound(this.sound.bang);
     const shootAt = this.player.getShootTarget();
     if (this.getLogic(shootAt.x, shootAt.y) === LogicBlock.Zombie) {
       this.zombie = null;
@@ -102,5 +116,15 @@ export class GameBoard extends Board {
 
   getMoves() {
     return this.moves;
+  }
+
+  setSound(on) {
+    this.soundOn = on;
+  }
+
+  playSound(fx) {
+    if (this.soundOn) {
+      fx.play();
+    }
   }
 }
