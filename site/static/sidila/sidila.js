@@ -14,6 +14,7 @@ const saveFilename=document.querySelector("#saveFilename");
 const saveOverwrite=document.querySelector("#saveOverwrite");
 const sound=document.querySelector("#sound");
 const errorMessage=document.querySelector("#errorMessage");
+const mapSelector=document.querySelector("#mapSelector");
 
 
 // Game setup
@@ -72,6 +73,9 @@ periodSelector.addEventListener("change", async (event) => {
 sound.addEventListener("change", async (event) => {
   board.setSound(sound.checked);
 });
+mapSelector.addEventListener("change", async (event) => {
+  reset();
+});
 
 function reloadProgramList() {
   sidila.Storage.loadFiles(loadFilename);
@@ -105,7 +109,7 @@ function reset() {
   tree = undefined;
   interpreter = null;
   gameTicks = 0;
-  board.reset();
+  board.reset(mapSelector.value);
 }
 
 function tick() {
@@ -133,6 +137,7 @@ function paint() {
   window.requestAnimationFrame(paint);
 }
 
+reset();
 refreshUi();
 resetHeartbeat();
 paint(); // Start painting

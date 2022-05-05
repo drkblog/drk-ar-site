@@ -1,9 +1,11 @@
 import { LogicBlock, CardinalDirection, Player, Zombie, Board, MoveDirection } from './board';
 import { Sound } from './sound';
+import { SceneService } from './scene';
 
 export class GameBoard extends Board {
   constructor() {
     super();
+    this.sceneService = new SceneService();
     this.soundOn = true;
     this.sound = {
       step: new Sound('step.ogg'),
@@ -11,11 +13,11 @@ export class GameBoard extends Board {
       win: new Sound('win.ogg'),
       gameover: new Sound('gameover.ogg')
     };
-    this.reset();
+    this.reset(0);
   }
 
-  reset() {
-    const scene = require('./scene/dungeon');
+  reset(map) {
+    const scene = this.sceneService.get(map);
     this.loadScene(scene);
     this.player = new Player(
       this.scene.player.x,
@@ -29,6 +31,10 @@ export class GameBoard extends Board {
     this.player.setupSprites(this.scene.theme);
     this.zombie.setupSprites(this.scene.theme);
     this.moves = 0;
+  }
+
+  getSceneCount() {
+    return this.sceneService.getSceneCount();
   }
 
   canMoveInto(x, y) {

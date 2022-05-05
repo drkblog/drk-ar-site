@@ -6,13 +6,19 @@ comments: false
 type: page
 ---
 
-# Simple Didactic Language v0.2.1
+# Simple Didactic Language v0.2.3
 
 {{< rawhtml >}}
 <div id="container">
   <canvas id="canvas" class="canvas" width="256" height="256"></canvas>
 </div>
 <div id="message" class="message"></div>
+<div>
+ <select id="mapSelector" class="sidila-button">
+    <option value="0" selected>#1</option>
+    <option value="1">#2</option>
+  </select>
+</div>
 <h3>Tu programa:</h3>
 <div>
   <button id="run" class="sidila-button">Ejecutar</button>
