@@ -79,6 +79,8 @@ export class Condition extends Instruction {
     super(start, end);
     if (label === 'pared') {
       this.condition = (sprite) => sprite !== LogicBlock.Wall;
+    } else if (label === 'zombie') {
+      this.condition = (sprite) => sprite !== LogicBlock.Zombie;
     } else {
       this.condition = (sprite) => sprite === LogicBlock.Space;
     }
