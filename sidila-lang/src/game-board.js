@@ -31,6 +31,7 @@ export class GameBoard extends Board {
     this.player.setupSprites(this.scene.theme);
     this.zombie.setupSprites(this.scene.theme);
     this.moves = 0;
+    this.shots = 0;
   }
 
   getSceneCount() {
@@ -82,6 +83,7 @@ export class GameBoard extends Board {
     if (this.getLogic(shootAt.x, shootAt.y) === LogicBlock.Zombie) {
       this.zombie.crash();
     }
+    this.shots++;
   }
   getLogic(x, y) {
     if (this.zombie?.isAt(x, y)) {
@@ -118,10 +120,6 @@ export class GameBoard extends Board {
       return this.player.getNextMoveSprite();
     }
     return null;
-  }
-
-  getMoves() {
-    return this.moves;
   }
 
   setSound(on) {
