@@ -70,8 +70,11 @@ Escribí las instrucciones para que el jugador llegue a la salida siguiendo [las
   -   avanzar
   - )
 - Condiciones válidas:
-  - no hay pared adelante
-  - no hay zombie adelante
+  - hay pared adelante
+  - hay zombie adelante
+  - hay espacio adelante
+  - hay algo adelante
+- Se puede anteponer 'no' para invertir el sentido:
   - no hay algo adelante
 - Cuando ejecutes el programa se resaltará la instrucción que está siendo procesada en cada paso.
 - La velocidad de ejecución actual es de un paso cada {{< rawhtml >}}<span id="periodText"></span>{{< /rawhtml >}}milisegundos.

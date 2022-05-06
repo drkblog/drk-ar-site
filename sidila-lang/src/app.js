@@ -36,7 +36,7 @@ class Actions {
     return new Loop(start, end, elements[1], elements[2].elements);
   }
   makeCondition(input, start, end, elements) {
-    return new Condition(start, end, elements[1].text);
+    return new Condition(start, end, elements[0].text, elements[2].text);
   }
 }
 

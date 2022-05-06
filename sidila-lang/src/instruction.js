@@ -75,18 +75,22 @@ export class Loop extends Instruction {
 }
 
 export class Condition extends Instruction {
-  constructor(start, end, label) {
+  constructor(start, end, not, label) {
     super(start, end);
+    this.not = not === 'no';
     if (label === 'pared') {
-      this.condition = (sprite) => sprite !== LogicBlock.Wall;
+      this.condition = (sprite) => sprite === LogicBlock.Wall;
     } else if (label === 'zombie') {
-      this.condition = (sprite) => sprite !== LogicBlock.Zombie;
-    } else {
+      this.condition = (sprite) => sprite === LogicBlock.Zombie;
+    } else if (label === 'espacio') {
       this.condition = (sprite) => sprite === LogicBlock.Space;
+    } else {
+      this.condition = (sprite) => sprite !== LogicBlock.Space;
     }
   }
 
   evaluate(board) {
-    return this.condition(board.getLogicInFrontOfPlayer());
+    const evaluation = this.condition(board.getLogicInFrontOfPlayer());
+    return (this.not) ? !evaluation : evaluation;
   }
 }
