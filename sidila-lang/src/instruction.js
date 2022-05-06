@@ -86,7 +86,7 @@ export class Loop extends Instruction {
   }
 }
 
-export class Condition extends Instruction {
+export class AheadCondition extends Instruction {
   constructor(start, end, not, label) {
     super(start, end);
     this.not = not === 'no';
@@ -103,6 +103,18 @@ export class Condition extends Instruction {
 
   evaluate(board) {
     const evaluation = this.condition(board.getLogicInFrontOfPlayer());
+    return (this.not) ? !evaluation : evaluation;
+  }
+}
+
+export class InGameCondition extends Instruction {
+  constructor(start, end, not) {
+    super(start, end);
+    this.not = not === 'no';
+  }
+
+  evaluate(board) {
+    const evaluation = board.isDone();
     return (this.not) ? !evaluation : evaluation;
   }
 }

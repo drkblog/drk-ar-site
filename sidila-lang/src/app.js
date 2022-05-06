@@ -2,7 +2,7 @@ import { GameBoard } from './game-board';
 import { EditorBoard } from './editor-board';
 import { CanvasPainter, PalettePainter } from './drawing';
 import { StepInterpreter } from './interpreter';
-import { Move, Back, Shoot, Turn, Branch, Loop, Condition } from './instruction';
+import { Move, Back, Shoot, Turn, Branch, Loop, AheadCondition, InGameCondition } from './instruction';
 import { Storage } from './storage';
 import { Score } from './score';
 
@@ -38,8 +38,11 @@ class Actions {
   makeLoop(input, start, end, elements) {
     return new Loop(start, end, elements[1], elements[2].elements);
   }
-  makeCondition(input, start, end, elements) {
-    return new Condition(start, end, elements[0].text, elements[2].text);
+  makeAheadCondition(input, start, end, elements) {
+    return new AheadCondition(start, end, elements[0].text, elements[2].text);
+  }
+  makeInGameCondition(input, start, end, elements) {
+    return new InGameCondition(start, end, elements[0].text);
   }
 }
 
