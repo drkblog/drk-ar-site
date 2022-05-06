@@ -1,5 +1,5 @@
 import { Publisher } from './publisher';
-import { Action, Loop } from './instruction';
+import { Action, Branch, Loop } from './instruction';
 
 export class StepInterpreter {
   constructor(board, tree) {
@@ -36,6 +36,10 @@ export class StepInterpreter {
     this.publisher.publish(event);
     if (instruction instanceof Action) {
       instruction.execute(board);
+    } else if (instruction instanceof Branch) {
+      if (instruction.evaluate(board)) {
+        this.stackBody(instruction.body);
+      }
     } else if (instruction instanceof Loop) {
       if (instruction.evaluate(board)) {
         this.stackNode(node);

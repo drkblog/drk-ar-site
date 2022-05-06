@@ -62,6 +62,18 @@ export class Turn extends Action {
   }
 }
 
+export class Branch extends Instruction {
+  constructor(start, end, condition, body) {
+    super(start, end);
+    this.condition = condition;
+    this.body = body;
+  }
+
+  evaluate(board) {
+    return this.condition.evaluate(board);
+  }
+}
+
 export class Loop extends Instruction {
   constructor(start, end, condition, body) {
     super(start, end);

@@ -1,6 +1,7 @@
 grammar SiDiLa
-  body <- (@ws (turn / move / back / shoot / loop) @ws @nl)*
+  body <- (@ws (turn / move / back / shoot / branch / loop) @ws @nl)*
   loop <- 'mientras' @ws condition @ws @'(' @nl body @nl @')' %makeLoop
+  branch <- 'si' @ws condition @ws  @'(' @nl body @nl @')' %makeBranch
   condition <- not @ws 'hay' @ws sprite @ws 'adelante' %makeCondition
   not <- 'no'?
   sprite <- ('pared' / 'algo' / 'zombie' / 'espacio')

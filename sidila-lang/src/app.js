@@ -2,7 +2,7 @@ import { GameBoard } from './game-board';
 import { EditorBoard } from './editor-board';
 import { CanvasPainter, PalettePainter } from './drawing';
 import { StepInterpreter } from './interpreter';
-import { Move, Back, Shoot, Turn, Loop, Condition } from './instruction';
+import { Move, Back, Shoot, Turn, Branch, Loop, Condition } from './instruction';
 import { Storage } from './storage';
 import { Score } from './score';
 
@@ -31,6 +31,9 @@ class Actions {
   }
   makeTurn(input, start, end, elements) {
     return new Turn(start, end, elements[1].text);
+  }
+  makeBranch(input, start, end, elements) {
+    return new Branch(start, end, elements[1], elements[2].elements);
   }
   makeLoop(input, start, end, elements) {
     return new Loop(start, end, elements[1], elements[2].elements);
