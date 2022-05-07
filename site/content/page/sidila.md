@@ -61,6 +61,14 @@ Escribí las instrucciones para que el jugador llegue a la salida siguiendo [las
   - girar hacia la derecha
   - girar hacia la izquierda
   - disparar
+- Se puede realizar acciones condicionalmente:
+  - si _...condición..._ (
+  - _...instrucciones..._
+  - )
+  - Por ejemplo:
+  - si hay salida adelante (
+  -   avanzar
+  - )
 - Adicionalmente se puede repetir un conjunto de instrucciones:
   - mientras _...condición..._ (
   - _...instrucciones..._
@@ -73,9 +81,13 @@ Escribí las instrucciones para que el jugador llegue a la salida siguiendo [las
   - hay pared adelante
   - hay zombie adelante
   - hay espacio adelante
+  - hay salida adelante
   - hay algo adelante
 - Se puede anteponer 'no' para invertir el sentido:
   - no hay algo adelante
+- Se puede mirar hacia la derecha y la izquierda:
+  - hay zombie a la derecha
+  - no hay pared a la izquierda
 - Cuando ejecutes el programa se resaltará la instrucción que está siendo procesada en cada paso.
 - La velocidad de ejecución actual es de un paso cada {{< rawhtml >}}<span id="periodText"></span>{{< /rawhtml >}}milisegundos.
 
