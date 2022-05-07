@@ -164,6 +164,15 @@ export class Player extends Movable {
   rotateRight() {
     this.direction = CardinalDirection.toTheRight(this.direction);
   }
+
+  getLeftPosition() {
+    const leftDirection = CardinalDirection.toTheLeft(this.direction);
+    return MoveDirection.Forth.apply(leftDirection, this);
+  }
+  getRightPosition() {
+    const rightDirection = CardinalDirection.toTheRight(this.direction);
+    return MoveDirection.Forth.apply(rightDirection, this);
+  }
 }
 
 export class Board {

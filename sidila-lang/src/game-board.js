@@ -104,6 +104,15 @@ export class GameBoard extends Board {
     const inFrontPosition = this.player.wouldMove(MoveDirection.Forth);
     return this.getLogic(inFrontPosition.x, inFrontPosition.y);
   }
+  getLogicToTheLeftOfPlayer() {
+    const atTheLeftPosition = this.player.getLeftPosition();
+    return this.getLogic(atTheLeftPosition.x, atTheLeftPosition.y);
+  }
+  getLogicToTheRightOfPlayer() {
+    const atTheRightPosition = this.player.getRightPosition();
+    return this.getLogic(atTheRightPosition.x, atTheRightPosition.y);
+  }
+
 
   getSprite(x, y) {
     return super.getSprite(x, y);

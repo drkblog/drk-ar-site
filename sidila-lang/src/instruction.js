@@ -87,23 +87,32 @@ export class Loop extends Instruction {
   }
 }
 
-export class AheadCondition extends Instruction {
-  constructor(start, end, not, label) {
+export class LookAheadCondition extends Instruction {
+  constructor(start, end, not, spriteLabel, lookUpDirection) {
     super(start, end);
     this.not = not === 'no';
-    if (label === 'pared') {
+    if (spriteLabel === 'pared') {
       this.condition = (sprite) => sprite === LogicBlock.Wall;
-    } else if (label === 'zombie') {
+    } else if (spriteLabel === 'zombie') {
       this.condition = (sprite) => sprite === LogicBlock.Zombie;
-    } else if (label === 'espacio') {
+    } else if (spriteLabel === 'espacio') {
       this.condition = (sprite) => sprite === LogicBlock.Space;
+    } else if (spriteLabel === 'salida') {
+      this.condition = (sprite) => sprite === LogicBlock.Exit;
     } else {
       this.condition = (sprite) => sprite !== LogicBlock.Space;
+    }
+    if (lookUpDirection == 'adelante') {
+      this.lookUpDirection = (board) => board.getLogicInFrontOfPlayer();
+    } else if (lookUpDirection == 'a la izquierda') {
+      this.lookUpDirection = (board) => board.getLogicToTheLeftOfPlayer();
+    } else {
+      this.lookUpDirection = (board) => board.getLogicToTheRightOfPlayer();
     }
   }
 
   evaluate(board) {
-    const evaluation = this.condition(board.getLogicInFrontOfPlayer());
+    const evaluation = this.condition(this.lookUpDirection(board));
     return (this.not) ? !evaluation : evaluation;
   }
 }
