@@ -85,6 +85,9 @@ function refreshUi() {
   periodText.innerHTML = (stepByStep) ? '(paso a paso)' : tickPeriod;
   stepButton.disabled = !stepByStep || !started;
   runButton.disabled = started;
+  mapSelector.disabled = started;
+  loadButton.disabled = started;
+  saveButton.disabled = started;
 }
 function resetHeartbeat() {
   clearInterval(heartbeat);

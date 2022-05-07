@@ -115,7 +115,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"SceneService\": () => (/* binding */ SceneService)\n/* harmony export */ });\nclass SceneService {\r\n  constructor() {\r\n    this.scenes = [\r\n      __webpack_require__(/*! ./scene/dungeon-1 */ \"./src/scene/dungeon-1.json\"),\r\n      __webpack_require__(/*! ./scene/dungeon-2 */ \"./src/scene/dungeon-2.json\")\r\n    ]\r\n  }\r\n\r\n  get(index) {\r\n    return this.scenes[index];\r\n  }\r\n\r\n  getSceneCount() {\r\n    return this.scenes.length;\r\n  }\r\n}\n\n//# sourceURL=webpack://sidila/./src/scene.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"SceneService\": () => (/* binding */ SceneService)\n/* harmony export */ });\nclass SceneService {\r\n  constructor() {\r\n    this.scenes = [\r\n      __webpack_require__(/*! ./scene/dungeon-1 */ \"./src/scene/dungeon-1.json\"),\r\n      __webpack_require__(/*! ./scene/dungeon-2 */ \"./src/scene/dungeon-2.json\"),\r\n      __webpack_require__(/*! ./scene/dungeon-3 */ \"./src/scene/dungeon-3.json\"),\r\n      __webpack_require__(/*! ./scene/dungeon-4 */ \"./src/scene/dungeon-4.json\")\r\n    ]\r\n  }\r\n\r\n  get(index) {\r\n    return this.scenes[index];\r\n  }\r\n\r\n  getSceneCount() {\r\n    return this.scenes.length;\r\n  }\r\n}\n\n//# sourceURL=webpack://sidila/./src/scene.js?");
 
 /***/ }),
 
@@ -171,6 +171,28 @@ eval("module.exports = JSON.parse('{\"width\":16,\"height\":16,\"player\":{\"x\"
 
 "use strict";
 eval("module.exports = JSON.parse('{\"width\":16,\"height\":16,\"player\":{\"x\":7,\"y\":2,\"direction\":\"South\"},\"zombie\":{\"x\":9,\"y\":9},\"theme\":{\"image\":\"dungeon.png\",\"imageWidth\":384,\"imageHeight\":160,\"spriteWidth\":16,\"spriteHeight\":16,\"background\":\"#91b09a\",\"sprite\":{\"north\":189,\"east\":189,\"south\":189,\"west\":189,\"dead\":165,\"nextNorth\":212,\"nextEast\":213,\"nextSouth\":237,\"nextWest\":236,\"zombie\":188,\"deadZombie\":164}},\"logic\":{\"54\":\"Space\",\"172\":\"Exit\",\"173\":\"Exit\",\"174\":\"Exit\",\"175\":\"Exit\",\"190\":\"Sphinx\"},\"space\":54,\"map\":[[5,6,6,6,6,104,6,6,6,6,104,105,6,6,6,7],[29,30,30,30,30,128,30,148,30,30,128,129,30,30,30,31],[53,54,54,54,54,54,54,54,182,182,54,54,54,185,183,55],[102,54,54,54,54,54,54,54,182,54,54,54,54,54,186,75],[76,54,54,18,19,54,54,54,182,182,54,54,54,54,54,99],[100,54,54,42,43,54,54,54,182,54,54,54,54,54,54,55],[53,54,54,66,67,54,54,182,54,54,54,54,54,54,54,55],[53,54,54,54,54,54,54,54,54,54,207,208,54,54,54,55],[102,54,54,54,54,54,54,54,54,54,231,232,54,8,78,4],[53,54,54,54,8,78,78,127,9,54,54,54,54,32,25,25],[76,54,54,54,32,25,25,25,33,54,54,54,54,55,25,25],[100,54,54,54,56,6,6,6,57,54,54,54,54,56,6,7],[53,54,54,54,80,30,30,174,81,54,54,54,54,80,30,31],[53,54,54,54,190,54,54,54,54,54,54,54,54,54,54,55],[53,54,54,54,54,54,54,54,54,54,54,54,54,54,54,55],[77,78,78,78,127,78,78,78,78,78,127,78,78,78,78,79]]}');\n\n//# sourceURL=webpack://sidila/./src/scene/dungeon-2.json?");
+
+/***/ }),
+
+/***/ "./src/scene/dungeon-3.json":
+/*!**********************************!*\
+  !*** ./src/scene/dungeon-3.json ***!
+  \**********************************/
+/***/ ((module) => {
+
+"use strict";
+eval("module.exports = JSON.parse('{\"width\":16,\"height\":16,\"player\":{\"x\":13,\"y\":13,\"direction\":\"West\"},\"zombie\":{\"x\":3,\"y\":9},\"theme\":{\"image\":\"dungeon.png\",\"imageWidth\":384,\"imageHeight\":160,\"spriteWidth\":16,\"spriteHeight\":16,\"background\":\"#91b09a\",\"sprite\":{\"north\":189,\"east\":189,\"south\":189,\"west\":189,\"dead\":165,\"nextNorth\":212,\"nextEast\":213,\"nextSouth\":237,\"nextWest\":236,\"zombie\":188,\"deadZombie\":164}},\"logic\":{\"54\":\"Space\",\"172\":\"Exit\",\"173\":\"Exit\",\"174\":\"Exit\",\"175\":\"Exit\",\"190\":\"Sphinx\"},\"space\":54,\"map\":[[5,6,6,6,6,104,6,6,6,6,104,105,6,6,6,7],[29,30,30,30,30,128,30,174,30,30,128,129,30,30,30,31],[53,182,182,54,54,54,54,54,182,182,54,54,54,185,183,55],[102,54,54,54,54,54,54,54,54,54,54,54,54,54,186,75],[76,54,54,8,78,78,78,9,54,54,190,54,54,54,54,99],[100,54,54,32,25,25,25,33,54,54,54,54,54,54,54,55],[53,54,54,56,6,6,105,57,54,54,54,54,54,54,54,55],[53,54,54,80,30,30,129,81,54,54,54,54,54,54,54,55],[102,54,54,54,209,210,54,54,54,54,54,8,78,78,78,4],[53,54,54,54,233,234,54,54,54,54,54,32,25,25,25,25],[76,54,54,54,54,54,54,54,54,54,54,55,25,25,25,25],[100,54,54,54,54,54,54,54,54,54,54,56,192,193,194,7],[53,54,54,54,54,54,54,54,54,54,54,80,216,217,218,31],[53,54,54,54,54,54,54,54,54,54,54,54,54,54,54,55],[53,54,54,54,54,54,54,54,54,54,54,54,54,54,54,55],[77,78,78,78,127,78,78,78,78,78,127,78,78,78,78,79]]}');\n\n//# sourceURL=webpack://sidila/./src/scene/dungeon-3.json?");
+
+/***/ }),
+
+/***/ "./src/scene/dungeon-4.json":
+/*!**********************************!*\
+  !*** ./src/scene/dungeon-4.json ***!
+  \**********************************/
+/***/ ((module) => {
+
+"use strict";
+eval("module.exports = JSON.parse('{\"width\":16,\"height\":16,\"player\":{\"x\":14,\"y\":14,\"direction\":\"West\"},\"zombie\":{\"x\":14,\"y\":8},\"theme\":{\"image\":\"dungeon.png\",\"imageWidth\":384,\"imageHeight\":160,\"spriteWidth\":16,\"spriteHeight\":16,\"background\":\"#91b09a\",\"sprite\":{\"north\":189,\"east\":189,\"south\":189,\"west\":189,\"dead\":165,\"nextNorth\":212,\"nextEast\":213,\"nextSouth\":237,\"nextWest\":236,\"zombie\":188,\"deadZombie\":164}},\"logic\":{\"54\":\"Space\",\"172\":\"Exit\",\"173\":\"Exit\",\"174\":\"Exit\",\"175\":\"Exit\",\"190\":\"Sphinx\"},\"space\":54,\"map\":[[5,6,6,6,6,104,6,6,6,6,104,105,6,6,6,7],[29,30,30,30,30,128,30,174,30,30,128,129,30,30,30,31],[53,182,182,54,54,54,54,54,54,190,54,54,54,54,54,55],[102,54,182,54,54,54,54,54,54,54,54,54,8,9,54,75],[76,54,54,8,78,78,78,9,54,54,54,54,32,33,54,99],[100,54,54,32,25,25,25,77,78,78,78,78,79,53,54,55],[77,9,54,56,6,6,105,7,25,25,5,6,6,57,54,55],[5,57,54,80,30,30,129,31,25,25,29,30,30,81,54,55],[29,81,54,54,209,210,54,55,5,6,57,54,54,54,54,55],[53,54,54,54,233,234,54,75,29,30,81,54,8,78,78,79],[76,54,8,78,78,9,54,99,53,54,54,54,32,25,25,25],[100,54,55,25,25,53,54,55,53,54,8,78,79,25,25,25],[53,54,56,6,6,57,54,56,57,54,56,6,6,6,6,7],[53,54,80,30,30,81,54,80,81,54,80,30,30,30,144,31],[53,54,54,54,54,54,54,54,54,54,54,54,54,54,54,55],[77,78,78,78,127,78,78,78,78,78,127,78,78,78,78,79]]}');\n\n//# sourceURL=webpack://sidila/./src/scene/dungeon-4.json?");
 
 /***/ })
 

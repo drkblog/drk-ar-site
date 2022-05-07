@@ -14,9 +14,12 @@ type: page
 </div>
 <div id="message" class="message"></div>
 <div>
+<label for="mapSelector">Escenario</label>
  <select id="mapSelector" class="sidila-button">
     <option value="0" selected>#1</option>
     <option value="1">#2</option>
+    <option value="2">#3</option>
+    <option value="3">#4</option>
   </select>
 </div>
 <h3>Tu programa:</h3>
