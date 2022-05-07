@@ -15,9 +15,11 @@ export class Storage {
   }
 
   static emptySelectWidget(widget) {
-    for(let i=1; i<widget.length; i++) {
-      widget.remove(i);
+    const placeholder = [].filter.call(widget.options, option => option.value === "")[0];
+    while(widget.length > 0) {
+      widget.remove(widget.length - 1);
     }
+    widget.add(placeholder);
   }
 
   static loadProgram(nameWidget, programWidget) {
