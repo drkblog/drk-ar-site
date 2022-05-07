@@ -39,6 +39,8 @@ export class StepInterpreter {
     } else if (instruction instanceof Branch) {
       if (instruction.evaluate(board)) {
         this.stackBody(instruction.body);
+      } else if (instruction.elseBody !== undefined) {
+        this.stackBody(instruction.elseBody);
       }
     } else if (instruction instanceof Loop) {
       if (instruction.evaluate(board)) {

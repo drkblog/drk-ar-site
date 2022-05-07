@@ -63,10 +63,11 @@ export class Turn extends Action {
 }
 
 export class Branch extends Instruction {
-  constructor(start, end, condition, body) {
+  constructor(start, end, condition, body, elseBody) {
     super(start, end);
     this.condition = condition;
     this.body = body;
+    this.elseBody = elseBody;
   }
 
   evaluate(board) {

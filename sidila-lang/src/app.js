@@ -33,10 +33,15 @@ class Actions {
     return new Turn(start, end, elements[1].text);
   }
   makeBranch(input, start, end, elements) {
-    return new Branch(start, end, elements[1], elements[2].elements);
+    const condition = elements[1];
+    const body = elements[2].elements;
+    const elseBody = elements[3].elements[1].elements;
+    return new Branch(start, end, condition, body, elseBody);
   }
   makeLoop(input, start, end, elements) {
-    return new Loop(start, end, elements[1], elements[2].elements);
+    const condition = elements[1];
+    const body = elements[2].elements;
+    return new Loop(start, end, condition, body);
   }
   makeAheadCondition(input, start, end, elements) {
     return new AheadCondition(start, end, elements[0].text, elements[2].text);
