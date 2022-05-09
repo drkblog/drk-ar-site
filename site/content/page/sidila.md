@@ -39,8 +39,9 @@ type: page
 </div>
 <textarea id="errorMessage" class="errorMessage" cols="80" rows="10">
 </textarea>
-<textarea id="sourceCode" class="sourceCode" cols="80" rows="12">
-</textarea>
+<div id="codeContainer"></div>
+<!-- <textarea id="sourceCode" class="sourceCode" cols="80" rows="12">
+</textarea> -->
 <div>
   <select id="loadFilename" class="sidila-button">
     <option value="">Seleccione programa</option>

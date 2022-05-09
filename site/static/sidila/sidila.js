@@ -16,6 +16,8 @@ const sound=document.querySelector("#sound");
 const errorMessage=document.querySelector("#errorMessage");
 const mapSelector=document.querySelector("#mapSelector");
 
+const codeContainer=document.querySelector("#codeContainer");
+const codeEditor = new sidila.CodeEditor(codeContainer);
 
 // Game setup
 let tickPeriod = 200;
@@ -36,7 +38,8 @@ runButton.addEventListener("click", async (event) => {
   refreshUi();
   errorMessage.style.display = 'none';
   try {
-    run(sourceCode.value.toString());
+    const source = codeEditor.getCode(); //sourceCode.value.toString()
+    run(source);
   } catch (e) {
     started = false;
     errorMessage.innerHTML = e.message;
@@ -53,11 +56,11 @@ resetButton.addEventListener("click", async (event) => {
   refreshUi();
 });
 loadButton.addEventListener("click", async (event) => {
-  sidila.Storage.loadProgram(loadFilename, sourceCode);
+  codeEditor.setCode(sidila.Storage.loadProgram(loadFilename));
 });
 saveButton.addEventListener("click", async (event) => {
   try {
-    sidila.Storage.saveProgram(saveFilename, sourceCode, saveOverwrite);
+    sidila.Storage.saveProgram(saveFilename.vale, codeEditor.getCode(), saveOverwrite);
     reloadProgramList();
     saveOverwrite.checked = false;
   } catch (e) {
@@ -103,9 +106,8 @@ function run(code) {
   tree = sidila.parse(code);
   interpreter = new sidila.StepInterpreter(board, tree);
   interpreter.subscribeToStep((event) => {
-    sourceCode.setSelectionRange(event.location.start, event.location.end);
+    codeEditor.highlightRange(event.location.start, event.location.end);
   });
-  sourceCode.focus();
 }
 
 function reset() {
@@ -125,7 +127,7 @@ function tick() {
     if (board.isCrashed()) {
       message.innerHTML = `Perdiste`;
     } else if (board.isDone()) {
-      const lines = sourceCode.value.toString().split(",").length;
+      const lines = codeEditor.getLineCount();
       const score = new sidila.Score().getScore(lines, board);
       message.innerHTML = `Ganaste con ${score} puntos`;
     } else {

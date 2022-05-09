@@ -4,6 +4,7 @@ import { CanvasPainter, PalettePainter } from './drawing';
 import { StepInterpreter } from './interpreter';
 import { Storage } from './storage';
 import { Score } from './score';
+import { CodeEditor } from './code-editor/code-editor';
 import { parse } from './grammar/sidila';
 
 export { 
@@ -14,5 +15,6 @@ export {
   StepInterpreter,
   Storage,
   Score,
+  CodeEditor,
   parse
 };
