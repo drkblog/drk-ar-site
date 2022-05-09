@@ -6,7 +6,7 @@ comments: false
 type: page
 ---
 
-# Simple Didactic Language v0.2.3
+# Simple Didactic Language v0.3.1
 
 {{< rawhtml >}}
 <div id="container">
@@ -107,7 +107,7 @@ Escribí las instrucciones para que el jugador llegue a la salida siguiendo [las
 - Mientras menos líneas de código tenga el programa y menos movimientos haga el jugador para salir, mayor será la cantidad de puntos.
 - Matar al Zombie otorga puntos extra.
 
-#### Ejemplo
+### Ejemplo
 
 ```
 mientras no hay pared adelante (
@@ -117,6 +117,11 @@ girar hacia la derecha
 avanzar
 avanzar
 ```
+
+### Reporte de errores
+
+Esta es una versión Beta.
+Si encontrás algo que funciona mal o tenés una idea [comunicalo acá](https://github.com/drkblog/drk-ar-site/issues)
 
 ### Qué es SiDiLa
 
