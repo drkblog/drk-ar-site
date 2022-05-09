@@ -39,8 +39,10 @@ type: page
 </div>
 <textarea id="errorMessage" class="errorMessage" cols="80" rows="10">
 </textarea>
-<textarea id="sourceCode" class="sourceCode" cols="80" rows="12">
-</textarea>
+<div id="codeContainer">
+  <textarea id="sourceCode" class="sourceCode" cols="80" rows="12">
+  </textarea>
+</div>
 <div>
   <select id="loadFilename" class="sidila-button">
     <option value="">Seleccione programa</option>
@@ -143,6 +145,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ```
 
 {{< rawhtml >}}
+<script src="/codemirror/codemirror.js"></script>
+<link rel="stylesheet" href="/codemirror/codemirror.css">
+<!-- <script src="/codemirror/mode/sidila.js"></script> -->
 <script type="text/javascript" src="/sidila/peg.js"></script>
 <script type="text/javascript" src="/sidila/sidila.js"></script>
 {{< /rawhtml >}}

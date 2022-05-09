@@ -22,18 +22,18 @@ export class Storage {
     widget.add(placeholder);
   }
 
-  static loadProgram(nameWidget, programWidget) {
+  static loadProgram(nameWidget) {
     const key = nameWidget.options[nameWidget.selectedIndex].value;
     if (key != undefined && key != '') {
-      programWidget.value = localStorage.getItem(key);
+      return localStorage.getItem(key);
     }
   }
-  static saveProgram(nameWidget, programWidget, overwrite) {
-    const key = Storage.getKeyFromFilename(nameWidget.value);
+  static saveProgram(name, program, overwrite) {
+    const key = Storage.getKeyFromFilename(name);
     if (localStorage.getItem(key) !== null && !overwrite.checked) {
       throw new Error('Ya existe un programa con ese nombre');
     }
-    localStorage.setItem(key, programWidget.value);
+    localStorage.setItem(key, program);
   }
 
   static getKeyFromFilename(filename) {

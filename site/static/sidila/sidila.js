@@ -17,6 +17,10 @@ const errorMessage=document.querySelector("#errorMessage");
 const mapSelector=document.querySelector("#mapSelector");
 
 
+const codeMirror = CodeMirror.fromTextArea(sourceCode);
+codeMirror.setOption('lineNumbers', true);
+let lastMarker;
+
 // Game setup
 let tickPeriod = 200;
 const board = new sidila.GameBoard();
@@ -36,7 +40,7 @@ runButton.addEventListener("click", async (event) => {
   refreshUi();
   errorMessage.style.display = 'none';
   try {
-    run(sourceCode.value.toString());
+    run(codeMirror.getValue());
   } catch (e) {
     started = false;
     errorMessage.innerHTML = e.message;
@@ -53,11 +57,12 @@ resetButton.addEventListener("click", async (event) => {
   refreshUi();
 });
 loadButton.addEventListener("click", async (event) => {
-  sidila.Storage.loadProgram(loadFilename, sourceCode);
+  const code = sidila.Storage.loadProgram(loadFilename);
+  codeMirror.setValue(code);
 });
 saveButton.addEventListener("click", async (event) => {
   try {
-    sidila.Storage.saveProgram(saveFilename, sourceCode, saveOverwrite);
+    sidila.Storage.saveProgram(saveFilename.value, codeMirror.getValue(), saveOverwrite);
     reloadProgramList();
     saveOverwrite.checked = false;
   } catch (e) {
@@ -88,6 +93,7 @@ function refreshUi() {
   mapSelector.disabled = started;
   loadButton.disabled = started;
   saveButton.disabled = started;
+  codeMirror.setOption('readOnly', started);
 }
 function resetHeartbeat() {
   clearInterval(heartbeat);
@@ -103,9 +109,14 @@ function run(code) {
   tree = sidila.parse(code);
   interpreter = new sidila.StepInterpreter(board, tree);
   interpreter.subscribeToStep((event) => {
-    sourceCode.setSelectionRange(event.location.start, event.location.end);
+    const start = codeMirror.posFromIndex(event.location.start);
+    const end = codeMirror.posFromIndex(event.location.end);
+    if (lastMarker != undefined) {
+      lastMarker.clear();
+    }
+    lastMarker = codeMirror.markText(start, end, { className: 'debug-line'});
+    codeMirror.scrollIntoView(start);
   });
-  sourceCode.focus();
 }
 
 function reset() {
@@ -113,6 +124,9 @@ function reset() {
   interpreter = null;
   gameTicks = 0;
   board.reset(mapSelector.value);
+  if (lastMarker != undefined) {
+    lastMarker.clear();
+  }
 }
 
 function tick() {
@@ -125,7 +139,7 @@ function tick() {
     if (board.isCrashed()) {
       message.innerHTML = `Perdiste`;
     } else if (board.isDone()) {
-      const lines = sourceCode.value.toString().split(",").length;
+      const lines = codeMirror.lineCount();
       const score = new sidila.Score().getScore(lines, board);
       message.innerHTML = `Ganaste con ${score} puntos`;
     } else {
