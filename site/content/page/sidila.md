@@ -21,6 +21,8 @@ type: page
     <option value="2">#3</option>
     <option value="3">#4</option>
   </select>
+  <input type="checkbox" id="sound" value="sound" checked>
+  <label for="sound">Sonidos</label>
 </div>
 <h3>Tu programa:</h3>
 <div>
@@ -34,8 +36,8 @@ type: page
     <option value="50">Rápido</option>
   </select>
   <button id="step" class="sidila-button" disabled>Dar un paso</button> 
-  <input type="checkbox" id="sound" value="sound" checked>
-  <label for="sound">Sonidos</label>
+  <input type="checkbox" id="highlight" value="highlight">
+  <label for="sound">Resaltar</label>
 </div>
 <textarea id="errorMessage" class="errorMessage" cols="80" rows="10">
 </textarea>

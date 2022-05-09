@@ -13,6 +13,7 @@ const loadFilename=document.querySelector("#loadFilename");
 const saveFilename=document.querySelector("#saveFilename");
 const saveOverwrite=document.querySelector("#saveOverwrite");
 const sound=document.querySelector("#sound");
+const highlight=document.querySelector("#highlight");
 const errorMessage=document.querySelector("#errorMessage");
 const mapSelector=document.querySelector("#mapSelector");
 
@@ -96,12 +97,15 @@ function refreshUi() {
   codeMirror.setOption('readOnly', started);
 }
 function resetHeartbeat() {
-  clearInterval(heartbeat);
+  clearHeartbeat();
   if (!stepByStep) {
     heartbeat = setInterval(tick, tickPeriod); // Start game heartbeat
   } else {
     heartbeat = null;
   }
+}
+function clearHeartbeat() {
+  clearInterval(heartbeat);
 }
 
 // Game
@@ -109,17 +113,21 @@ function run(code) {
   tree = sidila.parse(code);
   interpreter = new sidila.StepInterpreter(board, tree);
   interpreter.subscribeToStep((event) => {
-    const start = codeMirror.posFromIndex(event.location.start);
-    const end = codeMirror.posFromIndex(event.location.end);
-    if (lastMarker != undefined) {
-      lastMarker.clear();
+    if (highlight.checked) {
+      const start = codeMirror.posFromIndex(event.location.start);
+      const end = codeMirror.posFromIndex(event.location.end);
+      if (lastMarker != undefined) {
+        lastMarker.clear();
+      }
+      lastMarker = codeMirror.markText(start, end, { className: 'debug-line'});
+      codeMirror.scrollIntoView(start);
     }
-    lastMarker = codeMirror.markText(start, end, { className: 'debug-line'});
-    codeMirror.scrollIntoView(start);
   });
+  resetHeartbeat();
 }
 
 function reset() {
+  clearHeartbeat();
   tree = undefined;
   interpreter = null;
   gameTicks = 0;
@@ -145,6 +153,7 @@ function tick() {
     } else {
       message.innerHTML = `No llegaste a la salida`;
     }
+    clearHeartbeat();
   }
 }
 
@@ -155,5 +164,4 @@ function paint() {
 
 reset();
 refreshUi();
-resetHeartbeat();
 paint(); // Start painting
