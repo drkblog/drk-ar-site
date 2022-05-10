@@ -1,4 +1,5 @@
 const STORAGE_PROGRAM_PREFIX = 'sidila-program-';
+const PROGRAM_NAME_REGEX = /\w{2,20}/g;
 
 export class Storage {
 
@@ -22,18 +23,31 @@ export class Storage {
     widget.add(placeholder);
   }
 
-  static loadProgram(nameWidget) {
-    const key = nameWidget.options[nameWidget.selectedIndex].value;
+  static requireValidProgramName(name) {
+    if (!name.match(PROGRAM_NAME_REGEX)) {
+      throw new Error('Nombre de programa inválido');
+    }
+  }
+
+  static loadProgram(name) {
+    Storage.requireValidProgramName(name);
+    const key = Storage.getKeyFromFilename(name);
     if (key != undefined && key != '') {
       return localStorage.getItem(key);
     }
   }
   static saveProgram(name, program, overwrite) {
+    Storage.requireValidProgramName(name);
     const key = Storage.getKeyFromFilename(name);
     if (localStorage.getItem(key) !== null && !overwrite.checked) {
       throw new Error('Ya existe un programa con ese nombre');
     }
     localStorage.setItem(key, program);
+  }
+  static deleteProgram(name) {
+    Storage.requireValidProgramName(name);
+    const key = Storage.getKeyFromFilename(name);
+    localStorage.removeItem(key);
   }
 
   static getKeyFromFilename(filename) {

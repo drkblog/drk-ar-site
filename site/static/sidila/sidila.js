@@ -58,8 +58,13 @@ resetButton.addEventListener("click", async (event) => {
   refreshUi();
 });
 loadButton.addEventListener("click", async (event) => {
-  const code = sidila.Storage.loadProgram(loadFilename);
-  codeMirror.setValue(code);
+  if (loadFilename.selectedIndex > 0) {
+    const name = loadFilename.options[loadFilename.selectedIndex].value;
+    const code = sidila.Storage.loadProgram(name);
+    if (code != undefined) {
+      codeMirror.setValue(code);
+    }
+  }
 });
 saveButton.addEventListener("click", async (event) => {
   try {
