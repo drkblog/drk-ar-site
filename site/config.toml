@@ -1,5 +1,6 @@
 baseURL = 'http://drk.ar/'
 languageCode = 'es-ar'
+defaultContentLanguage = 'es'
 
 theme = "terminal"
 paginate = 5
@@ -52,10 +53,10 @@ paginate = 5
   site = "drkbugs"
 
 [languages]
-  [languages.en]
+  [languages.es]
     languageName = "Español"
     title = "drk.ar"
-    subtitle = "Desafíos"
+    subtitle = "Proyectos"
     owner = ""
     keywords = ""
     copyright = "© 2022 Leandro Fernandez"
@@ -67,16 +68,23 @@ paginate = 5
     missingContentMessage = "Página no encontrada..."
     missingBackButtonLabel = "Volver al inicio"
 
-    [languages.en.params.logo]
+    [languages.es.params.logo]
       logoText = "drk.ar"
       logoHomeLink = "/"
 
-    [languages.en.menu]
-      [[languages.en.menu.main]]
-        identifier = "about"
-        name = "Sobre drk.ar"
-        url = "/page/about"
-      [[languages.en.menu.main]]
+    [languages.es.menu]
+      [[languages.es.menu.main]]
         identifier = "sidila"
         name = "SiDiLa"
         url = "/page/sidila"
+        weight = 1
+      [[languages.es.menu.main]]
+        identifier = "about"
+        name = "Sobre drk.ar"
+        url = "/page/about"
+        weight = 2
+      [[languages.es.menu.main]]
+        identifier = "privacy"
+        name = "Privacidad"
+        url = "/page/privacy"
+        weight = 3
