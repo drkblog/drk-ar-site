@@ -63,3 +63,8 @@
 .inline {
   display: inline;
 }
+
+.widget-pack {
+  display: inline-block;
+  width: fit-content;
+}
