@@ -35,6 +35,10 @@ let tree;
 let gameTicks = 0;
 let started = false;
 
+// UX
+const storageManager = new sidila.Storage();
+const programListHandler = new sidila.ProgramListDropDownHandler(storageManager, loadFilename);
+
 // UI Actions
 runButton.addEventListener("click", async (event) => {
   started = true;
@@ -58,17 +62,18 @@ resetButton.addEventListener("click", async (event) => {
   refreshUi();
 });
 loadButton.addEventListener("click", async (event) => {
-  if (loadFilename.selectedIndex > 0) {
-    const name = loadFilename.options[loadFilename.selectedIndex].value;
-    const code = sidila.Storage.loadProgram(name);
+  try {
+    const code = programListHandler.getSelectedProgram();
     if (code != undefined) {
       codeMirror.setValue(code);
     }
+  } catch(e) {
+    // Ignore
   }
 });
 saveButton.addEventListener("click", async (event) => {
   try {
-    sidila.Storage.saveProgram(saveFilename.value, codeMirror.getValue(), saveOverwrite);
+    storageManager.saveProgram(saveFilename.value, codeMirror.getValue(), saveOverwrite);
     reloadProgramList();
     saveOverwrite.checked = false;
   } catch (e) {
@@ -89,7 +94,7 @@ mapSelector.addEventListener("change", async (event) => {
 });
 
 function reloadProgramList() {
-  sidila.Storage.loadFiles(loadFilename);
+  programListHandler.loadFiles();
 }
 function refreshUi() {
   reloadProgramList();

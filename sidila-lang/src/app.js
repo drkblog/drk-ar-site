@@ -5,6 +5,7 @@ import { StepInterpreter } from './interpreter';
 import { Storage } from './util/storage';
 import { Score } from './game/score';
 import { parse } from './grammar/sidila';
+import { ProgramListDropDownHandler } from './ux/program-list';
 
 export { 
   EditorBoard,
@@ -14,5 +15,6 @@ export {
   StepInterpreter,
   Storage,
   Score,
+  ProgramListDropDownHandler,
   parse
 };
