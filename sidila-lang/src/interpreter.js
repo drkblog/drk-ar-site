@@ -1,4 +1,4 @@
-import { Publisher } from './publisher';
+import { Publisher } from './util/publisher';
 import { Action, Branch, Loop } from './instruction';
 
 export class StepInterpreter {
