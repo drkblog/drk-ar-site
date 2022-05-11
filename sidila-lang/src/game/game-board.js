@@ -1,6 +1,6 @@
 import { LogicBlock, CardinalDirection, Player, Zombie, Board, MoveDirection } from './board';
-import { Sound } from './sound';
-import { SceneService } from './scene';
+import { Sound } from '../sound';
+import { SceneService } from '../scene';
 
 export class GameBoard extends Board {
   constructor() {
