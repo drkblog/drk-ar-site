@@ -1,4 +1,4 @@
-import { LogicBlock, CardinalDirection, Player, Zombie, Board, MoveDirection } from '../src/board';
+import { LogicBlock, CardinalDirection, Player, Zombie, Board, MoveDirection } from '../src/game/board';
 
 // Zombie
 test('zombie movable', () => {

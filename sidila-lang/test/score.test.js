@@ -1,4 +1,4 @@
-import { Score } from '../src/score';
+import { Score } from '../src/game/score';
 
 test('score', () => {
   const score = new Score();
