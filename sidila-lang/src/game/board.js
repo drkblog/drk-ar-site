@@ -1,3 +1,5 @@
+import { GridCoordinatesTranslator } from '../util/grid-coordinates';
+
 // Enums
 export class LogicBlock {
   static Wall = new LogicBlock("█");
@@ -179,6 +181,7 @@ export class Board {
 
   loadScene(scene) {
     this.scene = scene;
+    this.gridCoordinatesTranslator = new GridCoordinatesTranslator(this.scene.width, this.scene.height);
   }
 
   getSprite(x, y) {
@@ -199,13 +202,10 @@ export class Board {
   }
 
   getSlotIndexFor(x, y) {
-    return x + y * this.scene.width;
+    return this.gridCoordinatesTranslator.getSlotIndexFor(x, y);
   }
 
   getCoordinatesFor(index) {
-    return {
-      x: index % this.scene.width,
-      y: Math.floor(index / this.scene.width)
-    }
+    return this.gridCoordinatesTranslator.getCoordinatesFor(index);
   }
 }
