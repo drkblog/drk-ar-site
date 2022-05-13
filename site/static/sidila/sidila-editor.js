@@ -44,7 +44,8 @@ paletteCanvas.addEventListener("click", async (event) => {
 // Canvas
 editorCanvas.addEventListener("mousemove", async (event) => {
   if (canvasPainter != null) {
-    canvasPainter.mouseOver(event.offsetX, event.offsetY);
+    const hover = canvasPainter.mouseOver(event.offsetX, event.offsetY);
+    hoverEditorSprite.innerHTML = `${canvasPainter.getCoordinatesForSlot(hover).x}, ${canvasPainter.getCoordinatesForSlot(hover).y}`;
   }
 });
 editorCanvas.addEventListener("click", async (event) => {

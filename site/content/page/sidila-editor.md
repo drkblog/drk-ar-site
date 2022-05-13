@@ -12,6 +12,7 @@ type: page
 <div id="container">
   <div>Over sprite: <span id="hoverSprite"></span> - Selected sprite: <span id="selectedSprite"></span></div>
   <canvas id="paletteCanvas" class="paletteCanvas" width="384" height="160"></canvas>
+  <div>Over sprite: <span id="hoverEditorSprite"></span></span></div>
   <canvas id="editorCanvas" class="editorCanvas" width="256" height="256"></canvas>
 </div>
 <div id="message" class="message"></div>

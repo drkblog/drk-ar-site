@@ -168,7 +168,7 @@ function tick() {
 }
 
 function paint() {
-  canvasPainter.paint(board);
+  canvasPainter.paint(board, performance.now());
   window.requestAnimationFrame(paint);
 }
 

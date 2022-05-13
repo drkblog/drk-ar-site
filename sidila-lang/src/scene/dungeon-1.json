@@ -29,6 +29,12 @@
       "nextWest": 236,
       "zombie": 188,
       "deadZombie": 164
+    },
+    "animations": {
+      "7,13" : {
+        "sprites": [157, 158],
+        "period": 300
+      }
     }
   },
   "logic": {

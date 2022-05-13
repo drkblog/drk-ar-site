@@ -21,15 +21,21 @@ class GridPainter {
     );
     return this.hover;
   }
-
   getSlotIndexForDiscrete(x, y) {
     return x + y * this.slotsInX;
   }
 
   getCanvasCoordinatesForSlot(index) {
+    const coordinates = this.getCoordinatesForSlot(index);
     return {
-      x: (index % this.slotsInX) * this.slotWidth,
-      y: Math.floor(index / this.slotsInX) * this.slotHeight
+      x: coordinates.x * this.slotWidth,
+      y: coordinates.y * this.slotHeight
+    };
+  }
+  getCoordinatesForSlot(index) {
+    return {
+      x: (index % this.slotsInX),
+      y: Math.floor(index / this.slotsInX)
     };
   }
 
@@ -61,15 +67,15 @@ export class CanvasPainter extends GridPainter {
     this.sprites.src = `${imageBaseUrl}${this.scene.theme.image}`;
   }
 
-  paint(board) {
+  paint(board, timestamp) {
     const context = this.canvas.getContext('2d');
     context.fillStyle = this.scene.theme.background;
     context.fillRect(0, 0, this.canvas.width, this.canvas.height);
     for(let y=0; y < this.slotsInY; y++) {
       for(let x=0; x < this.slotsInX; x++) {
-        const spriteNumber = board.getSprite(x, y);
+        const spriteNumber = board.getSprite(x, y, timestamp);
         this.drawSprite(context, spriteNumber, x, y);
-        const overlaySpriteNumber = board.getOverlaySprite(x, y);
+        const overlaySpriteNumber = board.getOverlaySprite(x, y, timestamp);
         if (overlaySpriteNumber != null) {
           this.drawSprite(context, overlaySpriteNumber, x, y);
         }

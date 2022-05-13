@@ -1,4 +1,5 @@
 import { GridCoordinatesTranslator } from '../util/grid-coordinates';
+import { AnimationService } from './animation';
 
 // Enums
 export class LogicBlock {
@@ -182,11 +183,17 @@ export class Board {
   loadScene(scene) {
     this.scene = scene;
     this.gridCoordinatesTranslator = new GridCoordinatesTranslator(this.scene.width, this.scene.height);
+    this.animationService = new AnimationService(this.scene.theme.animations);
   }
 
-  getSprite(x, y) {
-    // Invert axis to match canvas to JSON matrix
-    return this.scene.map[y][x];
+  getSprite(x, y, timestamp) {
+    const animationSprite = this.animationService.getSprite(x, y, timestamp);
+    if (animationSprite !== undefined) {
+      return animationSprite
+    } else {
+      // Invert axis to match canvas to JSON matrix
+      return this.scene.map[y][x];
+    }
   }
 
   getLogicLabelForSprite(sprite) {

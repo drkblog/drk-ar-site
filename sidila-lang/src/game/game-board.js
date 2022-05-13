@@ -113,7 +113,7 @@ export class GameBoard extends Board {
     return this.getLogic(atTheRightPosition.x, atTheRightPosition.y);
   }
 
-  getOverlaySprite(x, y) {
+  getOverlaySprite(x, y, timestamp) {
     if (this.player.isAt(x, y)) {
       return this.player.getSprite();
     }
