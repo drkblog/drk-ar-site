@@ -127,8 +127,11 @@ export class Player extends Movable {
   getSprite() {
     if (this.crashed) {
       return this.deadSprite;
+    } else if (this.done) {
+      return null;
+    } else {
+      return this.direction.sprite;
     }
-    return this.direction.sprite;
   }
   
   getNextMoveSprite() {

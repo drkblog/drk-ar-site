@@ -6,7 +6,7 @@ comments: false
 type: page
 ---
 
-# Simple Didactic Language v0.3.2
+# Simple Didactic Language v0.3.6
 
 {{< rawhtml >}}
 <div id="container">
