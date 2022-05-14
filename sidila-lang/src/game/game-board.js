@@ -51,6 +51,7 @@ export class GameBoard extends Board {
     return this.player.done;
   }
 
+  // TODO: Publish events instead of triggering sound and animations
   movePlayer(moveDirection) {
     this.playSound(this.sound.step);
     const newPosition = this.player.wouldMove(moveDirection);
@@ -60,6 +61,7 @@ export class GameBoard extends Board {
         this.player.crash();
       }
       if (this.getLogic(this.player.x, this.player.y) === LogicBlock.Exit) {
+        this.animationService.trigger(this.player.x, this.player.y);
         this.playSound(this.sound.win);
         this.player.finish();
       }

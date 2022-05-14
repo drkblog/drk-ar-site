@@ -17,7 +17,7 @@ test('two-ways animation', () => {
   expect(animation.getSprite(10)).toEqual(1);
   expect(animation.getSprite(20)).toEqual(1);
   expect(animation.getSprite(30)).toEqual(1);
-  animation.launch(0);
+  animation.launch();
   expect(animation.getSprite(0)).toEqual(1);
   expect(animation.getSprite(10)).toEqual(2);
   expect(animation.getSprite(20)).toEqual(3);
@@ -25,7 +25,7 @@ test('two-ways animation', () => {
   expect(animation.getSprite(31)).toEqual(4);
   expect(animation.getSprite(40)).toEqual(4);
   expect(animation.getSprite(50)).toEqual(4);
-  animation.launch(100);
+  animation.launch();
   expect(animation.getSprite(110)).toEqual(4);
   expect(animation.getSprite(120)).toEqual(3);
   expect(animation.getSprite(130)).toEqual(2);

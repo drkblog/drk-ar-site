@@ -9,11 +9,22 @@ export class AnimationService {
   }
 
   getSprite(x, y, timestamp) {
+    return this.getAnimationAt(x, y)?.getSprite(timestamp);
+  }
+
+  getAnimationAt(x, y) {
     const location = `${x},${y}`;
     if (Object.hasOwnProperty.call(this.animations, location)) {
-      return this.animations[location].getSprite(timestamp);
+      return this.animations[location];
     }
     return undefined;
+  }
+
+  trigger(x, y) {
+    const animation = this.getAnimationAt(x, y);
+    if ((animation !== undefined) && (animation instanceof TwoWaysAnimation)) {
+      animation.launch();
+    }
   }
 
   static createAnimationFromSettings(animation) {
@@ -52,7 +63,7 @@ export class TwoWaysAnimation {
     this.animationForward = true;
   }
 
-  launch(timestamp) {
+  launch() {
     this.animationRunning = true;
   }
 

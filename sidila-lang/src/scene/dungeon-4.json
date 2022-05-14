@@ -29,6 +29,20 @@
       "nextWest": 236,
       "zombie": 188,
       "deadZombie": 164
+    },
+    "animations": {
+      "7,1": {
+        "type": "two-ways",
+        "settings": {
+          "sprites": [
+            175,
+            174,
+            173,
+            172
+          ],
+          "period": 100
+        }
+      }
     }
   },
   "logic": {
@@ -67,7 +81,7 @@
       30,
       128,
       30,
-      174,
+      175,
       30,
       30,
       128,
