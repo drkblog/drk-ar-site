@@ -54,6 +54,30 @@ type: page
       "nextWest": 236,
       "zombie": 188,
       "deadZombie": 164
+    },
+    "animations": {
+      "7,13": {
+        "type": "loop",
+        "settings": {
+          "sprites": [
+            157,
+            158
+          ],
+          "period": 300
+        }
+      },
+      "13,12": {
+        "type": "two-ways",
+        "settings": {
+          "sprites": [
+            175,
+            174,
+            173,
+            172
+          ],
+          "period": 100
+        }
+      }
     }
   },
   "logic": {
@@ -296,7 +320,7 @@ type: page
       80,
       171,
       30,
-      174,
+      175,
       30,
       31
     ],

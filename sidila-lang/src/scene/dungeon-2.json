@@ -32,12 +32,18 @@
     },
     "animations": {
       "3,5" : {
-        "sprites": [34, 36, 38, 40, 42],
-        "period": 120
+        "type": "loop",
+        "settings": {
+          "sprites": [34, 36, 38, 40, 42],
+          "period": 120
+        }
       },
       "4,5" : {
-        "sprites": [35, 37, 39, 41, 43],
-        "period": 120
+        "type": "loop",
+        "settings": {
+          "sprites": [35, 37, 39, 41, 43],
+          "period": 120
+        }
       }
     }
   },
