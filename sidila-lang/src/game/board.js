@@ -192,7 +192,7 @@ export class Board {
   getSprite(x, y, timestamp) {
     const animationSprite = this.animationService.getSprite(x, y, timestamp);
     if (animationSprite !== undefined) {
-      return animationSprite
+      return animationSprite;
     } else {
       // Invert axis to match canvas to JSON matrix
       return this.scene.map[y][x];

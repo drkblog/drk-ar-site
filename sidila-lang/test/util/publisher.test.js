@@ -5,7 +5,7 @@ test('add subscriber and publish', () => {
   const events = [];
   const expectedEvent = { a: 1 };
   publisher.addSubscriber((event) => events.push(event));
-  publisher.publish(expectedEvent)
+  publisher.publish(expectedEvent);
   expect(events).toEqual([expectedEvent]);
 });
 
@@ -15,7 +15,7 @@ test('remove subscriber and publish', () => {
   const expectedEvent = { a: 1 };
   const subscriber = publisher.addSubscriber((event) => events.push(event));
   publisher.removeSubscriber(subscriber);
-  publisher.publish(expectedEvent)
+  publisher.publish(expectedEvent);
   expect(events).toEqual([]);
 });
 
@@ -25,6 +25,6 @@ test('add subscriber twice and publish', () => {
   const expectedEvent = { a: 1 };
   const subscriber = publisher.addSubscriber((event) => events.push(event));
   publisher.addSubscriber(subscriber);
-  publisher.publish(expectedEvent)
+  publisher.publish(expectedEvent);
   expect(events).toEqual([expectedEvent]);
 });
