@@ -8,7 +8,7 @@ export class GameBoard extends Board {
     super();
     this.sceneService = new SceneService();
     this.soundOn = true;
-    this.sound = {
+    this.soundMap = {
       step: new Sound('step.ogg'),
       bang: new Sound('bang.ogg'),
       win: new Sound('win.ogg'),
@@ -20,16 +20,16 @@ export class GameBoard extends Board {
 
   // TODO: Let other classes subscribe events to simplify GameBoard 
   subscribeEvents() {
-    this.eventBus.subscribe(Event.PlayerMoved.channelName, () => this.playSound(this.sound.step));
-    this.eventBus.subscribe(Event.PlayerDied.channelName, () => this.playSound(this.sound.gameOver));
+    this.eventBus.subscribe(Event.PlayerMoved.channelName, () => this.playSound(this.soundMap.step));
+    this.eventBus.subscribe(Event.PlayerDied.channelName, () => this.playSound(this.soundMap.gameOver));
     this.eventBus.subscribe(Event.PlayerWon.channelName, (coordinates) => {
       this.animationService.trigger(coordinates.x, coordinates.y);
-      this.playSound(this.sound.win);
+      this.playSound(this.soundMap.win);
     });
   }
 
-  reset(map) {
-    const scene = this.sceneService.get(map);
+  reset(sceneIndex) {
+    const scene = this.sceneService.get(sceneIndex);
     this.loadScene(scene);
     this.player = new Player(
       this.scene.player.x,
@@ -91,7 +91,7 @@ export class GameBoard extends Board {
     this.player.rotateRight();
   }
   playerShoot() {
-    this.playSound(this.sound.bang);
+    this.playSound(this.soundMap.bang);
     const shootAt = this.player.getShootTarget();
     if (this.getLogic(shootAt.x, shootAt.y) === LogicBlock.Zombie) {
       this.zombie.crash();
