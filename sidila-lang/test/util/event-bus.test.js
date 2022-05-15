@@ -20,12 +20,15 @@ test('add subscriber and publish in another channel', () => {
   expect(events).toEqual([]);
 });
 
-test('add two subscribers and publish in channel', () => {
+test('add three subscribers, remove one and publish in channel', () => {
   const channel = 'an-event';
   const events = [];
   const eventBus = new EventBus();
-  eventBus.subscribe(channel, (event) => events.push(event));
-  eventBus.subscribe(channel, (event) => events.push(event));
+  const subscriber = (event) => events.push(event);
+  eventBus.subscribe(channel, subscriber);
+  eventBus.subscribe(channel, subscriber);
+  eventBus.subscribe(channel, subscriber);
+  eventBus.unsubscribe(channel, subscriber);
   const expectedEvent = 'event';
   eventBus.publish(channel, expectedEvent);
   expect(events).toEqual([expectedEvent, expectedEvent]);

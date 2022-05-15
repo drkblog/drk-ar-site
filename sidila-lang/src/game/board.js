@@ -1,3 +1,4 @@
+import { EventBus } from '../util/event-bus';
 import { GridCoordinatesTranslator } from '../util/grid-coordinates';
 import { AnimationService } from './animation';
 
@@ -182,6 +183,9 @@ export class Player extends Movable {
 }
 
 export class Board {
+  constructor() {
+    this.eventBus = new EventBus();
+  }
 
   loadScene(scene) {
     this.scene = scene;

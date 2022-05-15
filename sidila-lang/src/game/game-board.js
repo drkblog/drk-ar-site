@@ -1,6 +1,7 @@
 import { LogicBlock, CardinalDirection, Player, Zombie, Board, MoveDirection } from './board';
 import { Sound } from '../sound';
 import { SceneService } from '../scene';
+import { Event } from './event';
 
 export class GameBoard extends Board {
   constructor() {
@@ -11,9 +12,20 @@ export class GameBoard extends Board {
       step: new Sound('step.ogg'),
       bang: new Sound('bang.ogg'),
       win: new Sound('win.ogg'),
-      gameover: new Sound('gameover.ogg')
+      gameOver: new Sound('gameover.ogg')
     };
+    this.subscribeEvents();
     this.reset(0);
+  }
+
+  // TODO: Let other classes subscribe events to simplify GameBoard 
+  subscribeEvents() {
+    this.eventBus.subscribe(Event.PlayerMoved.channelName, () => this.playSound(this.sound.step));
+    this.eventBus.subscribe(Event.PlayerDied.channelName, () => this.playSound(this.sound.gameOver));
+    this.eventBus.subscribe(Event.PlayerWon.channelName, (coordinates) => {
+      this.animationService.trigger(coordinates.x, coordinates.y);
+      this.playSound(this.sound.win);
+    });
   }
 
   reset(map) {
@@ -53,7 +65,7 @@ export class GameBoard extends Board {
 
   // TODO: Publish events instead of triggering sound and animations
   movePlayer(moveDirection) {
-    this.playSound(this.sound.step);
+    this.publishPlayerMoved(moveDirection);
     const newPosition = this.player.wouldMove(moveDirection);
     if (this.canMoveInto(newPosition.x, newPosition.y)) {
       this.player.move(moveDirection);
@@ -61,15 +73,14 @@ export class GameBoard extends Board {
         this.player.crash();
       }
       if (this.getLogic(this.player.x, this.player.y) === LogicBlock.Exit) {
-        this.animationService.trigger(this.player.x, this.player.y);
-        this.playSound(this.sound.win);
+        this.publishPlayerWon({ x: this.player.x, y: this.player.y});
         this.player.finish();
       }
     } else {
       this.player.crash();
     }
     if (this.player.crashed) {
-      this.playSound(this.sound.gameover);
+      this.publishPlayerDied();
     }
     this.moves++;
   }
@@ -136,5 +147,15 @@ export class GameBoard extends Board {
     if (this.soundOn) {
       fx.play();
     }
+  }
+
+  publishPlayerMoved(moveDirection) {
+    this.eventBus.publish(Event.PlayerMoved.channelName, moveDirection);
+  }
+  publishPlayerDied() {
+    this.eventBus.publish(Event.PlayerDied.channelName, null);
+  }
+  publishPlayerWon(coordinates) {
+    this.eventBus.publish(Event.PlayerWon.channelName, coordinates);
   }
 }
