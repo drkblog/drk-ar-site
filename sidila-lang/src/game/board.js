@@ -196,7 +196,7 @@ export class Board {
   loadScene(scene) {
     this.scene = scene;
     this.gridCoordinatesTranslator = new GridCoordinatesTranslator(this.scene.width, this.scene.height);
-    this.animationService = new AnimationService(this.scene.theme.animations);
+    this.animationService = new AnimationService(this.scene.theme.animations, this.eventBus);
   }
 
   getSprite(x, y, timestamp) {

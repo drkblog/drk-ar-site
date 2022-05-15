@@ -31,6 +31,90 @@
       "deadZombie": 164
     },
     "animations": {
+      "11,0": {
+        "type": "two-ways",
+        "settings": {
+          "sprites": [
+            204,
+            201,
+            198,
+            195,
+            192
+          ],
+          "period": 75,
+          "subscribe": "game-started"
+        }
+      },
+      "11,1": {
+        "type": "two-ways",
+        "settings": {
+          "sprites": [
+            228,
+            225,
+            222,
+            219,
+            216
+          ],
+          "period": 75,
+          "subscribe": "game-started"
+        }
+      },
+      "12,0": {
+        "type": "two-ways",
+        "settings": {
+          "sprites": [
+            205,
+            202,
+            199,
+            196,
+            193
+          ],
+          "period": 75,
+          "subscribe": "game-started"
+        }
+      },
+      "12,1": {
+        "type": "two-ways",
+        "settings": {
+          "sprites": [
+            229,
+            226,
+            223,
+            220,
+            217
+          ],
+          "period": 75,
+          "subscribe": "game-started"
+        }
+      },
+      "13,0": {
+        "type": "two-ways",
+        "settings": {
+          "sprites": [
+            206,
+            203,
+            200,
+            197,
+            194
+          ],
+          "period": 75,
+          "subscribe": "game-started"
+        }
+      },
+      "13,1": {
+        "type": "two-ways",
+        "settings": {
+          "sprites": [
+            230,
+            227,
+            224,
+            221,
+            218
+          ],
+          "period": 75,
+          "subscribe": "game-started"
+        }
+      },
       "7,13": {
         "type": "loop",
         "settings": {
@@ -77,9 +161,9 @@
       6,
       6,
       6,
-      192,
-      193,
-      194,
+      204,
+      205,
+      206,
       6,
       7
     ],
@@ -95,9 +179,9 @@
       168,
       30,
       30,
-      216,
-      217,
-      218,
+      228,
+      229,
+      230,
       30,
       31
     ],

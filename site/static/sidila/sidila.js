@@ -134,6 +134,7 @@ function run(code) {
     }
   });
   resetHeartbeat();
+  board.start();
 }
 
 function reset() {

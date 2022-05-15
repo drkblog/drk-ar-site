@@ -1,9 +1,9 @@
 export class AnimationService {
-  constructor(animations) {
+  constructor(animations, eventBus) {
     this.animations = {};
     for (const location in animations) {
       if (Object.hasOwnProperty.call(animations, location)) {
-        this.animations[location] = AnimationService.createAnimationFromSettings(animations[location]);
+        this.animations[location] = AnimationService.createAnimationFromSettings(animations[location], eventBus);
       }
     }
   }
@@ -27,16 +27,16 @@ export class AnimationService {
     }
   }
 
-  static createAnimationFromSettings(animation) {
+  static createAnimationFromSettings(animation, eventBus) {
     switch(animation.type) {
-      case 'loop': return new LoopAnimation(animation.settings);
-      case 'two-ways': return new TwoWaysAnimation(animation.settings);
+      case 'loop': return new LoopAnimation(animation.settings, eventBus);
+      case 'two-ways': return new TwoWaysAnimation(animation.settings, eventBus);
     }
   }
 }
 
 export class LoopAnimation {
-  constructor(settings) {
+  constructor(settings, eventBus) {
     this.settings = settings;
     this.loopLimit = settings.sprites.length * settings.period;
   }
@@ -56,11 +56,14 @@ export class LoopAnimation {
 }
 
 export class TwoWaysAnimation {
-  constructor(settings) {
+  constructor(settings, eventBus) {
     this.baseAnimation = new LoopAnimation(settings);
     this.alternateTimestamp = 0;
     this.animationRunning = false;
     this.animationForward = true;
+    if (settings.subscribe !== undefined) {
+      eventBus.subscribe(settings.subscribe, () => this.launch());
+    }
   }
 
   launch() {
