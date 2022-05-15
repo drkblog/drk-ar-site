@@ -1,6 +1,7 @@
 import { EventBus } from '../util/event-bus';
 import { GridCoordinatesTranslator } from '../util/grid-coordinates';
 import { AnimationService } from './animation';
+import { Event } from './event';
 
 // Enums
 export class LogicBlock {
@@ -123,6 +124,11 @@ export class Player extends Movable {
     CardinalDirection.South.arrowSprite = theme.sprite['nextSouth'];
     CardinalDirection.West.arrowSprite = theme.sprite['nextWest'];
     this.deadSprite = theme.sprite['dead'];
+  }
+
+  subscribeToEvents(eventBus) {
+    eventBus.subscribe(Event.PlayerDied.channelName, () => this.crash());
+    eventBus.subscribe(Event.PlayerWon.channelName, () => this.finish());
   }
 
   getSprite() {

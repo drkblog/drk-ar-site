@@ -14,13 +14,14 @@ export class GameBoard extends Board {
       win: new Sound('win.ogg'),
       gameOver: new Sound('gameover.ogg')
     };
-    this.subscribeEvents();
+    this.subscribeToEvents();
     this.reset(0);
   }
 
   // TODO: Let other classes subscribe events to simplify GameBoard 
-  subscribeEvents() {
+  subscribeToEvents() {
     this.eventBus.subscribe(Event.PlayerMoved.channelName, () => this.playSound(this.soundMap.step));
+    this.eventBus.subscribe(Event.PlayerShot.channelName, () => this.playSound(this.soundMap.bang));
     this.eventBus.subscribe(Event.PlayerDied.channelName, () => this.playSound(this.soundMap.gameOver));
     this.eventBus.subscribe(Event.PlayerWon.channelName, (coordinates) => {
       this.animationService.trigger(coordinates.x, coordinates.y);
@@ -36,6 +37,7 @@ export class GameBoard extends Board {
       this.scene.player.y,
       CardinalDirection[this.scene.player.direction]
     );
+    this.player.subscribeToEvents(this.eventBus);
     this.zombie = new Zombie(
       this.scene.zombie.x,
       this.scene.zombie.y
@@ -72,15 +74,12 @@ export class GameBoard extends Board {
       this.player.move(moveDirection);
       if (this.getLogicAround(this.player.x, this.player.y).includes(LogicBlock.Sphinx)) {
         this.publishPlayerDied();
-        this.player.crash();
       }
       if (this.getLogic(this.player.x, this.player.y) === LogicBlock.Exit) {
         this.publishPlayerWon({ x: this.player.x, y: this.player.y});
-        this.player.finish();
       }
     } else {
       this.publishPlayerDied();
-      this.player.crash();
     }
     this.moves++;
     if (this.player.crashed || this.player.done) {
@@ -94,7 +93,7 @@ export class GameBoard extends Board {
     this.player.rotateRight();
   }
   playerShoot() {
-    this.playSound(this.soundMap.bang);
+    this.publishNoDataEvent(Event.PlayerShot);
     const shootAt = this.player.getShootTarget();
     if (this.getLogic(shootAt.x, shootAt.y) === LogicBlock.Zombie) {
       this.zombie.crash();
