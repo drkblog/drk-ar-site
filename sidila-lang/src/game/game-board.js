@@ -44,6 +44,7 @@ export class GameBoard extends Board {
     this.zombie.setupSprites(this.scene.theme);
     this.moves = 0;
     this.shots = 0;
+    this.publishNoDataEvent(Event.GameReset);
   }
 
   getSceneCount() {
@@ -70,6 +71,7 @@ export class GameBoard extends Board {
     if (this.canMoveInto(newPosition.x, newPosition.y)) {
       this.player.move(moveDirection);
       if (this.getLogicAround(this.player.x, this.player.y).includes(LogicBlock.Sphinx)) {
+        this.publishPlayerDied();
         this.player.crash();
       }
       if (this.getLogic(this.player.x, this.player.y) === LogicBlock.Exit) {
@@ -77,12 +79,13 @@ export class GameBoard extends Board {
         this.player.finish();
       }
     } else {
+      this.publishPlayerDied();
       this.player.crash();
     }
-    if (this.player.crashed) {
-      this.publishPlayerDied();
-    }
     this.moves++;
+    if (this.player.crashed || this.player.done) {
+      this.publishNoDataEvent(Event.GameFinished);
+    }
   }
   rotatePlayerLeft() {
     this.player.rotateLeft();
@@ -157,5 +160,8 @@ export class GameBoard extends Board {
   }
   publishPlayerWon(coordinates) {
     this.eventBus.publish(Event.PlayerWon.channelName, coordinates);
+  }
+  publishNoDataEvent(event) {
+    this.eventBus.publish(event.channelName, null);
   }
 }
