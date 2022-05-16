@@ -6,6 +6,7 @@ import { Storage } from './util/storage';
 import { Score } from './game/score';
 import { parse } from './grammar/sidila';
 import { ProgramListDropDownHandler } from './ux/program-list';
+import { CodeMirrorHelper } from './ux/code-mirror-helper';
 
 export { 
   EditorBoard,
@@ -16,5 +17,6 @@ export {
   Storage,
   Score,
   ProgramListDropDownHandler,
+  CodeMirrorHelper,
   parse
 };

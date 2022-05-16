@@ -6,7 +6,7 @@ comments: false
 type: page
 ---
 
-# Simple Didactic Language v0.3.6
+# Simple Didactic Language v0.3.7
 
 {{< rawhtml >}}
 <div id="container">
@@ -48,8 +48,7 @@ type: page
 <textarea id="errorMessage" class="errorMessage" cols="80" rows="10">
 </textarea>
 <div id="codeContainer">
-  <textarea id="sourceCode" class="sourceCode" cols="80" rows="12">
-  </textarea>
+  <textarea id="sourceCode" class="sourceCode" cols="80" rows="12"></textarea>
 </div>
 <div class="widget-pack">
   <select id="loadFilename" class="sidila-button">

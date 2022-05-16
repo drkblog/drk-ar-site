@@ -59,6 +59,10 @@
   background-color: rgb(181, 57, 0);
   color: white;
 }
+.error-line {
+  background-color: rgb(240, 220, 0);
+  color: black;
+}
 
 .inline {
   display: inline;

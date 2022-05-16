@@ -20,7 +20,7 @@ const mapSelector=document.querySelector("#mapSelector");
 
 const codeMirror = CodeMirror.fromTextArea(sourceCode);
 codeMirror.setOption('lineNumbers', true);
-let lastMarker;
+const codeMirrorHelper = new sidila.CodeMirrorHelper(codeMirror, 'debug-line', 'error-line');
 
 // Game setup
 let tickPeriod = 200;
@@ -44,12 +44,14 @@ runButton.addEventListener("click", async (event) => {
   started = true;
   refreshUi();
   errorMessage.style.display = 'none';
+  codeMirrorHelper.clearError();
   try {
     run(codeMirror.getValue());
   } catch (e) {
     started = false;
     errorMessage.innerHTML = e.message;
     errorMessage.style.display = 'block';
+    codeMirrorHelper.markError(e.message);
     refreshUi();
   }
 });
@@ -124,13 +126,7 @@ function run(code) {
   interpreter = new sidila.StepInterpreter(board, tree);
   interpreter.subscribeToStep((event) => {
     if (highlight.checked) {
-      const start = codeMirror.posFromIndex(event.location.start);
-      const end = codeMirror.posFromIndex(event.location.end);
-      if (lastMarker != undefined) {
-        lastMarker.clear();
-      }
-      lastMarker = codeMirror.markText(start, end, { className: 'debug-line'});
-      codeMirror.scrollIntoView(start);
+      codeMirrorHelper.highlight(event.location);
     }
   });
   resetHeartbeat();
@@ -143,9 +139,7 @@ function reset() {
   interpreter = null;
   gameTicks = 0;
   board.reset(mapSelector.value);
-  if (lastMarker != undefined) {
-    lastMarker.clear();
-  }
+  codeMirrorHelper.clearHighlight();
 }
 
 function tick() {
