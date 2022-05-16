@@ -31,6 +31,20 @@
       "deadZombie": 164
     },
     "animations": {
+      "14,13": {
+        "type": "two-ways",
+        "settings": {
+          "sprites": [
+            144,
+            145,
+            146,
+            147,
+            148
+          ],
+          "period": 75,
+          "subscribe": "game-started"
+        }
+      },
       "7,1": {
         "type": "two-ways",
         "settings": {

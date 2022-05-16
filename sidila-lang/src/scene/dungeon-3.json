@@ -31,6 +31,90 @@
       "deadZombie": 164
     },
     "animations": {
+      "12,11": {
+        "type": "two-ways",
+        "settings": {
+          "sprites": [
+            204,
+            201,
+            198,
+            195,
+            192
+          ],
+          "period": 75,
+          "subscribe": "game-started"
+        }
+      },
+      "12,12": {
+        "type": "two-ways",
+        "settings": {
+          "sprites": [
+            228,
+            225,
+            222,
+            219,
+            216
+          ],
+          "period": 75,
+          "subscribe": "game-started"
+        }
+      },
+      "13,11": {
+        "type": "two-ways",
+        "settings": {
+          "sprites": [
+            205,
+            202,
+            199,
+            196,
+            193
+          ],
+          "period": 75,
+          "subscribe": "game-started"
+        }
+      },
+      "13,12": {
+        "type": "two-ways",
+        "settings": {
+          "sprites": [
+            229,
+            226,
+            223,
+            220,
+            217
+          ],
+          "period": 75,
+          "subscribe": "game-started"
+        }
+      },
+      "14,11": {
+        "type": "two-ways",
+        "settings": {
+          "sprites": [
+            206,
+            203,
+            200,
+            197,
+            194
+          ],
+          "period": 75,
+          "subscribe": "game-started"
+        }
+      },
+      "14,12": {
+        "type": "two-ways",
+        "settings": {
+          "sprites": [
+            230,
+            227,
+            224,
+            221,
+            218
+          ],
+          "period": 75,
+          "subscribe": "game-started"
+        }
+      },
       "7,1": {
         "type": "two-ways",
         "settings": {
