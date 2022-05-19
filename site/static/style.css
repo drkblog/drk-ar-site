@@ -40,6 +40,15 @@
   width: 70%;
 }
 
+.section {
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+}
+.pair {
+  width: 48%;
+}
+
 .errorMessage {
   display: none;
   color: red;

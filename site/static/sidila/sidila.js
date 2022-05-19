@@ -16,6 +16,9 @@ const sound=document.querySelector("#sound");
 const highlight=document.querySelector("#highlight");
 const errorMessage=document.querySelector("#errorMessage");
 const mapSelector=document.querySelector("#mapSelector");
+const pair=document.querySelector("#pair");
+const sections=document.querySelectorAll(".section");
+const container=document.querySelector(".container");
 
 
 const codeMirror = CodeMirror.fromTextArea(sourceCode);
@@ -36,6 +39,7 @@ let gameTicks = 0;
 let started = false;
 
 // UX
+const originalMaxWidth = container.style['max-width'];
 const storageManager = new sidila.Storage();
 const programListHandler = new sidila.ProgramListDropDownHandler(storageManager, loadFilename);
 
@@ -94,6 +98,9 @@ sound.addEventListener("change", async (event) => {
 mapSelector.addEventListener("change", async (event) => {
   reset();
 });
+pair.addEventListener("change", async (event) => {
+  refreshUi();
+});
 
 function reloadProgramList() {
   programListHandler.loadFiles();
@@ -107,6 +114,17 @@ function refreshUi() {
   loadButton.disabled = started;
   saveButton.disabled = started;
   codeMirror.setOption('readOnly', started);
+  if (pair.checked === true) {
+    container.style['max-width'] = 'inherit';
+    sections.forEach(element => {
+      element.classList.add('pair');
+    }); 
+  } else {
+    sections.forEach(element => {
+      element.classList.remove('pair');
+    }); 
+    container.style['max-width'] = originalMaxWidth;
+  }
 }
 function resetHeartbeat() {
   clearHeartbeat();

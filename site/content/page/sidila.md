@@ -9,60 +9,68 @@ type: page
 # Simple Didactic Language v0.3.7
 
 {{< rawhtml >}}
-<div id="container">
-  <canvas id="canvas" class="canvas" width="256" height="256"></canvas>
-</div>
-<div id="message" class="message"></div>
-<div>
-<label for="mapSelector">Escenario</label>
- <select id="mapSelector" class="sidila-button">
-    <option value="0" selected>#1</option>
-    <option value="1">#2</option>
-    <option value="2">#3</option>
-    <option value="3">#4</option>
-  </select>
-  <input type="checkbox" id="sound" value="sound" checked>
-  <label for="sound">Sonidos</label>
-</div>
-<h3>Tu programa:</h3>
-<div>
-  <div class="widget-pack">
-    <button id="run" class="sidila-button">Ejecutar</button>
-    <button id="reset" class="sidila-button">Reiniciar</button>
+<div class="section">
+  <div>
+    <canvas id="canvas" class="canvas" width="256" height="256"></canvas>
   </div>
-  <div class="widget-pack">
-    <label for="periodSelector">Velocidad</label>
-    <select id="periodSelector" class="sidila-button">
-      <option value="0">Paso a paso</option>
-      <option value="300">Lento</option>
-      <option value="200" selected>Normal</option>
-      <option value="50">Rápido</option>
+  <div id="message" class="message"></div>
+  <div>
+  <label for="mapSelector">Escenario</label>
+  <select id="mapSelector" class="sidila-button">
+      <option value="0" selected>#1</option>
+      <option value="1">#2</option>
+      <option value="2">#3</option>
+      <option value="3">#4</option>
     </select>
-    <button id="step" class="sidila-button" disabled>Dar un paso</button>
+    <input type="checkbox" id="sound" value="sound" checked>
+    <label for="sound">Sonidos</label>
+  </div>
+</div>
+<div class="section">
+  <h3>Tu programa:</h3>
+  <div>
+    <div class="widget-pack">
+      <button id="run" class="sidila-button">Ejecutar</button>
+      <button id="reset" class="sidila-button">Reiniciar</button>
+    </div>
+    <div class="widget-pack">
+      <label for="periodSelector">Velocidad</label>
+      <select id="periodSelector" class="sidila-button">
+        <option value="0">Paso a paso</option>
+        <option value="300">Lento</option>
+        <option value="200" selected>Normal</option>
+        <option value="50">Rápido</option>
+      </select>
+      <button id="step" class="sidila-button" disabled>Dar un paso</button>
+    </div>
+    <div class="widget-pack">
+      <input type="checkbox" id="highlight" value="highlight">
+      <label for="sound">Resaltar</label>
+    </div>
+  </div>
+  <textarea id="errorMessage" class="errorMessage" cols="80" rows="10">
+  </textarea>
+  <div id="codeContainer">
+    <textarea id="sourceCode" class="sourceCode" cols="80" rows="12"></textarea>
   </div>
   <div class="widget-pack">
-    <input type="checkbox" id="highlight" value="highlight">
-    <label for="sound">Resaltar</label>
+    <select id="loadFilename" class="sidila-button">
+      <option value="">Seleccione programa</option>
+    </select>
+    <button id="load" class="sidila-button">Cargar programa</button>
+  </div>
+  <div class="widget-pack">
+    <input id="saveFilename" placeholder="nombre del programa" minlength="2" maxlength="20" class="sidila-button">
+    <button id="save" class="sidila-button">Guardar programa</button>
+  </div>
+  <div class="widget-pack">
+    <input type="checkbox" id="saveOverwrite" value="overwrite">
+    <label for="saveOverwrite">Sobreescribir si ya existe</label>
   </div>
 </div>
-<textarea id="errorMessage" class="errorMessage" cols="80" rows="10">
-</textarea>
-<div id="codeContainer">
-  <textarea id="sourceCode" class="sourceCode" cols="80" rows="12"></textarea>
-</div>
-<div class="widget-pack">
-  <select id="loadFilename" class="sidila-button">
-    <option value="">Seleccione programa</option>
-  </select>
-  <button id="load" class="sidila-button">Cargar programa</button>
-</div>
-<div class="widget-pack">
-  <input id="saveFilename" placeholder="nombre del programa" minlength="2" maxlength="20" class="sidila-button">
-  <button id="save" class="sidila-button">Guardar programa</button>
-</div>
-<div class="widget-pack">
-  <input type="checkbox" id="saveOverwrite" value="overwrite">
-  <label for="saveOverwrite">Sobreescribir si ya existe</label>
+<div id="advanced">
+  <input type="checkbox" id="pair" value="pair">
+  <label for="pair">Lado a lado</label>
 </div>
 {{< /rawhtml >}}
 
