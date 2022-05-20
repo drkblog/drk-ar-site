@@ -177,6 +177,8 @@ function tick() {
       message.innerHTML = `No llegaste a la salida`;
     }
     clearHeartbeat();
+    started = false;
+    refreshUi();
   }
 }
 
