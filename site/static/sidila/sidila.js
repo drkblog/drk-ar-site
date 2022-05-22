@@ -2,6 +2,7 @@
 const sourceCode=document.querySelector("#sourceCode");
 const canvas=document.querySelector("#canvas");
 const message=document.querySelector("#message");
+const scoreBanner=document.querySelector("#score");
 const periodSelector=document.querySelector("#periodSelector");
 const periodText=document.querySelector("#periodText");
 const runButton=document.querySelector("#run");
@@ -161,6 +162,9 @@ function reset() {
 }
 
 function tick() {
+  const lines = codeMirror.lineCount();
+  const score = new sidila.Score().getScore(lines, board);
+  scoreBanner.innerHTML = score;
   const finished = board.isCrashed() || board.isDone();
   if (interpreter != null && !interpreter.isFinished() && !finished) {
     gameTicks++;
@@ -170,8 +174,6 @@ function tick() {
     if (board.isCrashed()) {
       message.innerHTML = `Perdiste`;
     } else if (board.isDone()) {
-      const lines = codeMirror.lineCount();
-      const score = new sidila.Score().getScore(lines, board);
       message.innerHTML = `Ganaste con ${score} puntos`;
     } else {
       message.innerHTML = `No llegaste a la salida`;
