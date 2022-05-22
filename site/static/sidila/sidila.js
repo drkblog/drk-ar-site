@@ -86,8 +86,6 @@ stepButton.addEventListener("click", async (event) => {
 });
 resetButton.addEventListener("click", async (event) => {
   reset();
-  started = false;
-  refreshUi();
 });
 loadButton.addEventListener("click", async (event) => {
   try {
@@ -172,6 +170,8 @@ function reset() {
   tree = undefined;
   codeMirrorHelper.clearHighlight();
   control.reset(mapSelector.value);
+  started = false;
+  refreshUi();
 }
 
 function tick() {
@@ -179,8 +179,7 @@ function tick() {
     control.tick();
   } else {
     clearHeartbeat();
-    started = false;
-    refreshUi();
+    setTimeout(() => reset(), 1000);
   }
 }
 
