@@ -3,9 +3,15 @@ import { Sound } from '../sound';
 import { SceneService } from '../scene';
 import { Event } from './event';
 
+export class GameResult {
+  static NotFinished = new GameResult();
+  static Won = new GameResult();
+  static Died = new GameResult();
+}
+
 export class GameBoard extends Board {
-  constructor() {
-    super();
+  constructor(eventBus) {
+    super(eventBus);
     this.sceneService = new SceneService();
     this.soundOn = true;
     this.soundMap = {
@@ -44,6 +50,7 @@ export class GameBoard extends Board {
     );
     this.player.setupSprites(this.scene.theme);
     this.zombie.setupSprites(this.scene.theme);
+    this.gameResult = GameResult.NotFinished;
     this.moves = 0;
     this.shots = 0;
     this.publishNoDataEvent(Event.GameReset);
@@ -81,13 +88,15 @@ export class GameBoard extends Board {
       }
       if (this.getLogic(this.player.x, this.player.y) === LogicBlock.Exit) {
         this.publishPlayerWon({ x: this.player.x, y: this.player.y});
+        this.gameResult = GameResult.Won;
       }
     } else {
       this.publishPlayerDied();
+      this.gameResult = GameResult.Died;
     }
     this.moves++;
     if (this.player.crashed || this.player.done) {
-      this.publishNoDataEvent(Event.GameFinished);
+      this.publishGameFinished();
     }
   }
   rotatePlayerLeft() {
@@ -164,6 +173,10 @@ export class GameBoard extends Board {
   publishPlayerWon(coordinates) {
     this.eventBus.publish(Event.PlayerWon.channelName, coordinates);
   }
+  publishGameFinished() {
+    this.eventBus.publish(Event.GameFinished.channelName, this.gameResult);
+  }
+  
   publishNoDataEvent(event) {
     this.eventBus.publish(event.channelName, null);
   }

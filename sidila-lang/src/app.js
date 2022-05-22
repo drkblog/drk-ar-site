@@ -1,9 +1,8 @@
-import { GameBoard } from './game/game-board';
+import { GameBoard, GameResult } from './game/game-board';
 import { EditorBoard } from './game/editor-board';
 import { CanvasPainter, PalettePainter } from './drawing';
-import { StepInterpreter } from './interpreter';
 import { Storage } from './util/storage';
-import { Score } from './game/score';
+import { Control } from './game/control';
 import { parse } from './grammar/sidila';
 import { ProgramListDropDownHandler } from './ux/program-list';
 import { CodeMirrorHelper } from './ux/code-mirror-helper';
@@ -11,11 +10,11 @@ import { CodeMirrorHelper } from './ux/code-mirror-helper';
 export { 
   EditorBoard,
   GameBoard,
+  GameResult,
   CanvasPainter,
   PalettePainter,
-  StepInterpreter,
   Storage,
-  Score,
+  Control,
   ProgramListDropDownHandler,
   CodeMirrorHelper,
   parse

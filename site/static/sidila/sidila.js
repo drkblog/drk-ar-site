@@ -28,15 +28,36 @@ const codeMirrorHelper = new sidila.CodeMirrorHelper(codeMirror, 'debug-line', '
 
 // Game setup
 let tickPeriod = 200;
-const board = new sidila.GameBoard();
+const control = new sidila.Control(codeMirror);
+control.subscribeToStep((event) => {
+  if (highlight.checked) {
+    codeMirrorHelper.highlight(event.location);
+  }
+  message.innerHTML = `Ejecutando paso #${event.gameTicks}`;
+});
+control.subscribeToScore((score) => {
+  scoreBanner.innerHTML = score;
+});
+control.subscribeToGameFinished((gameResult) => {
+  switch (gameResult) {
+    case sidila.GameResult.Died:
+      message.innerHTML = `Perdiste`;
+      break;
+    case sidila.GameResult.Won:
+      message.innerHTML = `Ganaste`;
+      break;
+    default:
+      message.innerHTML = `No llegaste a la salida`;
+  }
+});
+
+const board = control.board; // TODO: remove
 const canvasPainter = new sidila.CanvasPainter(canvas, board.scene);
-let interpreter;
 let heartbeat;
 let stepByStep = false;
 
 // Game status
 let tree;
-let gameTicks = 0;
 let started = false;
 
 // UX
@@ -94,7 +115,7 @@ periodSelector.addEventListener("change", async (event) => {
   resetHeartbeat();
 });
 sound.addEventListener("change", async (event) => {
-  board.setSound(sound.checked);
+  control.setSound(sound.checked);
 });
 mapSelector.addEventListener("change", async (event) => {
   reset();
@@ -142,42 +163,21 @@ function clearHeartbeat() {
 // Game
 function run(code) {
   tree = sidila.parse(code);
-  interpreter = new sidila.StepInterpreter(board, tree);
-  interpreter.subscribeToStep((event) => {
-    if (highlight.checked) {
-      codeMirrorHelper.highlight(event.location);
-    }
-  });
+  control.run(tree);
   resetHeartbeat();
-  board.start();
 }
 
 function reset() {
   clearHeartbeat();
   tree = undefined;
-  interpreter = null;
-  gameTicks = 0;
-  board.reset(mapSelector.value);
   codeMirrorHelper.clearHighlight();
+  control.reset(mapSelector.value);
 }
 
 function tick() {
-  const lines = codeMirror.lineCount();
-  const score = new sidila.Score().getScore(lines, board);
-  scoreBanner.innerHTML = score;
-  const finished = board.isCrashed() || board.isDone();
-  if (interpreter != null && !interpreter.isFinished() && !finished) {
-    gameTicks++;
-    message.innerHTML = `Ejecutando paso #${gameTicks}`;
-    interpreter.tick();
+  if (control.isRunning()) {
+    control.tick();
   } else {
-    if (board.isCrashed()) {
-      message.innerHTML = `Perdiste`;
-    } else if (board.isDone()) {
-      message.innerHTML = `Ganaste con ${score} puntos`;
-    } else {
-      message.innerHTML = `No llegaste a la salida`;
-    }
     clearHeartbeat();
     started = false;
     refreshUi();

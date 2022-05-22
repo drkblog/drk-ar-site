@@ -4,6 +4,9 @@ export class Score {
   }
 
   getScore(lines, board) {
+    if (board.isCrashed()) {
+      return 0;
+    }
     const zombieKilled = board.zombie.crashed;
     const linesFactor = (zombieKilled) ? 0.95 : 1;
     const moves = board.moves;

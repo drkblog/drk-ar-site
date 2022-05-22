@@ -1,13 +1,14 @@
-import { Publisher } from './util/publisher';
+import { Event } from './game/event';
 import { Action, Branch, Loop } from './instruction';
 
 export class StepInterpreter {
-  constructor(board, tree) {
-    this.publisher = new Publisher();
+  constructor(board, tree, eventBus) {
+    this.eventBus = eventBus;
     this.board = board;
     this.tree = tree;
     this.stack = [];
     this.stackBody(this.tree.elements);
+    this.gameTicks = 0;
   }
 
   stackBody(nodes) {
@@ -20,6 +21,7 @@ export class StepInterpreter {
   }
 
   tick() {
+    this.gameTicks++;
     const node = this.stack.pop();
     if (node !== undefined) {
       this.visitNode(node);
@@ -32,8 +34,7 @@ export class StepInterpreter {
 
   visitNode(node) {
     const instruction = node.elements[0];
-    const event = this.createStepEvent(instruction);
-    this.publisher.publish(event);
+    this.publishStep(instruction);
     if (instruction instanceof Action) {
       instruction.execute(board);
     } else if (instruction instanceof Branch) {
@@ -52,8 +53,14 @@ export class StepInterpreter {
 
   createStepEvent(node) {
     return {
-      location: node.location
+      location: node.location,
+      gameTicks: this.gameTicks
     };
+  }
+
+  publishStep(instruction) {
+    const event = this.createStepEvent(instruction);
+    this.eventBus.publish(Event.InterpreterStep.channelName, event);
   }
 
   subscribeToStep(subscriber) {

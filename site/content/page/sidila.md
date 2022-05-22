@@ -14,7 +14,7 @@ type: page
     <canvas id="canvas" class="canvas" width="256" height="256"></canvas>
   </div>
   <div class="widget-pack">
-    <label for="score">Puntaje: </label><span id="score" class="message">0</span>
+    <label for="score">Puntaje: </label><span id="score" class="message score">0</span>
     <label for="message">Estado: </label><span id="message" class="message">-</span>
   </div>
   <div>

@@ -189,8 +189,8 @@ export class Player extends Movable {
 }
 
 export class Board {
-  constructor() {
-    this.eventBus = new EventBus();
+  constructor(eventBus) {
+    this.eventBus = eventBus;
   }
 
   loadScene(scene) {

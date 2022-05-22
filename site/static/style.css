@@ -13,10 +13,15 @@
   padding: 0 1.4ch;
 }
 .message {
+  display: inline-block;
   color: rgb(217, 114, 11);
   padding: .2em;
   margin: .2em;
   font-weight: bolder;
+}
+.score {
+  width: 7ch;
+  text-align: right;
 }
 .canvas {
   display: inline-block !important;

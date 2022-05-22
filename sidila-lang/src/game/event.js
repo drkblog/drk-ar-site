@@ -6,6 +6,8 @@ export class Event {
   static PlayerDied = new Event('player-died');
   static PlayerWon = new Event('player-won');
   static PlayerShot = new Event('player-shot');
+  static InterpreterStep = new Event('interpreter-step');
+  static Score = new Event('game-score');
 
   constructor(channelName) {
     this.channelName = channelName;
