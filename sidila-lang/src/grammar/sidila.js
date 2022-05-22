@@ -1,4 +1,4 @@
-import { Move, Back, Shoot, Turn, Branch, Loop, LookAheadCondition, InGameCondition } from '../instruction';
+import { Move, Back, Shoot, Turn, Branch, Loop, LookAheadCondition, InGameCondition } from '../instructions/instruction';
 
 const maps = require('../../build/peg');
 

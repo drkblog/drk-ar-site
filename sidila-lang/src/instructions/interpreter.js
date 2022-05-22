@@ -1,4 +1,4 @@
-import { Event } from './game/event';
+import { Event } from '../game/event';
 import { Action, Branch, Loop } from './instruction';
 
 export class StepInterpreter {
@@ -36,15 +36,15 @@ export class StepInterpreter {
     const instruction = node.elements[0];
     this.publishStep(instruction);
     if (instruction instanceof Action) {
-      instruction.execute(board);
+      instruction.execute(this.board);
     } else if (instruction instanceof Branch) {
-      if (instruction.evaluate(board)) {
+      if (instruction.evaluate(this.board)) {
         this.stackBody(instruction.body);
       } else if (instruction.elseBody !== undefined) {
         this.stackBody(instruction.elseBody);
       }
     } else if (instruction instanceof Loop) {
-      if (instruction.evaluate(board)) {
+      if (instruction.evaluate(this.board)) {
         this.stackNode(node);
         this.stackBody(instruction.body);
       }

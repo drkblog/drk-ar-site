@@ -53,29 +53,29 @@ class GridPainter {
 }
 
 export class CanvasPainter extends GridPainter {
-  constructor(canvas, scene) {
+  constructor(canvas, board) {
     super(
       canvas, 
-      scene.width * scene.theme.spriteWidth,
-      scene.height * scene.theme.spriteHeight,
-      scene.theme.spriteWidth, 
-      scene.theme.spriteHeight,
+      board.scene.width * board.scene.theme.spriteWidth,
+      board.scene.height * board.scene.theme.spriteHeight,
+      board.scene.theme.spriteWidth, 
+      board.scene.theme.spriteHeight,
       'red'
     );
-    this.scene = scene;
+    this.board = board;
     this.sprites = new Image();
-    this.sprites.src = `${imageBaseUrl}${this.scene.theme.image}`;
+    this.sprites.src = `${imageBaseUrl}${this.board.scene.theme.image}`;
   }
 
-  paint(board, timestamp) {
+  paint(timestamp) {
     const context = this.canvas.getContext('2d');
-    context.fillStyle = this.scene.theme.background;
+    context.fillStyle = this.board.scene.theme.background;
     context.fillRect(0, 0, this.canvas.width, this.canvas.height);
     for(let y=0; y < this.slotsInY; y++) {
       for(let x=0; x < this.slotsInX; x++) {
-        const spriteNumber = board.getSprite(x, y, timestamp);
+        const spriteNumber = this.board.getSprite(x, y, timestamp);
         this.drawSprite(context, spriteNumber, x, y);
-        const overlaySpriteNumber = board.getOverlaySprite(x, y, timestamp);
+        const overlaySpriteNumber = this.board.getOverlaySprite(x, y, timestamp);
         if (overlaySpriteNumber != null) {
           this.drawSprite(context, overlaySpriteNumber, x, y);
         }

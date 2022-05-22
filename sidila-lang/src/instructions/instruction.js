@@ -1,4 +1,4 @@
-import { LogicBlock, MoveDirection } from "./game/board";
+import { LogicBlock, MoveDirection } from "../game/board";
 
 export class Instruction {
   constructor(start, end) {

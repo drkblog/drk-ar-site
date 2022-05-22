@@ -1,4 +1,3 @@
-import { EventBus } from '../util/event-bus';
 import { GridCoordinatesTranslator } from '../util/grid-coordinates';
 import { AnimationService } from './animation';
 import { Event } from './event';

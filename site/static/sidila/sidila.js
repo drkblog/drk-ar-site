@@ -51,8 +51,7 @@ control.subscribeToGameFinished((gameResult) => {
   }
 });
 
-const board = control.board; // TODO: remove
-const canvasPainter = new sidila.CanvasPainter(canvas, board.scene);
+const canvasPainter = new sidila.CanvasPainter(canvas, control.board);
 let heartbeat;
 let stepByStep = false;
 
@@ -184,7 +183,7 @@ function tick() {
 }
 
 function paint() {
-  canvasPainter.paint(board, performance.now());
+  canvasPainter.paint(performance.now());
   window.requestAnimationFrame(paint);
 }
 

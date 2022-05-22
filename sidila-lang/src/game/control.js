@@ -1,7 +1,7 @@
 import { Event } from './event';
 import { GameBoard } from './game-board';
 import { Score } from './score';
-import { StepInterpreter } from '../interpreter';
+import { StepInterpreter } from '../instructions/interpreter';
 import { EventBus } from '../util/event-bus';
 
 export class Control {
