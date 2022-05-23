@@ -1,6 +1,6 @@
 {
   "name": "sidila-lang",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "description": "Simple Didactic Language",
   "scripts": {
     "compile": "canopy src/grammar/sidila.peg --lang js --output build/peg",
