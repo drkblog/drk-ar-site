@@ -116,15 +116,14 @@ export class GameBoard extends Board {
   }
   getLogic(x, y) {
     if (x < 0 || y < 0 || x > this.scene.width - 1 || y > this.scene.height - 1) {
-      return LogicBlock.Zombie;
+      return LogicBlock.Null;
     }
-    if (this.zombie?.isAt(x, y)) {
+    if (this.zombie?.isAt(x, y) && this.zombie?.crashed !== true) {
       return LogicBlock.Zombie;
     }
     return super.getLogic(x, y);
   }
   getLogicAround(x, y) {
-    // TODO: handle edge cases
     return [
       this.getLogic(x, y-1),
       this.getLogic(x, y+1),
@@ -134,6 +133,8 @@ export class GameBoard extends Board {
   }
   getLogicInFrontOfPlayer() {
     const inFrontPosition = this.player.wouldMove(MoveDirection.Forth);
+    console.log(`${inFrontPosition.x}, ${inFrontPosition.y}`);
+    console.log(this.getLogic(inFrontPosition.x, inFrontPosition.y));
     return this.getLogic(inFrontPosition.x, inFrontPosition.y);
   }
   getLogicToTheLeftOfPlayer() {
