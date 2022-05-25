@@ -14,6 +14,10 @@ class GridPainter {
     this.scaleY = canvas.clientHeight / this.height;
   }
 
+  getContext2D() {
+    return this.canvas.getContext('2d');
+  }
+
   mouseOver(x, y) {
     this.hover = this.getSlotIndexForDiscrete(
       Math.floor(x / this.scaleX / this.slotWidth),
@@ -68,7 +72,7 @@ export class CanvasPainter extends GridPainter {
   }
 
   paint(timestamp) {
-    const context = this.canvas.getContext('2d');
+    const context = this.getContext2D();
     context.fillStyle = this.board.scene.theme.background;
     context.fillRect(0, 0, this.canvas.width, this.canvas.height);
     for(let y=0; y < this.slotsInY; y++) {
@@ -126,7 +130,7 @@ export class PalettePainter extends GridPainter {
   }
 
   paint() {
-    const context = this.canvas.getContext('2d');
+    const context = this.getContext2D();
     context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     context.drawImage(this.sprites, 0, 0);
     if (this.selected !== undefined) {

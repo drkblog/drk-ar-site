@@ -18,7 +18,9 @@ let palettePainter;
 // UI Actions
 loadButton.addEventListener("click", async (event) => {
   board.load(sourceCode.value.toString());
-  canvasPainter = new sidila.CanvasPainter(editorCanvas, board.scene);
+  paletteCanvas.width = board.scene.theme.imageWidth;
+  paletteCanvas.height = board.scene.theme.imageHeight;
+  canvasPainter = new sidila.CanvasPainter(editorCanvas, board);
   palettePainter = new sidila.PalettePainter(paletteCanvas, board.scene);
   paint(); // Start animation
 });

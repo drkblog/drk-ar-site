@@ -1,8 +1,9 @@
 import { Board } from './board';
+import { EventBus } from '../util/event-bus';
 
 export class EditorBoard extends Board {
   constructor() {
-    super();
+    super(new EventBus());
   }
 
   load(source) {

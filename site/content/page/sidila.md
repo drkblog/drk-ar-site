@@ -6,7 +6,7 @@ comments: false
 type: page
 ---
 
-# Simple Didactic Language v0.3.9
+# Simple Didactic Language v0.3.10
 
 {{< rawhtml >}}
 <div class="section">
@@ -20,10 +20,11 @@ type: page
   <div>
     <label for="mapSelector">Escenario</label>
     <select id="mapSelector" class="sidila-button">
-      <option value="0" selected>#1</option>
-      <option value="1">#2</option>
-      <option value="2">#3</option>
-      <option value="3">#4</option>
+      <option value="0" selected>Calabozo #1</option>
+      <option value="1">Calabozo #2</option>
+      <option value="2">Calabozo #3</option>
+      <option value="3">Calabozo #4</option>
+      <option value="4">Cementerio #1</option>
     </select>
     <input type="checkbox" id="sound" value="sound" checked>
     <label for="sound">Sonidos</label>
