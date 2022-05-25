@@ -3,12 +3,14 @@ import { GameBoard } from './game-board';
 import { Score } from './score';
 import { StepInterpreter } from '../instructions/interpreter';
 import { EventBus } from '../util/event-bus';
+import { CanvasPainter } from '../drawing';
 
 export class Control {
-  constructor(codeMirror) {
+  constructor(codeMirror, canvas) {
     this.codeMirror = codeMirror;
     this.eventBus = new EventBus();
     this.board = new GameBoard(this.eventBus);
+    this.canvasPainter = new CanvasPainter(canvas, this.board);
     this.score = new Score();
     this.running = false;
     this.subscribeToEvents();
@@ -37,6 +39,10 @@ export class Control {
   tick() {
     this.interpreter.tick();
     this.publishScore();
+  }
+
+  paint(timestamp) {
+    this.canvasPainter.paint(timestamp);
   }
 
   publishScore() {

@@ -28,7 +28,7 @@ const codeMirrorHelper = new sidila.CodeMirrorHelper(codeMirror, 'debug-line', '
 
 // Game setup
 let tickPeriod = 200;
-const control = new sidila.Control(codeMirror);
+const control = new sidila.Control(codeMirror, canvas);
 control.subscribeToStep((event) => {
   if (highlight.checked) {
     codeMirrorHelper.highlight(event.location);
@@ -51,7 +51,6 @@ control.subscribeToGameFinished((gameResult) => {
   }
 });
 
-const canvasPainter = new sidila.CanvasPainter(canvas, control.board);
 let heartbeat;
 let stepByStep = false;
 
@@ -183,7 +182,7 @@ function tick() {
 }
 
 function paint() {
-  canvasPainter.paint(performance.now());
+  control.paint(performance.now());
   window.requestAnimationFrame(paint);
 }
 
