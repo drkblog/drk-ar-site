@@ -9,6 +9,7 @@ export class LogicBlock {
   static Space = new LogicBlock(" ");
   static Zombie = new LogicBlock("👾");
   static Sphinx = new LogicBlock("💀");
+  static Null = new LogicBlock("X");
 
   constructor(symbol) {
     this.symbol = symbol;

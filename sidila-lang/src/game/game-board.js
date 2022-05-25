@@ -86,7 +86,8 @@ export class GameBoard extends Board {
       if (this.getLogicAround(this.player.x, this.player.y).includes(LogicBlock.Sphinx)) {
         this.publishPlayerDied();
       }
-      if (this.getLogic(this.player.x, this.player.y) === LogicBlock.Exit) {
+      const playerLogic = this.getLogic(this.player.x, this.player.y);
+      if (playerLogic === LogicBlock.Exit) {
         this.publishPlayerWon({ x: this.player.x, y: this.player.y});
         this.gameResult = GameResult.Won;
       }
@@ -114,6 +115,9 @@ export class GameBoard extends Board {
     this.shots++;
   }
   getLogic(x, y) {
+    if (x < 0 || y < 0 || x > this.scene.width - 1 || y > this.scene.height - 1) {
+      return LogicBlock.Zombie;
+    }
     if (this.zombie?.isAt(x, y)) {
       return LogicBlock.Zombie;
     }

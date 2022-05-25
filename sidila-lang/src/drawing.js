@@ -1,3 +1,5 @@
+import { Event } from './game/event';
+
 const imageBaseUrl = '/sidila/img/';
 
 class GridPainter {
@@ -57,7 +59,7 @@ class GridPainter {
 }
 
 export class CanvasPainter extends GridPainter {
-  constructor(canvas, board) {
+  constructor(canvas, board, eventBus) {
     super(
       canvas, 
       board.scene.width * board.scene.theme.spriteWidth,
@@ -67,6 +69,18 @@ export class CanvasPainter extends GridPainter {
       'red'
     );
     this.board = board;
+    this.eventBus = eventBus;
+    this.sceneUpdated();
+    if (this.eventBus !== undefined) {
+      this.subscribeToEvents();
+    }
+  }
+
+  subscribeToEvents() {
+    this.eventBus.subscribe(Event.GameReset.channelName, () => this.sceneUpdated());
+  }
+
+  sceneUpdated() {
     this.sprites = new Image();
     this.sprites.src = `${imageBaseUrl}${this.board.scene.theme.image}`;
   }

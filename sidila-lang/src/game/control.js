@@ -10,7 +10,7 @@ export class Control {
     this.codeMirror = codeMirror;
     this.eventBus = new EventBus();
     this.board = new GameBoard(this.eventBus);
-    this.canvasPainter = new CanvasPainter(canvas, this.board);
+    this.canvasPainter = new CanvasPainter(canvas, this.board, this.eventBus);
     this.score = new Score();
     this.running = false;
     this.subscribeToEvents();
