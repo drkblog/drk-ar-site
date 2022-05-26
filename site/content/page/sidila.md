@@ -49,7 +49,7 @@ type: page
     </div>
     <div class="widget-pack">
       <input type="checkbox" id="highlight" value="highlight">
-      <label for="sound">Resaltar</label>
+      <label for="highlight">Resaltar</label>
     </div>
   </div>
   <textarea id="errorMessage" class="errorMessage" cols="80" rows="10">

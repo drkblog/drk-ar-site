@@ -5,6 +5,8 @@ const paletteCanvas = document.querySelector("#paletteCanvas");
 const message = document.querySelector("#message");
 const hoverSprite = document.querySelector("#hoverSprite");
 const selectedSprite = document.querySelector("#selectedSprite");
+const editorCoordinates = document.querySelector("#editorCoordinates");
+const hoverEditorSprite = document.querySelector("#hoverEditorSprite");
 const loadButton = document.querySelector("#load");
 const saveButton = document.querySelector("#save");
 const resetButton = document.querySelector("#reset");
@@ -47,7 +49,10 @@ paletteCanvas.addEventListener("click", async (event) => {
 editorCanvas.addEventListener("mousemove", async (event) => {
   if (canvasPainter != null) {
     const hover = canvasPainter.mouseOver(event.offsetX, event.offsetY);
-    hoverEditorSprite.innerHTML = `${canvasPainter.getCoordinatesForSlot(hover).x}, ${canvasPainter.getCoordinatesForSlot(hover).y}`;
+    const discrete = canvasPainter.getCoordinatesForSlot(hover);
+    editorCoordinates.innerHTML = `${discrete.x}, ${discrete.y}`;
+    const sprite = board.getSprite(discrete.x, discrete.y);
+    hoverEditorSprite.innerHTML = `${sprite}`;
   }
 });
 editorCanvas.addEventListener("click", async (event) => {
