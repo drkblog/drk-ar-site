@@ -133,8 +133,6 @@ export class GameBoard extends Board {
   }
   getLogicInFrontOfPlayer() {
     const inFrontPosition = this.player.wouldMove(MoveDirection.Forth);
-    console.log(`${inFrontPosition.x}, ${inFrontPosition.y}`);
-    console.log(this.getLogic(inFrontPosition.x, inFrontPosition.y));
     return this.getLogic(inFrontPosition.x, inFrontPosition.y);
   }
   getLogicToTheLeftOfPlayer() {
