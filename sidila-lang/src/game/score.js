@@ -1,6 +1,6 @@
 export class Score {
   constructor() {
-    this.base = 100000; // 100k
+    this.base = 200000; // 200k
   }
 
   getScore(lines, board) {
@@ -8,16 +8,16 @@ export class Score {
       return 0;
     }
     const zombieKilled = board.zombie.crashed;
-    const linesFactor = (zombieKilled) ? 0.95 : 1;
+    const linesFactor = (zombieKilled) ? 0.96 : 1;
     const moves = board.moves;
     const movesFactor = (zombieKilled) ? 0.91 : 1;
     const shots = board.shots;
-    const shotsFactor = (zombieKilled) ? 0.87 : 1;
+    const shotsFactor = (zombieKilled) ? 0.73 : 1;
     return Math.ceil(
       this.base 
       - (lines * 3002 * linesFactor) 
-      - (moves * 951 * movesFactor)
-      - (shots * 574 * shotsFactor)
+      - (moves * 996 * movesFactor)
+      - (shots * 603 * shotsFactor)
     );
   }
 }

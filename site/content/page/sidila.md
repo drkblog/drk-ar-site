@@ -6,7 +6,7 @@ comments: false
 type: page
 ---
 
-# Simple Didactic Language v0.3.10
+# Simple Didactic Language v0.3.11
 
 {{< rawhtml >}}
 <div class="section">
