@@ -9,6 +9,7 @@ export class StepInterpreter {
     this.stack = [];
     this.stackBody(this.tree.elements);
     this.gameTicks = 0;
+    this.finished = false;
   }
 
   stackBody(nodes) {
@@ -26,10 +27,11 @@ export class StepInterpreter {
     if (node !== undefined) {
       this.visitNode(node);
     }
+    this.finished = this.stack.length === 0;
   }
 
   isFinished() {
-    return this.stack.length === 0;
+    return this.finished;
   }
 
   visitNode(node) {
