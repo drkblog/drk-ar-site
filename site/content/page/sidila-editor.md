@@ -20,7 +20,7 @@ type: page
 <div>
   <button id="load" class="sidila-button">Load</button>
   <button id="save" class="sidila-button">Save</button>
-  <button id="reset" class="sidila-button">Reset</button>
+  <button id="undo" class="sidila-button">Undo</button>
 </div>
 <textarea id="code" class="source-code" cols="80" rows="12">
 </textarea>

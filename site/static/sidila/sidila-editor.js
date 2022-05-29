@@ -9,7 +9,7 @@ const editorCoordinates = document.querySelector("#editorCoordinates");
 const hoverEditorSprite = document.querySelector("#hoverEditorSprite");
 const loadButton = document.querySelector("#load");
 const saveButton = document.querySelector("#save");
-const resetButton = document.querySelector("#reset");
+const undoButton = document.querySelector("#undo");
 
 // Editor setup
 const board = new sidila.EditorBoard();
@@ -66,6 +66,9 @@ editorCanvas.addEventListener("click", async (event) => {
   if (canvasPainter != null) {
     setSlot(event);
   }
+});
+undoButton.addEventListener("click", async (event) => {
+  board.undoLastAction();
 });
 
 // Paint
