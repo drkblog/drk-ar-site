@@ -77,7 +77,6 @@ export class GameBoard extends Board {
     this.publishNoDataEvent(Event.GameStarted);
   }
 
-  // TODO: Publish events instead of triggering sound and animations
   movePlayer(moveDirection) {
     this.publishPlayerMoved(moveDirection);
     const newPosition = this.player.wouldMove(moveDirection);

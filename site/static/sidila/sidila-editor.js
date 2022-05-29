@@ -46,6 +46,10 @@ paletteCanvas.addEventListener("click", async (event) => {
 });
 
 // Canvas
+function setSlot(event) {
+  const hover = canvasPainter.mouseOver(event.offsetX, event.offsetY);
+  board.setSlot(hover, palettePainter.selected);
+}
 editorCanvas.addEventListener("mousemove", async (event) => {
   if (canvasPainter != null) {
     const hover = canvasPainter.mouseOver(event.offsetX, event.offsetY);
@@ -53,12 +57,14 @@ editorCanvas.addEventListener("mousemove", async (event) => {
     editorCoordinates.innerHTML = `${discrete.x}, ${discrete.y}`;
     const sprite = board.getSprite(discrete.x, discrete.y);
     hoverEditorSprite.innerHTML = `${sprite}`;
+    if (event.buttons === 1) {
+      setSlot(event);
+    }
   }
 });
 editorCanvas.addEventListener("click", async (event) => {
   if (canvasPainter != null) {
-    const hover = canvasPainter.mouseOver(event.offsetX, event.offsetY);
-    board.setSlot(hover, palettePainter.selected);
+    setSlot(event);
   }
 });
 
