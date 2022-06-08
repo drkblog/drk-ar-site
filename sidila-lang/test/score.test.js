@@ -6,7 +6,10 @@ test('score', () => {
   const board = {
     moves: 15,
     shots: 2,
-    zombie: { crashed: true }
+    zombie: { crashed: true },
+    isCrashed() {
+      return false;
+    }
   }
-  expect(score.getScore(lines, board)).toBe(57502);
+  expect(score.getScore(lines, board)).toBe(156706);
 });

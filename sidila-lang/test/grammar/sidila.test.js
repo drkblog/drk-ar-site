@@ -1,5 +1,5 @@
-import { parse } from '../../src/grammar/sidila'
-import { Move, Back, Shoot, Turn, Branch, Loop, LookAheadCondition, InGameCondition  } from '../../src/instruction.js';
+import { parse } from '../../src/grammar/sidila';
+import { Move, Back, Shoot, Turn, Branch, Loop, LookAheadCondition, InGameCondition } from '../../src/instructions/instruction';
 
 // Actions
 test('avanzar', () => {
