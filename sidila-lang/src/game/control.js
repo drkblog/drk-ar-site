@@ -18,11 +18,6 @@ export class Control {
 
   subscribeToEvents() {
     this.eventBus.subscribe(Event.GameFinished.channelName, () => this.running = false);
-    this.eventBus.subscribe(Event.InterpreterStep.channelName, () => {
-      if (this.interpreter.isFinished()) {
-        this.running = false;
-      }
-    });
     this.codeMirror.on('changes', () => this.publishScore());
   }
 
@@ -38,6 +33,9 @@ export class Control {
 
   tick() {
     this.interpreter.tick();
+    if (this.interpreter.isFinished()) {
+      this.running = false;
+    }
     this.publishScore();
   }
 
