@@ -30,3 +30,30 @@ test('three advance consume three ticks', () => {
   interpreter.tick();
   expect(interpreter.isFinished()).toStrictEqual(true);
 });
+
+test('publishes step event', () => {
+  const eventBus = new EventBus();
+  const board = new GameBoard(eventBus);
+  const instruction = new Move(
+    getRandomSourceCodePosition(), 
+    getRandomSourceCodePosition()
+  );
+  const tree = { elements: [ 
+    { elements: [ instruction ] }
+  ] };
+  const interpreter = new StepInterpreter(board, tree, eventBus);
+  let event = undefined;
+  interpreter.subscribeToStep((ev) => event = ev);
+  interpreter.tick();
+  expect(event).toStrictEqual({
+    "gameTicks": 1,
+    "location": {
+       "end": instruction.location.end,
+       "start": instruction.location.start,
+     },
+  });
+});
+
+function getRandomSourceCodePosition() {
+  return Math.floor(Math.random() * 7500);
+}
