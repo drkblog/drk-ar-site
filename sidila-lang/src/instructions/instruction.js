@@ -45,6 +45,7 @@ export class Shoot extends Action {
 class TurnDirection {
   static Left = new TurnDirection((board) => board.rotatePlayerLeft());
   static Right = new TurnDirection((board) => board.rotatePlayerRight());
+  static Back = new TurnDirection((board) => board.rotatePlayerBack());
 
   constructor(action) {
     this.action = action;
@@ -54,7 +55,13 @@ class TurnDirection {
 export class Turn extends Action {
   constructor(start, end, direction) {
     super(start, end);
-    this.direction = (direction === 'derecha') ? TurnDirection.Right : TurnDirection.Left;
+    if (direction  === 'derecha') {
+      this.direction = TurnDirection.Right;
+    } else if (direction  === 'izquierda') {
+      this.direction = TurnDirection.Left;
+    } else if (direction  === 'hacia atras') {
+      this.direction = TurnDirection.Back;
+    }
   }
 
   execute(board) {

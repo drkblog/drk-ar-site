@@ -62,6 +62,11 @@ export class CardinalDirection {
     const index = this.order.indexOf(direction) - 1;
     return this.order[((index > -1) ? index : 3)];
   }
+
+  static backwards(direction) {
+    const index = this.order.indexOf(direction) + 2;
+    return this.order[index % 4];
+  }
 }
 
 export class MoveDirection {
@@ -176,6 +181,9 @@ export class Player extends Movable {
   }
   rotateRight() {
     this.direction = CardinalDirection.toTheRight(this.direction);
+  }
+  rotateBack() {
+    this.direction = CardinalDirection.backwards(this.direction);
   }
 
   getLeftPosition() {

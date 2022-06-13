@@ -11,7 +11,7 @@ grammar SiDiLa
   move <- 'avanzar' %makeMove
   back <- 'retroceder' %makeBack
   shoot <- 'disparar' %makeShoot
-  turn <- 'girar' @ws @'hacia la' @ws direction %makeTurn
+  turn <- 'girar' @ws (@'hacia la' @ws direction / 'hacia atras') %makeTurn
   direction <- ('izquierda' / 'derecha')
   ws <- ([ \t]+)*
   nl <- ([\r\n]+)*

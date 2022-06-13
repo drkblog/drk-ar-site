@@ -105,6 +105,9 @@ export class GameBoard extends Board {
   rotatePlayerRight() {
     this.player.rotateRight();
   }
+  rotatePlayerBack() {
+    this.player.rotateBack();
+  }
   playerShoot() {
     this.publishNoDataEvent(Event.PlayerShot);
     const shootAt = this.player.getShootTarget();

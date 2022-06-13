@@ -6,7 +6,7 @@ comments: false
 type: page
 ---
 
-# Simple Didactic Language v0.3.11
+# Simple Didactic Language v0.3.12
 
 {{< rawhtml >}}
 <div class="section">
@@ -86,6 +86,7 @@ Escribí las instrucciones para que el jugador llegue a la salida siguiendo [las
   - retroceder
   - girar hacia la derecha
   - girar hacia la izquierda
+  - girar hacia atras
   - disparar
 - Se puede realizar acciones condicionalmente:
   - si _...condición..._ (
