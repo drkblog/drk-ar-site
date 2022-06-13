@@ -19,12 +19,17 @@ test('disparar', () => {
 });
 test('girar hacia la derecha', () => {
   const tree = parse('girar hacia la derecha');
-  const expected = new Turn(0, 22, 'derecha');
+  const expected = new Turn(0, 22, 'la derecha');
   expect(tree.elements[0].elements[0]).toStrictEqual(expected);
 });
 test('girar hacia la izquierda', () => {
   const tree = parse('girar hacia la izquierda');
-  const expected = new Turn(0, 24, 'izquierda');
+  const expected = new Turn(0, 24, 'la izquierda');
+  expect(tree.elements[0].elements[0]).toStrictEqual(expected);
+});
+test('girar hacia atras', () => {
+  const tree = parse('girar hacia atras');
+  const expected = new Turn(0, 17, 'atras');
   expect(tree.elements[0].elements[0]).toStrictEqual(expected);
 });
 

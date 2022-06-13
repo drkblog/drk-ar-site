@@ -55,12 +55,18 @@ class TurnDirection {
 export class Turn extends Action {
   constructor(start, end, direction) {
     super(start, end);
-    if (direction  === 'derecha') {
-      this.direction = TurnDirection.Right;
-    } else if (direction  === 'izquierda') {
-      this.direction = TurnDirection.Left;
-    } else if (direction  === 'hacia atras') {
-      this.direction = TurnDirection.Back;
+    switch (direction) {
+      case 'la derecha': 
+        this.direction = TurnDirection.Right;
+        break;
+      case 'la izquierda':
+        this.direction = TurnDirection.Left;
+        break;
+      case 'atras':
+        this.direction = TurnDirection.Back;
+        break;
+      default:
+        throw new Error(`Invalid direction: '${direction}'`);
     }
   }
 

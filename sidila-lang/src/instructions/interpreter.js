@@ -66,6 +66,6 @@ export class StepInterpreter {
   }
 
   subscribeToStep(subscriber) {
-    this.publisher.addSubscriber(subscriber);
+    this.eventBus.subscribe(Event.InterpreterStep.channelName, subscriber);
   }
 }
