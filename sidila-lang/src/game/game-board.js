@@ -46,7 +46,8 @@ export class GameBoard extends Board {
     this.player.subscribeToEvents(this.eventBus);
     this.zombie = new Zombie(
       this.scene.zombie.x,
-      this.scene.zombie.y
+      this.scene.zombie.y,
+      CardinalDirection.North
     );
     this.player.setupSprites(this.scene.theme);
     this.zombie.setupSprites(this.scene.theme);

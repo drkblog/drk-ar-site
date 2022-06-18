@@ -79,14 +79,40 @@ export class MoveDirection {
 }
 
 class Movable {
-  constructor(x, y) {
+  constructor(x, y, direction) {
     this.x = x;
     this.y = y;
+    this.direction = direction;
     this.crashed = false;
   }
   
   isAt(x, y) {
     return this.x == x && this.y == y;
+  }
+
+  move(moveDirection) {
+    const newPosition = moveDirection.apply(this.direction, this);
+    this.x = newPosition.x;
+    this.y = newPosition.y;
+  }
+
+  wouldMove(moveDirection) {
+    return moveDirection.apply(this.direction, this);
+  }
+
+  wouldMoveTo(moveDirection, x, y) {
+    const newPosition = this.wouldMove(moveDirection);
+    return newPosition.x === x && newPosition.y === y;
+  }
+
+  rotateLeft() {
+    this.direction = CardinalDirection.toTheLeft(this.direction);
+  }
+  rotateRight() {
+    this.direction = CardinalDirection.toTheRight(this.direction);
+  }
+  rotateBack() {
+    this.direction = CardinalDirection.backwards(this.direction);
   }
   
   crash() {
@@ -96,8 +122,8 @@ class Movable {
 
 // TODO: Maybe extract position class
 export class Zombie extends Movable {
-  constructor(x, y) {
-    super(x, y);
+  constructor(x, y, direction) {
+    super(x, y, direction);
     this.sprite = null;
     this.dead = null;
   }
@@ -114,8 +140,7 @@ export class Zombie extends Movable {
 
 export class Player extends Movable {
   constructor(x, y, direction) {
-    super(x, y);
-    this.direction = direction;
+    super(x, y, direction);
     this.done = false;
   }
 
@@ -153,37 +178,12 @@ export class Player extends Movable {
     return this.direction.arrowSprite;
   }
 
-  move(moveDirection) {
-    const newPosition = moveDirection.apply(this.direction, this);
-    this.x = newPosition.x;
-    this.y = newPosition.y;
-  }
-
   getShootTarget() {
     return this.direction.advance(this);
   }
 
   finish() {
     this.done = true;
-  }
-
-  wouldMove(moveDirection) {
-    return moveDirection.apply(this.direction, this);
-  }
-
-  wouldMoveTo(moveDirection, x, y) {
-    const newPosition = this.wouldMove(moveDirection);
-    return newPosition.x === x && newPosition.y === y;
-  }
-
-  rotateLeft() {
-    this.direction = CardinalDirection.toTheLeft(this.direction);
-  }
-  rotateRight() {
-    this.direction = CardinalDirection.toTheRight(this.direction);
-  }
-  rotateBack() {
-    this.direction = CardinalDirection.backwards(this.direction);
   }
 
   getLeftPosition() {
