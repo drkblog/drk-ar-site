@@ -84,16 +84,14 @@ export class GameBoard extends Board {
     if (this.canMoveInto(newPosition.x, newPosition.y)) {
       this.player.move(moveDirection);
       if (this.getLogicAround(this.player.x, this.player.y).includes(LogicBlock.Sphinx)) {
-        this.publishPlayerDied();
+        this.killPlayer();
       }
       const playerLogic = this.getLogic(this.player.x, this.player.y);
       if (playerLogic === LogicBlock.Exit) {
-        this.publishPlayerWon({ x: this.player.x, y: this.player.y});
-        this.gameResult = GameResult.Won;
+        this.exitPlayer();
       }
     } else {
-      this.publishPlayerDied();
-      this.gameResult = GameResult.Died;
+      this.killPlayer();
     }
     this.moves++;
     if (this.player.crashed || this.player.done) {
@@ -117,6 +115,15 @@ export class GameBoard extends Board {
     }
     this.shots++;
   }
+  killPlayer() {
+    this.publishPlayerDied();
+    this.gameResult = GameResult.Died;
+  }
+  exitPlayer() {
+    this.publishPlayerWon({ x: this.player.x, y: this.player.y });
+    this.gameResult = GameResult.Won;
+  }
+
   getLogic(x, y) {
     if (x < 0 || y < 0 || x > this.scene.width - 1 || y > this.scene.height - 1) {
       return LogicBlock.Null;

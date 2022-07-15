@@ -78,6 +78,7 @@ export class MoveDirection {
   }
 }
 
+// TODO: Maybe extract position class
 class Movable {
   constructor(x, y, direction) {
     this.x = x;
@@ -120,7 +121,6 @@ class Movable {
   }
 }
 
-// TODO: Maybe extract position class
 export class Zombie extends Movable {
   constructor(x, y, direction) {
     super(x, y, direction);
