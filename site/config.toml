@@ -1,4 +1,4 @@
-baseURL = 'http://drk.ar/'
+baseURL = 'http://ar.drkbugs.com/'
 languageCode = 'es-ar'
 defaultContentLanguage = 'es'
 
@@ -55,7 +55,7 @@ paginate = 5
 [languages]
   [languages.es]
     languageName = "Español"
-    title = "drk.ar"
+    title = "ar.drkbugs.com"
     subtitle = "Proyectos"
     owner = ""
     keywords = ""
@@ -69,7 +69,7 @@ paginate = 5
     missingBackButtonLabel = "Volver al inicio"
 
     [languages.es.params.logo]
-      logoText = "drk.ar"
+      logoText = "ar.drkbugs.com"
       logoHomeLink = "/"
 
     [languages.es.menu]
@@ -80,7 +80,7 @@ paginate = 5
         weight = 1
       [[languages.es.menu.main]]
         identifier = "about"
-        name = "Sobre drk.ar"
+        name = "Sobre ar.drkbugs.com"
         url = "/page/about"
         weight = 2
       [[languages.es.menu.main]]

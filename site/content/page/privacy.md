@@ -7,7 +7,7 @@ comments: false
 
 Last updated: February 20th, 2022
 
-drkbugs ("us", "we", or "our") operates https://drk.ar (the "Site"). This page informs you of our policies regarding the collection, use and disclosure of Personal Information we receive from users of the Site.
+drkbugs ("us", "we", or "our") operates https://ar.drkbugs.com (the "Site"). This page informs you of our policies regarding the collection, use and disclosure of Personal Information we receive from users of the Site.
 
 We will not use or share your information with anyone except as described in this Privacy Policy.
 

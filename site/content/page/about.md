@@ -1,5 +1,5 @@
 ---
-title: Sobre drk.ar
+title: Sobre ar.drkbugs.com
 description: Otro sitio de Leandro Fernandez
 slug: "about"
 comments: false
@@ -10,7 +10,7 @@ Visitá [drk.com.ar](https://drk.com.ar) si te interesa el desarrollo de softwar
 Ya que ese es mi sitio oficial y tiene contenido variado sobre programación.
 También podés ver mucho contenido en mi perfil de [**TikTok:** @drkbugs](https://www.tiktok.com/@drkbugs)
 
-[Sobre mí (Leandro Fernandez)](https://www.drk.com.ar/about/)
+[Sobre mí (Leandro Fernandez)](https://drkbugs.com/)
 
 - [**Mail:** drkbugs@gmail.com](mailto:drkbugs@gmail.com)
 - [**TikTok:** @drkbugs](https://www.tiktok.com/@drkbugs)
